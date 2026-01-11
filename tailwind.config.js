@@ -9,10 +9,27 @@ export default {
         './resources/views/**/*.blade.php',
     ],
 
+    darkMode: 'class',
+
     theme: {
         extend: {
+            colors: {
+                'ctm-burgundy': {
+                    DEFAULT: '#7A1F2E',
+                    dark: '#5D1722',
+                    light: '#9A3040',
+                },
+                'ctm-teal': {
+                    DEFAULT: '#007A8C',
+                    dark: '#005F6B',
+                    light: '#2B6B75',
+                },
+                'ctm-black': '#0A1F2E',
+                'ctm-cream': '#F5F5F5',
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                display: ['Bowlby One SC', 'sans-serif'],
             },
         },
     },
