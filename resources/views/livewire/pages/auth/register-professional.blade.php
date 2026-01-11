@@ -62,6 +62,15 @@ new #[Layout('layouts.guest')] class extends Component
         $this->step--;
     }
 
+    public function toggleLanguage(string $code)
+    {
+        if (in_array($code, $this->languages)) {
+            $this->languages = array_values(array_diff($this->languages, [$code]));
+        } else {
+            $this->languages[] = $code;
+        }
+    }
+
     public function validateStep()
     {
         if ($this->step === 1) {
@@ -332,11 +341,14 @@ new #[Layout('layouts.guest')] class extends Component
                     <x-input-label value="Langues parlees" />
                     <div class="mt-2 flex flex-wrap gap-2">
                         @foreach ($availableLanguages as $code => $label)
-                            <label class="flex items-center px-3 py-1 border rounded-full cursor-pointer
-                                {{ in_array($code, $languages) ? 'bg-cap-900 text-white border-cap-900' : 'bg-white text-gray-700 border-gray-300 hover:border-cap-900' }}">
-                                <input type="checkbox" wire:model="languages" value="{{ $code }}" class="sr-only">
-                                <span class="text-sm">{{ $label }}</span>
-                            </label>
+                            <button
+                                type="button"
+                                wire:click="toggleLanguage('{{ $code }}')"
+                                class="px-3 py-1 border rounded-full cursor-pointer text-sm transition-colors
+                                    {{ in_array($code, $languages) ? 'bg-cap-900 text-white border-cap-900' : 'bg-white text-gray-700 border-gray-300 hover:border-cap-900' }}"
+                            >
+                                {{ $label }}
+                            </button>
                         @endforeach
                     </div>
                     <x-input-error :messages="$errors->get('languages')" class="mt-2" />
