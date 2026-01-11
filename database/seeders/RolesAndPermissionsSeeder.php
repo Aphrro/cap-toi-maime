@@ -55,11 +55,12 @@ class RolesAndPermissionsSeeder extends Seeder
         // Parents have no special permissions
 
         // Create or update admin user
+        // Note: password is auto-hashed by the 'hashed' cast in User model
         $adminUser = \App\Models\User::updateOrCreate(
             ['email' => 'admin@captoimaime.ch'],
             [
                 'name' => 'Administrateur',
-                'password' => bcrypt('password'),
+                'password' => 'password',
                 'user_type' => 'admin',
                 'is_active' => true,
                 'email_verified_at' => now(),
