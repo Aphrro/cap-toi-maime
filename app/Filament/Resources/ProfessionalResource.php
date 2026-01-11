@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProfessionalResource\Pages;
 use App\Models\Professional;
-use App\Services\ProfileCompletenessService;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +11,8 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 
 class ProfessionalResource extends Resource
 {
@@ -119,7 +120,7 @@ class ProfessionalResource extends Resource
                                     ->label('Biographie')
                                     ->rows(5)
                                     ->maxLength(2000),
-                                Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
+                                SpatieMediaLibraryFileUpload::make('avatar')
                                     ->label('Photo de profil')
                                     ->collection('avatar')
                                     ->image()
@@ -161,7 +162,7 @@ class ProfessionalResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('avatar')
+                SpatieMediaLibraryImageColumn::make('avatar')
                     ->collection('avatar')
                     ->circular()
                     ->label(''),

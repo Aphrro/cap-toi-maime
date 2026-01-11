@@ -46,6 +46,7 @@ class ProfessionalSeeder extends Seeder
                 'consultation_type' => 'cabinet',
                 'is_verified' => true,
                 'is_active' => true,
+                'validation_status' => 'approved',
                 'specialties' => [$phobieScolaire?->id, $anxiete?->id, $harcelement?->id],
             ],
             [
@@ -62,6 +63,7 @@ class ProfessionalSeeder extends Seeder
                 'consultation_type' => 'cabinet',
                 'is_verified' => true,
                 'is_active' => true,
+                'validation_status' => 'approved',
                 'specialties' => [$hpi?->id, $tdah?->id],
             ],
             [
@@ -78,6 +80,7 @@ class ProfessionalSeeder extends Seeder
                 'consultation_type' => 'visio',
                 'is_verified' => true,
                 'is_active' => true,
+                'validation_status' => 'approved',
                 'specialties' => [$phobieScolaire?->id, $confiance?->id],
             ],
             [
@@ -94,6 +97,7 @@ class ProfessionalSeeder extends Seeder
                 'consultation_type' => 'cabinet',
                 'is_verified' => true,
                 'is_active' => true,
+                'validation_status' => 'approved',
                 'specialties' => [$phobieScolaire?->id, $anxiete?->id],
             ],
             [
@@ -110,6 +114,7 @@ class ProfessionalSeeder extends Seeder
                 'consultation_type' => 'cabinet',
                 'is_verified' => false,
                 'is_active' => true,
+                'validation_status' => 'approved',
                 'specialties' => [$anxiete?->id, $confiance?->id],
             ],
         ];
