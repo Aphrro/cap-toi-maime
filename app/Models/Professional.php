@@ -94,4 +94,9 @@ class Professional extends Model implements HasMedia
     {
         return $query->where('is_featured', true);
     }
+
+    public function specialtiesRelation()
+    {
+        return $this->belongsToMany(Specialty::class);
+    }
 }

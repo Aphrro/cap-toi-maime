@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Canton;
 use App\Models\Category;
 use App\Models\Professional;
+use App\Models\Specialty;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,12 +16,19 @@ class ProfessionalSearch extends Component
     public string $search = '';
     public ?int $categoryId = null;
     public ?int $cantonId = null;
+    public array $selectedSpecialties = [];
+    public $specialtiesFilter;
 
     protected $queryString = [
         'search' => ['except' => ''],
         'categoryId' => ['except' => null],
         'cantonId' => ['except' => null],
     ];
+
+    public function mount()
+    {
+        $this->specialtiesFilter = Specialty::where('is_active', true)->get();
+    }
 
     public function updatingSearch(): void
     {
@@ -37,11 +45,21 @@ class ProfessionalSearch extends Component
         $this->resetPage();
     }
 
+    public function toggleSpecialty($specialtyId)
+    {
+        if (in_array($specialtyId, $this->selectedSpecialties)) {
+            $this->selectedSpecialties = array_values(array_diff($this->selectedSpecialties, [$specialtyId]));
+        } else {
+            $this->selectedSpecialties[] = $specialtyId;
+        }
+        $this->resetPage();
+    }
+
     public function render()
     {
         $professionals = Professional::query()
             ->active()
-            ->with(['category', 'city.canton'])
+            ->with(['category', 'city.canton', 'specialtiesRelation'])
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
                     $q->where('first_name', 'like', "%{$this->search}%")
@@ -55,6 +73,11 @@ class ProfessionalSearch extends Component
             ->when($this->cantonId, function ($query) {
                 $query->whereHas('city', function ($q) {
                     $q->where('canton_id', $this->cantonId);
+                });
+            })
+            ->when(!empty($this->selectedSpecialties), function ($query) {
+                $query->whereHas('specialtiesRelation', function ($q) {
+                    $q->whereIn('specialties.id', $this->selectedSpecialties);
                 });
             })
             ->orderByDesc('is_featured')

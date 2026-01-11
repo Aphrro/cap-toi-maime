@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
             CantonSeeder::class,
             CitySeeder::class,
             CategorySeeder::class,
+            SpecialtySeeder::class,
+            ProfessionalSeeder::class,
         ]);
     }
 }
