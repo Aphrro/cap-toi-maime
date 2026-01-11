@@ -22,7 +22,6 @@
                     </div>
                     <div class="hidden md:flex items-center space-x-8">
                         <a href="{{ route('home') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Accueil</a>
-                        <a href="{{ route('annuaire') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Annuaire</a>
                         <a href="{{ route('about') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">A propos</a>
                         <a href="{{ route('contact') }}" class="text-ctm-burgundy text-sm font-bold uppercase">Contact</a>
                         <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">Trouver un pro</a>

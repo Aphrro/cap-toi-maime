@@ -30,9 +30,6 @@
                         <a href="{{ route('home') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors {{ request()->routeIs('home') ? 'text-ctm-burgundy' : '' }}">
                             Accueil
                         </a>
-                        <a href="{{ route('annuaire') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors {{ request()->routeIs('annuaire') ? 'text-ctm-burgundy' : '' }}">
-                            Annuaire
-                        </a>
                         <a href="{{ route('about') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors {{ request()->routeIs('about') ? 'text-ctm-burgundy' : '' }}">
                             A propos
                         </a>

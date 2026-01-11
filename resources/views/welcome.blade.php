@@ -29,9 +29,6 @@
                         <a href="{{ route('home') }}" class="text-ctm-burgundy text-sm font-bold uppercase">
                             Accueil
                         </a>
-                        <a href="{{ route('annuaire') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">
-                            Annuaire
-                        </a>
                         <a href="{{ route('about') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">
                             A propos
                         </a>
