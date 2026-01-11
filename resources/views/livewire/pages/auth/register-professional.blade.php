@@ -180,17 +180,15 @@ new #[Layout('layouts.guest')] class extends Component
 <div>
     <!-- Progress bar -->
     <div class="mb-8">
-        <div class="flex justify-between mb-2">
+        <div class="flex justify-center items-center mb-2">
             @for ($i = 1; $i <= $totalSteps; $i++)
-                <div class="flex items-center">
-                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
-                        {{ $step >= $i ? 'bg-cap-900 text-white' : 'bg-gray-200 text-gray-600' }}">
-                        {{ $i }}
-                    </div>
-                    @if ($i < $totalSteps)
-                        <div class="w-8 sm:w-16 h-1 mx-1 {{ $step > $i ? 'bg-cap-900' : 'bg-gray-200' }}"></div>
-                    @endif
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0
+                    {{ $step >= $i ? 'bg-cap-900 text-white' : 'bg-gray-200 text-gray-600' }}">
+                    {{ $i }}
                 </div>
+                @if ($i < $totalSteps)
+                    <div class="w-6 sm:w-10 h-1 {{ $step > $i ? 'bg-cap-900' : 'bg-gray-200' }}"></div>
+                @endif
             @endfor
         </div>
         <div class="text-center text-sm text-gray-600">
