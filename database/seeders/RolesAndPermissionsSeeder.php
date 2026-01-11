@@ -54,11 +54,17 @@ class RolesAndPermissionsSeeder extends Seeder
         $parent = Role::firstOrCreate(['name' => 'parent']);
         // Parents have no special permissions
 
-        // Assign admin role to existing admin user
-        $adminUser = \App\Models\User::where('email', 'admin@captoimaime.ch')->first();
-        if ($adminUser) {
-            $adminUser->assignRole('admin');
-            $adminUser->update(['user_type' => 'admin']);
-        }
+        // Create or update admin user
+        $adminUser = \App\Models\User::updateOrCreate(
+            ['email' => 'admin@captoimaime.ch'],
+            [
+                'name' => 'Administrateur',
+                'password' => bcrypt('password'),
+                'user_type' => 'admin',
+                'is_active' => true,
+                'email_verified_at' => now(),
+            ]
+        );
+        $adminUser->assignRole('admin');
     }
 }
