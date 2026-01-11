@@ -38,17 +38,6 @@
                         <a href="{{ route('contact') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">
                             Contact
                         </a>
-                        @if (Route::has('login'))
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">
-                                    Tableau de bord
-                                </a>
-                            @else
-                                <a href="{{ route('login') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">
-                                    Connexion
-                                </a>
-                            @endauth
-                        @endif
                         <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">
                             Trouver un pro
                         </a>
