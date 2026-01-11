@@ -26,6 +26,9 @@
                         </a>
                     </div>
                     <div class="hidden md:flex items-center space-x-8">
+                        <a href="{{ route('home') }}" class="text-ctm-burgundy text-sm font-bold uppercase">
+                            Accueil
+                        </a>
                         <a href="{{ route('annuaire') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">
                             Annuaire
                         </a>
