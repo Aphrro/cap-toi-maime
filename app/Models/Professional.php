@@ -39,6 +39,17 @@ class Professional extends Model implements HasMedia
         'rejection_reason',
         'validated_by',
         'validated_at',
+        // Credentials
+        'diplomas',
+        'professional_number',
+        'professional_number_type',
+        'years_experience',
+        'insurance_company',
+        'insurance_number',
+        'school_phobia_training',
+        'credential_documents',
+        'accepts_terms',
+        'accepts_ethics',
     ];
 
     protected $casts = [
@@ -49,6 +60,11 @@ class Professional extends Model implements HasMedia
         'is_active' => 'boolean',
         'verified_at' => 'datetime',
         'validated_at' => 'datetime',
+        'diplomas' => 'array',
+        'credential_documents' => 'array',
+        'years_experience' => 'integer',
+        'accepts_terms' => 'boolean',
+        'accepts_ethics' => 'boolean',
     ];
 
     public const CONSULTATION_TYPES = [
@@ -65,6 +81,16 @@ class Professional extends Model implements HasMedia
         'IT' => 'Italien',
         'ES' => 'Espagnol',
         'PT' => 'Portugais',
+    ];
+
+    public const PROFESSIONAL_NUMBER_TYPES = [
+        'GLN' => 'GLN (Global Location Number)',
+        'RCC' => 'RCC (Registre des codes-creanciers)',
+        'ASCA' => 'ASCA',
+        'FSP' => 'FSP (Federation Suisse des Psychologues)',
+        'ASP' => 'ASP (Association Suisse des Psychotherapeutes)',
+        'SBAP' => 'SBAP',
+        'autre' => 'Autre',
     ];
 
     public function getSlugOptions(): SlugOptions

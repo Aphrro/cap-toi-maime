@@ -11,6 +11,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\Rule;
 use Livewire\Attributes\Layout;
@@ -22,7 +23,7 @@ new #[Layout('layouts.guest')] class extends Component
     use WithFileUploads;
 
     public int $step = 1;
-    public int $totalSteps = 5;
+    public int $totalSteps = 6;
 
     // Step 1: Account
     public string $email = '';
@@ -47,9 +48,21 @@ new #[Layout('layouts.guest')] class extends Component
     public array $languages = [];
     public ?string $consultation_type = null;
 
-    // Step 5: Bio
+    // Step 5: Credentials
+    public array $diplomas = [['title' => '', 'institution' => '', 'year' => '']];
+    public ?string $professional_number = '';
+    public ?string $professional_number_type = null;
+    public ?int $years_experience = null;
+    public ?string $insurance_company = '';
+    public ?string $insurance_number = '';
+
+    // Step 6: Bio & Documents
     public string $bio = '';
+    public string $school_phobia_training = '';
     public $avatar = null;
+    public $credential_document = null;
+    public bool $accepts_terms = false;
+    public bool $accepts_ethics = false;
 
     public function nextStep()
     {
@@ -68,6 +81,19 @@ new #[Layout('layouts.guest')] class extends Component
             $this->languages = array_values(array_diff($this->languages, [$code]));
         } else {
             $this->languages[] = $code;
+        }
+    }
+
+    public function addDiploma()
+    {
+        $this->diplomas[] = ['title' => '', 'institution' => '', 'year' => ''];
+    }
+
+    public function removeDiploma(int $index)
+    {
+        if (count($this->diplomas) > 1) {
+            unset($this->diplomas[$index]);
+            $this->diplomas = array_values($this->diplomas);
         }
     }
 
@@ -101,15 +127,34 @@ new #[Layout('layouts.guest')] class extends Component
                 'languages.*' => [Rule::in(array_keys(Professional::LANGUAGES))],
                 'consultation_type' => ['required', Rule::in(array_keys(Professional::CONSULTATION_TYPES))],
             ]);
+        } elseif ($this->step === 5) {
+            $this->validate([
+                'diplomas' => ['required', 'array', 'min:1'],
+                'diplomas.*.title' => ['required', 'string', 'max:255'],
+                'diplomas.*.institution' => ['required', 'string', 'max:255'],
+                'diplomas.*.year' => ['required', 'digits:4', 'min:1950', 'max:' . date('Y')],
+                'professional_number_type' => ['nullable', Rule::in(array_keys(Professional::PROFESSIONAL_NUMBER_TYPES))],
+                'professional_number' => ['nullable', 'required_with:professional_number_type', 'string', 'max:50'],
+                'years_experience' => ['required', 'integer', 'min:0', 'max:60'],
+                'insurance_company' => ['nullable', 'string', 'max:255'],
+                'insurance_number' => ['nullable', 'string', 'max:100'],
+            ]);
         }
     }
 
     public function register()
     {
-        // Validate bio
+        // Validate final step
         $this->validate([
             'bio' => ['required', 'string', 'min:100', 'max:2000'],
+            'school_phobia_training' => ['nullable', 'string', 'max:1000'],
             'avatar' => ['nullable', 'image', 'max:2048'],
+            'credential_document' => ['nullable', 'file', 'mimes:pdf,jpg,jpeg,png', 'max:5120'],
+            'accepts_terms' => ['accepted'],
+            'accepts_ethics' => ['accepted'],
+        ], [
+            'accepts_terms.accepted' => 'Vous devez accepter les conditions d\'utilisation.',
+            'accepts_ethics.accepted' => 'Vous devez accepter la charte ethique.',
         ]);
 
         DB::transaction(function () {
@@ -126,6 +171,17 @@ new #[Layout('layouts.guest')] class extends Component
             // Assign role
             $user->assignRole('professional');
 
+            // Handle credential document upload
+            $credentialDocuments = [];
+            if ($this->credential_document) {
+                $path = $this->credential_document->store('credentials', 'private');
+                $credentialDocuments[] = [
+                    'path' => $path,
+                    'name' => $this->credential_document->getClientOriginalName(),
+                    'uploaded_at' => now()->toISOString(),
+                ];
+            }
+
             // Create professional profile
             $professional = Professional::create([
                 'user_id' => $user->id,
@@ -141,7 +197,17 @@ new #[Layout('layouts.guest')] class extends Component
                 'languages' => $this->languages,
                 'consultation_type' => $this->consultation_type,
                 'bio' => $this->bio,
-                'is_active' => false, // Will be activated after validation
+                'diplomas' => $this->diplomas,
+                'professional_number' => $this->professional_number ?: null,
+                'professional_number_type' => $this->professional_number_type,
+                'years_experience' => $this->years_experience,
+                'insurance_company' => $this->insurance_company ?: null,
+                'insurance_number' => $this->insurance_number ?: null,
+                'school_phobia_training' => $this->school_phobia_training ?: null,
+                'credential_documents' => $credentialDocuments,
+                'accepts_terms' => $this->accepts_terms,
+                'accepts_ethics' => $this->accepts_ethics,
+                'is_active' => false,
                 'is_verified' => false,
                 'validation_status' => 'pending',
             ]);
@@ -173,6 +239,7 @@ new #[Layout('layouts.guest')] class extends Component
             'specialties' => Specialty::where('is_active', true)->orderBy('name')->get(),
             'availableLanguages' => Professional::LANGUAGES,
             'consultationTypes' => Professional::CONSULTATION_TYPES,
+            'professionalNumberTypes' => Professional::PROFESSIONAL_NUMBER_TYPES,
         ];
     }
 }; ?>
@@ -182,12 +249,12 @@ new #[Layout('layouts.guest')] class extends Component
     <div class="mb-8">
         <div class="flex justify-center items-center mb-2">
             @for ($i = 1; $i <= $totalSteps; $i++)
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0
+                <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-medium flex-shrink-0
                     {{ $step >= $i ? 'bg-cap-900 text-white' : 'bg-gray-200 text-gray-600' }}">
                     {{ $i }}
                 </div>
                 @if ($i < $totalSteps)
-                    <div class="w-6 sm:w-10 h-1 {{ $step > $i ? 'bg-cap-900' : 'bg-gray-200' }}"></div>
+                    <div class="w-4 sm:w-8 h-1 {{ $step > $i ? 'bg-cap-900' : 'bg-gray-200' }}"></div>
                 @endif
             @endfor
         </div>
@@ -200,8 +267,10 @@ new #[Layout('layouts.guest')] class extends Component
                 Contact
             @elseif ($step === 4)
                 Profession
+            @elseif ($step === 5)
+                Diplomes
             @else
-                Bio
+                Finalisation
             @endif
         </div>
     </div>
@@ -365,36 +434,159 @@ new #[Layout('layouts.guest')] class extends Component
             </div>
         @endif
 
-        <!-- Step 5: Bio -->
+        <!-- Step 5: Credentials -->
         @if ($step === 5)
             <div class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Votre presentation</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Diplomes et qualifications</h3>
+
+                <!-- Diplomas -->
+                <div>
+                    <x-input-label value="Diplomes et formations" />
+                    <div class="space-y-3 mt-2">
+                        @foreach ($diplomas as $index => $diploma)
+                            <div class="p-3 border rounded-lg bg-gray-50">
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                                    <div>
+                                        <input wire:model="diplomas.{{ $index }}.title" type="text" placeholder="Diplome/Titre" class="w-full text-sm rounded-md border-gray-300" required />
+                                    </div>
+                                    <div>
+                                        <input wire:model="diplomas.{{ $index }}.institution" type="text" placeholder="Institution" class="w-full text-sm rounded-md border-gray-300" required />
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <input wire:model="diplomas.{{ $index }}.year" type="number" placeholder="Annee" min="1950" max="{{ date('Y') }}" class="w-full text-sm rounded-md border-gray-300" required />
+                                        @if (count($diplomas) > 1)
+                                            <button type="button" wire:click="removeDiploma({{ $index }})" class="px-2 text-red-600 hover:text-red-800">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <button type="button" wire:click="addDiploma" class="mt-2 text-sm text-cap-900 hover:underline flex items-center">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                        Ajouter un diplome
+                    </button>
+                    <x-input-error :messages="$errors->get('diplomas')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('diplomas.*.title')" class="mt-2" />
+                </div>
+
+                <!-- Professional Number -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <x-input-label for="professional_number_type" value="Type de numero professionnel" />
+                        <select wire:model="professional_number_type" id="professional_number_type" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900 text-sm">
+                            <option value="">Aucun / Non applicable</option>
+                            @foreach ($professionalNumberTypes as $key => $label)
+                                <option value="{{ $key }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error :messages="$errors->get('professional_number_type')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-input-label for="professional_number" value="Numero" />
+                        <x-text-input wire:model="professional_number" id="professional_number" type="text" class="block mt-1 w-full" placeholder="Ex: 7601000000000" />
+                        <x-input-error :messages="$errors->get('professional_number')" class="mt-2" />
+                    </div>
+                </div>
+
+                <!-- Experience -->
+                <div>
+                    <x-input-label for="years_experience" value="Annees d'experience" />
+                    <x-text-input wire:model="years_experience" id="years_experience" type="number" min="0" max="60" class="block mt-1 w-32" required />
+                    <x-input-error :messages="$errors->get('years_experience')" class="mt-2" />
+                </div>
+
+                <!-- Insurance -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <x-input-label for="insurance_company" value="Assurance RC (optionnel)" />
+                        <x-text-input wire:model="insurance_company" id="insurance_company" type="text" class="block mt-1 w-full" placeholder="Nom de l'assurance" />
+                        <x-input-error :messages="$errors->get('insurance_company')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-input-label for="insurance_number" value="N° police" />
+                        <x-text-input wire:model="insurance_number" id="insurance_number" type="text" class="block mt-1 w-full" />
+                        <x-input-error :messages="$errors->get('insurance_number')" class="mt-2" />
+                    </div>
+                </div>
+            </div>
+        @endif
+
+        <!-- Step 6: Bio & Finalization -->
+        @if ($step === 6)
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Finalisation de votre profil</h3>
 
                 <div>
-                    <x-input-label for="bio" value="Biographie (min. 100 caracteres)" />
-                    <textarea wire:model="bio" id="bio" rows="6" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required placeholder="Presentez-vous, votre parcours, votre approche..."></textarea>
+                    <x-input-label for="bio" value="Biographie professionnelle (min. 100 caracteres)" />
+                    <textarea wire:model="bio" id="bio" rows="4" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required placeholder="Presentez-vous, votre parcours, votre approche..."></textarea>
                     <div class="mt-1 text-sm text-gray-500">{{ strlen($bio) }}/2000 caracteres</div>
                     <x-input-error :messages="$errors->get('bio')" class="mt-2" />
                 </div>
 
                 <div>
-                    <x-input-label value="Photo de profil (optionnel)" />
-                    <div class="mt-2 flex items-center space-x-4">
-                        @if ($avatar)
-                            <img src="{{ $avatar->temporaryUrl() }}" class="w-20 h-20 rounded-full object-cover">
-                        @else
-                            <div class="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center">
-                                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
-                                </svg>
-                            </div>
-                        @endif
-                        <label class="cursor-pointer px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
-                            <input type="file" wire:model="avatar" accept="image/*" class="sr-only">
-                            Choisir une photo
-                        </label>
+                    <x-input-label for="school_phobia_training" value="Formation specifique phobie scolaire (optionnel)" />
+                    <textarea wire:model="school_phobia_training" id="school_phobia_training" rows="2" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" placeholder="Decrivez vos formations specifiques liees a la phobie scolaire..."></textarea>
+                    <x-input-error :messages="$errors->get('school_phobia_training')" class="mt-2" />
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <x-input-label value="Photo de profil (optionnel)" />
+                        <div class="mt-2 flex items-center space-x-4">
+                            @if ($avatar)
+                                <img src="{{ $avatar->temporaryUrl() }}" class="w-16 h-16 rounded-full object-cover">
+                            @else
+                                <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                    </svg>
+                                </div>
+                            @endif
+                            <label class="cursor-pointer px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                <input type="file" wire:model="avatar" accept="image/*" class="sr-only">
+                                Photo
+                            </label>
+                        </div>
+                        <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
                     </div>
-                    <x-input-error :messages="$errors->get('avatar')" class="mt-2" />
+
+                    <div>
+                        <x-input-label value="Document justificatif (diplome, attestation)" />
+                        <div class="mt-2">
+                            <label class="cursor-pointer px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 inline-flex items-center">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+                                <input type="file" wire:model="credential_document" accept=".pdf,.jpg,.jpeg,.png" class="sr-only">
+                                Telecharger
+                            </label>
+                            @if ($credential_document)
+                                <span class="ml-2 text-sm text-green-600">{{ $credential_document->getClientOriginalName() }}</span>
+                            @endif
+                        </div>
+                        <p class="mt-1 text-xs text-gray-500">PDF, JPG ou PNG (max 5Mo)</p>
+                        <x-input-error :messages="$errors->get('credential_document')" class="mt-2" />
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="p-4 bg-gray-50 border rounded-lg space-y-3">
+                    <label class="flex items-start">
+                        <input type="checkbox" wire:model="accepts_terms" class="mt-1 rounded border-gray-300 text-cap-900 focus:ring-cap-900">
+                        <span class="ml-2 text-sm text-gray-700">
+                            J'accepte les <a href="#" class="text-cap-900 underline">conditions d'utilisation</a> et la <a href="#" class="text-cap-900 underline">politique de confidentialite</a>
+                        </span>
+                    </label>
+                    <x-input-error :messages="$errors->get('accepts_terms')" class="mt-1" />
+
+                    <label class="flex items-start">
+                        <input type="checkbox" wire:model="accepts_ethics" class="mt-1 rounded border-gray-300 text-cap-900 focus:ring-cap-900">
+                        <span class="ml-2 text-sm text-gray-700">
+                            Je m'engage a respecter la <a href="#" class="text-cap-900 underline">charte ethique</a> de Cap Toi M'aime et a accompagner les familles avec bienveillance
+                        </span>
+                    </label>
+                    <x-input-error :messages="$errors->get('accepts_ethics')" class="mt-1" />
                 </div>
 
                 <div class="p-4 bg-amber-50 border border-amber-200 rounded-lg">
