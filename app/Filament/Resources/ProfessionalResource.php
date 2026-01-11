@@ -11,8 +11,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 
 class ProfessionalResource extends Resource
 {
@@ -120,11 +118,6 @@ class ProfessionalResource extends Resource
                                     ->label('Biographie')
                                     ->rows(5)
                                     ->maxLength(2000),
-                                SpatieMediaLibraryFileUpload::make('avatar')
-                                    ->label('Photo de profil')
-                                    ->collection('avatar')
-                                    ->image()
-                                    ->imageEditor(),
                             ]),
 
                         Forms\Components\Tabs\Tab::make('Statut')
@@ -162,10 +155,6 @@ class ProfessionalResource extends Resource
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('avatar')
-                    ->collection('avatar')
-                    ->circular()
-                    ->label(''),
                 Tables\Columns\TextColumn::make('full_name')
                     ->label('Nom')
                     ->searchable(['first_name', 'last_name'])
