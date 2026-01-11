@@ -25,6 +25,6 @@ class ProfessionalShow extends Component
     {
         return view('livewire.professional-show', [
             'professional' => $this->professional->load(['category', 'city.canton']),
-        ])->layout('layouts.app');
+        ])->layout('layouts.public');
     }
 }

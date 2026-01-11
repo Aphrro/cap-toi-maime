@@ -65,6 +65,6 @@ class ProfessionalSearch extends Component
             'professionals' => $professionals,
             'categories' => Category::active()->get(),
             'cantons' => Canton::orderBy('name')->get(),
-        ])->layout('layouts.app');
+        ])->layout('layouts.public');
     }
 }
