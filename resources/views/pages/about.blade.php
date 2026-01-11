@@ -20,10 +20,13 @@
                             <span class="font-display text-xl text-ctm-burgundy uppercase tracking-wide">Cap Toi M'aime</span>
                         </a>
                     </div>
-                    <div class="hidden md:flex items-center space-x-8">
+                    <div class="hidden md:flex items-center space-x-6">
                         <a href="{{ route('home') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Accueil</a>
                         <a href="{{ route('about') }}" class="text-ctm-burgundy text-sm font-bold uppercase">A propos</a>
+                        <a href="{{ route('faq') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">FAQ</a>
+                        <a href="{{ route('temoignages') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Temoignages</a>
                         <a href="{{ route('contact') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Contact</a>
+                        <a href="{{ route('login') }}" class="text-gray-500 text-sm hover:text-gray-700 transition-colors">Connexion</a>
                         <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">Trouver un pro</a>
                     </div>
                     <div class="md:hidden flex items-center">
@@ -130,6 +133,8 @@
                         <h3 class="text-white font-semibold uppercase text-sm mb-4">Navigation</h3>
                         <ul class="space-y-2">
                             <li><a href="{{ route('annuaire') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Annuaire</a></li>
+                            <li><a href="{{ route('faq') }}" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a></li>
+                            <li><a href="{{ route('temoignages') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Temoignages</a></li>
                             <li><a href="{{ route('about') }}" class="text-sm text-gray-400 hover:text-white transition-colors">A propos</a></li>
                             <li><a href="{{ route('contact') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a></li>
                         </ul>
