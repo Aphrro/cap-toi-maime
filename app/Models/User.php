@@ -6,6 +6,7 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -17,7 +18,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $this->user_type === 'admin' || $this->hasRole('admin');
     }
 
     /**
@@ -29,6 +30,11 @@ class User extends Authenticatable implements FilamentUser
         'name',
         'email',
         'password',
+        'phone',
+        'user_type',
+        'is_active',
+        'suspended_at',
+        'suspension_reason',
     ];
 
     /**
@@ -51,6 +57,56 @@ class User extends Authenticatable implements FilamentUser
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
+            'suspended_at' => 'datetime',
         ];
+    }
+
+    public function parentProfile(): HasOne
+    {
+        return $this->hasOne(ParentProfile::class);
+    }
+
+    public function professional(): HasOne
+    {
+        return $this->hasOne(Professional::class);
+    }
+
+    public function isParent(): bool
+    {
+        return $this->user_type === 'parent';
+    }
+
+    public function isProfessional(): bool
+    {
+        return $this->user_type === 'professional';
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->user_type === 'admin' || $this->hasRole('admin');
+    }
+
+    public function isSuspended(): bool
+    {
+        return $this->suspended_at !== null;
+    }
+
+    public function suspend(string $reason = null): void
+    {
+        $this->update([
+            'suspended_at' => now(),
+            'suspension_reason' => $reason,
+            'is_active' => false,
+        ]);
+    }
+
+    public function unsuspend(): void
+    {
+        $this->update([
+            'suspended_at' => null,
+            'suspension_reason' => null,
+            'is_active' => true,
+        ]);
     }
 }

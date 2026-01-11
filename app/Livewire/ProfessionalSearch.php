@@ -59,6 +59,7 @@ class ProfessionalSearch extends Component
     {
         $professionals = Professional::query()
             ->active()
+            ->approved()
             ->with(['category', 'city.canton', 'specialtiesRelation'])
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {

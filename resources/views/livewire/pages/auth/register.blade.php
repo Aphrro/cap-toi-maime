@@ -1,88 +1,61 @@
 <?php
 
-use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
 
 new #[Layout('layouts.guest')] class extends Component
 {
-    public string $name = '';
-    public string $email = '';
-    public string $password = '';
-    public string $password_confirmation = '';
-
-    /**
-     * Handle an incoming registration request.
-     */
-    public function register(): void
-    {
-        $validated = $this->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-        ]);
-
-        $validated['password'] = Hash::make($validated['password']);
-
-        event(new Registered($user = User::create($validated)));
-
-        Auth::login($user);
-
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
-    }
+    //
 }; ?>
 
-<div>
-    <form wire:submit="register">
-        <!-- Name -->
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input wire:model="name" id="name" class="block mt-1 w-full" type="text" name="name" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
-        </div>
+<div class="text-center">
+    <h2 class="text-2xl font-bold text-gray-900 mb-2">Creer un compte</h2>
+    <p class="text-gray-600 mb-8">Choisissez votre type de profil</p>
 
-        <!-- Email Address -->
-        <div class="mt-4">
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <div class="space-y-4">
+        <!-- Parent Card -->
+        <a href="{{ route('register.parent') }}" class="block p-6 bg-white border-2 border-gray-200 rounded-lg hover:border-cap-900 hover:shadow-lg transition-all group" wire:navigate>
+            <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-cap-100 rounded-full flex items-center justify-center group-hover:bg-cap-900 transition-colors">
+                    <svg class="w-6 h-6 text-cap-900 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <h3 class="text-lg font-semibold text-gray-900">Je suis un parent</h3>
+                    <p class="text-sm text-gray-500">Trouver un professionnel pour accompagner mon enfant</p>
+                </div>
+                <div class="flex-shrink-0 ml-auto">
+                    <svg class="w-5 h-5 text-gray-400 group-hover:text-cap-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+        </a>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+        <!-- Professional Card -->
+        <a href="{{ route('register.professional') }}" class="block p-6 bg-white border-2 border-gray-200 rounded-lg hover:border-cap-900 hover:shadow-lg transition-all group" wire:navigate>
+            <div class="flex items-center space-x-4">
+                <div class="flex-shrink-0 w-12 h-12 bg-cap-100 rounded-full flex items-center justify-center group-hover:bg-cap-900 transition-colors">
+                    <svg class="w-6 h-6 text-cap-900 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <h3 class="text-lg font-semibold text-gray-900">Je suis un professionnel</h3>
+                    <p class="text-sm text-gray-500">Rejoindre l'annuaire et accompagner des familles</p>
+                </div>
+                <div class="flex-shrink-0 ml-auto">
+                    <svg class="w-5 h-5 text-gray-400 group-hover:text-cap-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </div>
+            </div>
+        </a>
+    </div>
 
-            <x-text-input wire:model="password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
-                            type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}" wire:navigate>
-                {{ __('Already registered?') }}
-            </a>
-
-            <x-primary-button class="ms-4">
-                {{ __('Register') }}
-            </x-primary-button>
-        </div>
-    </form>
+    <p class="mt-8 text-sm text-gray-600">
+        Deja inscrit ?
+        <a href="{{ route('login') }}" class="text-cap-900 hover:underline font-medium" wire:navigate>Se connecter</a>
+    </p>
 </div>

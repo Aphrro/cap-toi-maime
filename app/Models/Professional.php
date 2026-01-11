@@ -35,6 +35,10 @@ class Professional extends Model implements HasMedia
         'is_featured',
         'is_active',
         'user_id',
+        'validation_status',
+        'rejection_reason',
+        'validated_by',
+        'validated_at',
     ];
 
     protected $casts = [
@@ -44,6 +48,23 @@ class Professional extends Model implements HasMedia
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
         'verified_at' => 'datetime',
+        'validated_at' => 'datetime',
+    ];
+
+    public const CONSULTATION_TYPES = [
+        'cabinet' => 'En cabinet',
+        'domicile' => 'A domicile',
+        'en_ligne' => 'En ligne',
+        'mixte' => 'Mixte',
+    ];
+
+    public const LANGUAGES = [
+        'FR' => 'Francais',
+        'DE' => 'Allemand',
+        'EN' => 'Anglais',
+        'IT' => 'Italien',
+        'ES' => 'Espagnol',
+        'PT' => 'Portugais',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -98,5 +119,62 @@ class Professional extends Model implements HasMedia
     public function specialtiesRelation()
     {
         return $this->belongsToMany(Specialty::class);
+    }
+
+    public function validator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'validated_by');
+    }
+
+    public function scopePending(Builder $query): Builder
+    {
+        return $query->where('validation_status', 'pending');
+    }
+
+    public function scopeApproved(Builder $query): Builder
+    {
+        return $query->where('validation_status', 'approved');
+    }
+
+    public function scopeRejected(Builder $query): Builder
+    {
+        return $query->where('validation_status', 'rejected');
+    }
+
+    public function isPending(): bool
+    {
+        return $this->validation_status === 'pending';
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->validation_status === 'approved';
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->validation_status === 'rejected';
+    }
+
+    public function approve(?int $userId = null): void
+    {
+        $this->update([
+            'validation_status' => 'approved',
+            'validated_by' => $userId ?? auth()->id(),
+            'validated_at' => now(),
+            'rejection_reason' => null,
+            'is_active' => true,
+        ]);
+    }
+
+    public function reject(string $reason, ?int $userId = null): void
+    {
+        $this->update([
+            'validation_status' => 'rejected',
+            'validated_by' => $userId ?? auth()->id(),
+            'validated_at' => now(),
+            'rejection_reason' => $reason,
+            'is_active' => false,
+        ]);
     }
 }

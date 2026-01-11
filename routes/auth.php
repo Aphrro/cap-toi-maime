@@ -8,6 +8,12 @@ Route::middleware('guest')->group(function () {
     Volt::route('register', 'pages.auth.register')
         ->name('register');
 
+    Volt::route('register/parent', 'pages.auth.register-parent')
+        ->name('register.parent');
+
+    Volt::route('register/professionnel', 'pages.auth.register-professional')
+        ->name('register.professional');
+
     Volt::route('login', 'pages.auth.login')
         ->name('login');
 
