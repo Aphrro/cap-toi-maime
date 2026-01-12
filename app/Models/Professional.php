@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -28,9 +29,13 @@ class Professional extends Model implements HasMedia
         'latitude',
         'longitude',
         'category_id',
-        'specialties',
         'languages',
         'consultation_type',
+        // Modes de consultation
+        'mode_cabinet',
+        'mode_visio',
+        'mode_domicile',
+        // Visibilite
         'is_verified',
         'is_featured',
         'is_active',
@@ -39,6 +44,10 @@ class Professional extends Model implements HasMedia
         'rejection_reason',
         'validated_by',
         'validated_at',
+        // Stats
+        'views_count',
+        'rating',
+        'reviews_count',
         // Credentials
         'diplomas',
         'professional_number',
@@ -53,7 +62,6 @@ class Professional extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'specialties' => 'array',
         'languages' => 'array',
         'is_verified' => 'boolean',
         'is_featured' => 'boolean',
@@ -65,6 +73,13 @@ class Professional extends Model implements HasMedia
         'years_experience' => 'integer',
         'accepts_terms' => 'boolean',
         'accepts_ethics' => 'boolean',
+        // Matching fields
+        'mode_cabinet' => 'boolean',
+        'mode_visio' => 'boolean',
+        'mode_domicile' => 'boolean',
+        'rating' => 'decimal:1',
+        'reviews_count' => 'integer',
+        'views_count' => 'integer',
     ];
 
     public const CONSULTATION_TYPES = [
@@ -105,6 +120,18 @@ class Professional extends Model implements HasMedia
         return trim("{$this->title} {$this->first_name} {$this->last_name}");
     }
 
+    /**
+     * Get specialty slugs for matching
+     */
+    public function getSpecialtySlugsAttribute(): array
+    {
+        return $this->specialties->pluck('slug')->toArray();
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // RELATIONS
+    // ═══════════════════════════════════════════════════════════
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -120,12 +147,33 @@ class Professional extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function validator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'validated_by');
+    }
+
+    /**
+     * Many-to-many relation with specialties
+     */
+    public function specialties(): BelongsToMany
+    {
+        return $this->belongsToMany(Specialty::class, 'professional_specialty');
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // MEDIA
+    // ═══════════════════════════════════════════════════════════
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
             ->singleFile()
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp']);
     }
+
+    // ═══════════════════════════════════════════════════════════
+    // SCOPES - VISIBILITE
+    // ═══════════════════════════════════════════════════════════
 
     public function scopeActive(Builder $query): Builder
     {
@@ -142,15 +190,9 @@ class Professional extends Model implements HasMedia
         return $query->where('is_featured', true);
     }
 
-    public function specialtiesRelation()
-    {
-        return $this->belongsToMany(Specialty::class);
-    }
-
-    public function validator(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'validated_by');
-    }
+    // ═══════════════════════════════════════════════════════════
+    // SCOPES - VALIDATION
+    // ═══════════════════════════════════════════════════════════
 
     public function scopePending(Builder $query): Builder
     {
@@ -166,6 +208,65 @@ class Professional extends Model implements HasMedia
     {
         return $query->where('validation_status', 'rejected');
     }
+
+    /**
+     * Scope for validated professionals (approved + active)
+     */
+    public function scopeValidated(Builder $query): Builder
+    {
+        return $query->where('validation_status', 'approved')
+                     ->where('is_active', true);
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // SCOPES - MATCHING
+    // ═══════════════════════════════════════════════════════════
+
+    public function scopeWithVisio(Builder $query): Builder
+    {
+        return $query->where('mode_visio', true);
+    }
+
+    public function scopeWithCabinet(Builder $query): Builder
+    {
+        return $query->where('mode_cabinet', true);
+    }
+
+    public function scopeWithDomicile(Builder $query): Builder
+    {
+        return $query->where('mode_domicile', true);
+    }
+
+    public function scopeInCanton(Builder $query, string $canton): Builder
+    {
+        return $query->whereHas('city.canton', function ($q) use ($canton) {
+            $q->where('code', $canton);
+        });
+    }
+
+    public function scopeSpeaksLanguage(Builder $query, string $language): Builder
+    {
+        return $query->whereJsonContains('languages', strtoupper($language));
+    }
+
+    public function scopeHasSpecialty(Builder $query, string|array $slugs): Builder
+    {
+        $slugs = is_array($slugs) ? $slugs : [$slugs];
+        return $query->whereHas('specialties', function ($q) use ($slugs) {
+            $q->whereIn('slug', $slugs);
+        });
+    }
+
+    public function scopeInCategory(Builder $query, string $categorySlug): Builder
+    {
+        return $query->whereHas('category', function ($q) use ($categorySlug) {
+            $q->where('slug', $categorySlug);
+        });
+    }
+
+    // ═══════════════════════════════════════════════════════════
+    // METHODS - VALIDATION
+    // ═══════════════════════════════════════════════════════════
 
     public function isPending(): bool
     {

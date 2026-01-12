@@ -575,7 +575,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <label class="flex items-start">
                         <input type="checkbox" wire:model="accepts_terms" class="mt-1 rounded border-gray-300 text-cap-900 focus:ring-cap-900">
                         <span class="ml-2 text-sm text-gray-700">
-                            J'accepte les <a href="#" class="text-cap-900 underline">conditions d'utilisation</a> et la <a href="#" class="text-cap-900 underline">politique de confidentialite</a>
+                            J'accepte les <a href="{{ route('conditions') }}" target="_blank" class="text-cap-900 underline hover:text-cap-700">conditions d'utilisation</a> et la <a href="{{ route('confidentialite') }}" target="_blank" class="text-cap-900 underline hover:text-cap-700">politique de confidentialite</a>
                         </span>
                     </label>
                     <x-input-error :messages="$errors->get('accepts_terms')" class="mt-1" />
@@ -583,7 +583,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <label class="flex items-start">
                         <input type="checkbox" wire:model="accepts_ethics" class="mt-1 rounded border-gray-300 text-cap-900 focus:ring-cap-900">
                         <span class="ml-2 text-sm text-gray-700">
-                            Je m'engage a respecter la <a href="#" class="text-cap-900 underline">charte ethique</a> de Cap Toi M'aime et a accompagner les familles avec bienveillance
+                            Je m'engage a respecter la <a href="{{ route('charte-ethique') }}" target="_blank" class="text-cap-900 underline hover:text-cap-700">charte ethique</a> de Cap Toi M'aime et a accompagner les familles avec bienveillance
                         </span>
                     </label>
                     <x-input-error :messages="$errors->get('accepts_ethics')" class="mt-1" />

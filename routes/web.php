@@ -20,6 +20,11 @@ Route::get('/temoignages', function () {
     ]);
 })->name('temoignages');
 
+// Pages legales
+Route::view('/conditions-utilisation', 'pages.legal.conditions')->name('conditions');
+Route::view('/politique-confidentialite', 'pages.legal.confidentialite')->name('confidentialite');
+Route::view('/charte-ethique', 'pages.legal.charte-ethique')->name('charte-ethique');
+
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
