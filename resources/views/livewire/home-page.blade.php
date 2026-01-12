@@ -1,16 +1,4 @@
 <div>
-    {{-- Header --}}
-    <header class="bg-cap-900 text-white">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="{{ route('home') }}" class="font-display text-xl tracking-wide">Cap Toi M'aime</a>
-            <nav class="hidden md:flex items-center gap-6 text-sm">
-                <a href="{{ route('about') }}" class="hover:text-cap-200 transition">À propos</a>
-                <a href="{{ route('contact') }}" class="hover:text-cap-200 transition">Contact</a>
-                <a href="{{ route('register') }}" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition">Espace Pro</a>
-            </nav>
-        </div>
-    </header>
-
     {{-- Hero Section --}}
     <section class="bg-gradient-to-b from-cap-900 to-cap-800 text-white py-16 px-4">
         <div class="max-w-4xl mx-auto text-center">
@@ -173,16 +161,4 @@
         </div>
     </section>
     @endif
-
-    {{-- Footer --}}
-    <footer class="bg-gray-900 text-gray-400 py-8 px-4">
-        <div class="max-w-6xl mx-auto text-center text-sm">
-            <p>© {{ date('Y') }} Cap Toi M'aime - Annuaire des professionnels</p>
-            <p class="mt-2 space-x-4">
-                <a href="{{ route('conditions') }}" class="hover:text-white transition">Mentions légales</a>
-                <a href="{{ route('confidentialite') }}" class="hover:text-white transition">Confidentialité</a>
-                <a href="{{ route('contact') }}" class="hover:text-white transition">Contact</a>
-            </p>
-        </div>
-    </footer>
 </div>

@@ -95,6 +95,6 @@ class Results extends Component
 
     public function render()
     {
-        return view('livewire.results')->layout('layouts.base');
+        return view('livewire.results')->layout('layouts.public');
     }
 }

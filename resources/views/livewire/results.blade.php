@@ -1,8 +1,8 @@
-<div class="min-h-screen bg-gray-100">
+<div class="min-h-[80vh] bg-gray-50">
     {{-- Header --}}
-    <header class="bg-cap-900 text-white px-4 py-4">
+    <div class="bg-cap-900 text-white px-4 py-6">
         <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <a href="{{ route('home') }}" class="font-display text-xl tracking-wide">Cap Toi M'aime</a>
+            <h1 class="text-xl font-bold">Vos recommandations</h1>
             <a
                 href="{{ route('questionnaire') }}"
                 class="flex items-center gap-2 text-sm bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition"
@@ -13,12 +13,12 @@
                 Modifier recherche
             </a>
         </div>
-    </header>
+    </div>
 
     <div class="max-w-4xl mx-auto p-6">
         {{-- Title --}}
         <div class="text-center mb-8">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">VOS RECOMMANDATIONS PERSONNALISÉES</h1>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">VOS RECOMMANDATIONS PERSONNALISÉES</h2>
             <p class="text-gray-500">
                 <span class="font-semibold text-cap-900">{{ $professionals->count() }}</span> professionnel(s) correspondent à votre recherche
             </p>
@@ -208,18 +208,5 @@
             </div>
         </div>
         @endif
-
-        {{-- Back to home --}}
-        <div class="text-center mt-12">
-            <a
-                href="{{ route('home') }}"
-                class="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 transition"
-            >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-                </svg>
-                Retour à l'accueil
-            </a>
-        </div>
     </div>
 </div>

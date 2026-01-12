@@ -106,6 +106,6 @@ class Questionnaire extends Component
     {
         return view('livewire.questionnaire', [
             'cantons' => Canton::orderBy('name')->get(),
-        ])->layout('layouts.base');
+        ])->layout('layouts.public');
     }
 }

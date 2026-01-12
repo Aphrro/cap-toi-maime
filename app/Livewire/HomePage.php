@@ -32,6 +32,6 @@ class HomePage extends Component
                 ->with(['category', 'city.canton'])
                 ->limit(3)
                 ->get(),
-        ])->layout('layouts.base');
+        ])->layout('layouts.public');
     }
 }

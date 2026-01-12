@@ -1,20 +1,19 @@
-<div class="min-h-screen bg-gray-100">
-    {{-- Header --}}
-    <header class="bg-cap-900 text-white px-4 py-4">
-        <div class="max-w-2xl mx-auto flex justify-between items-center">
-            <a href="{{ route('home') }}" class="font-display text-xl tracking-wide">Cap Toi M'aime</a>
-            <div class="text-sm flex items-center gap-2">
-                <span class="bg-white/20 px-3 py-1 rounded-full">Étape {{ $step }}/{{ $totalSteps }}</span>
+<div class="min-h-[80vh] bg-gray-50">
+    {{-- Progress Header --}}
+    <div class="bg-cap-900 text-white px-4 py-6">
+        <div class="max-w-2xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-xl font-bold">Questionnaire guidé</h1>
+                <span class="bg-white/20 px-3 py-1 rounded-full text-sm">Étape {{ $step }}/{{ $totalSteps }}</span>
+            </div>
+            {{-- Progress Bar --}}
+            <div class="h-2 bg-white/20 rounded-full">
+                <div
+                    class="h-full bg-white rounded-full transition-all duration-300"
+                    style="width: {{ ($step / $totalSteps) * 100 }}%"
+                ></div>
             </div>
         </div>
-    </header>
-
-    {{-- Progress Bar --}}
-    <div class="h-2 bg-gray-300">
-        <div
-            class="h-full bg-cap-600 transition-all duration-300"
-            style="width: {{ ($step / $totalSteps) * 100 }}%"
-        ></div>
     </div>
 
     {{-- Content --}}
