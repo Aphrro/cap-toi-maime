@@ -60,7 +60,7 @@ class ProfessionalSearch extends Component
         $professionals = Professional::query()
             ->active()
             ->approved()
-            ->with(['category', 'city.canton', 'specialtiesRelation'])
+            ->with(['category', 'city.canton', 'specialties'])
             ->when($this->search, function ($query) {
                 $query->where(function ($q) {
                     $q->where('first_name', 'like', "%{$this->search}%")
@@ -77,7 +77,7 @@ class ProfessionalSearch extends Component
                 });
             })
             ->when(!empty($this->selectedSpecialties), function ($query) {
-                $query->whereHas('specialtiesRelation', function ($q) {
+                $query->whereHas('specialties', function ($q) {
                     $q->whereIn('specialties.id', $this->selectedSpecialties);
                 });
             })

@@ -38,7 +38,7 @@ class ProfileCompletenessService
         }
 
         // Check specialties
-        if ($professional->specialtiesRelation->isNotEmpty()) {
+        if ($professional->specialties->isNotEmpty()) {
             $earnedWeight += $this->specialtiesWeight;
         } else {
             $missingFields[] = 'specialties';
@@ -69,7 +69,7 @@ class ProfileCompletenessService
 
     public function getIncompleteProfiles(int $threshold = 80): Collection
     {
-        return Professional::with(['specialtiesRelation', 'media'])
+        return Professional::with(['specialties', 'media'])
             ->get()
             ->filter(function (Professional $professional) use ($threshold) {
                 $completeness = $this->calculateCompleteness($professional);

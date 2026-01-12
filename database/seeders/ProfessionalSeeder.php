@@ -129,7 +129,7 @@ class ProfessionalSeeder extends Seeder
             );
 
             if (!empty($specialties)) {
-                $professional->specialtiesRelation()->sync(array_filter($specialties));
+                $professional->specialties()->sync(array_filter($specialties));
             }
         }
     }

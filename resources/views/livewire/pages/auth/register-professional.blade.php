@@ -213,7 +213,7 @@ new #[Layout('layouts.guest')] class extends Component
             ]);
 
             // Attach specialties
-            $professional->specialtiesRelation()->sync($this->specialty_ids);
+            $professional->specialties()->sync($this->specialty_ids);
 
             // Upload avatar
             if ($this->avatar) {

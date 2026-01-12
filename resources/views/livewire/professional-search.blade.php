@@ -124,15 +124,15 @@
                                 </div>
 
                                 <!-- Specialites -->
-                                @if($professional->specialtiesRelation && $professional->specialtiesRelation->isNotEmpty())
+                                @if($professional->specialties && $professional->specialties->isNotEmpty())
                                     <div class="mt-4 flex flex-wrap gap-1">
-                                        @foreach($professional->specialtiesRelation->take(3) as $specialty)
+                                        @foreach($professional->specialties->take(3) as $specialty)
                                             <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-cap-100 text-cap-900">
                                                 {{ $specialty->name }}
                                             </span>
                                         @endforeach
-                                        @if($professional->specialtiesRelation->count() > 3)
-                                            <span class="text-xs text-gray-500">+{{ $professional->specialtiesRelation->count() - 3 }}</span>
+                                        @if($professional->specialties->count() > 3)
+                                            <span class="text-xs text-gray-500">+{{ $professional->specialties->count() - 3 }}</span>
                                         @endif
                                     </div>
                                 @endif

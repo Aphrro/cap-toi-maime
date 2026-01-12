@@ -96,9 +96,9 @@ class ProfessionalResource extends Resource
                                     ->required()
                                     ->searchable()
                                     ->preload(),
-                                Forms\Components\Select::make('specialtiesRelation')
+                                Forms\Components\Select::make('specialties')
                                     ->label('Specialites')
-                                    ->relationship('specialtiesRelation', 'name')
+                                    ->relationship('specialties', 'name')
                                     ->multiple()
                                     ->preload()
                                     ->searchable(),
