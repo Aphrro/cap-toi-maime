@@ -72,6 +72,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Professional::class);
     }
 
+    public function preferences(): HasOne
+    {
+        return $this->hasOne(UserPreference::class);
+    }
+
     public function isParent(): bool
     {
         return $this->user_type === 'parent';

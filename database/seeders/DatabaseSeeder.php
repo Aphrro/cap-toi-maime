@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             SpecialtySeeder::class,
             ProfessionalSeeder::class,
             TestimonialSeeder::class,
+            RecommendationRulesSeeder::class,
         ]);
     }
 }
