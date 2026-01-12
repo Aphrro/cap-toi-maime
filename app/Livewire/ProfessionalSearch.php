@@ -17,7 +17,6 @@ class ProfessionalSearch extends Component
     public ?int $categoryId = null;
     public ?int $cantonId = null;
     public array $selectedSpecialties = [];
-    public $specialtiesFilter;
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -25,18 +24,15 @@ class ProfessionalSearch extends Component
         'cantonId' => ['except' => null],
     ];
 
-    public function mount()
-    {
-        $this->specialtiesFilter = Specialty::where('is_active', true)->get();
-    }
-
     public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingCategoryId(): void
+    public function updatedCategoryId(): void
     {
+        // Réinitialiser les spécialités sélectionnées quand la catégorie change
+        $this->selectedSpecialties = [];
         $this->resetPage();
     }
 
@@ -85,10 +81,19 @@ class ProfessionalSearch extends Component
             ->orderByDesc('is_verified')
             ->paginate(12);
 
+        // Filtrer les spécialités selon la catégorie sélectionnée
+        $specialtiesFilter = Specialty::active()
+            ->when($this->categoryId, function ($query) {
+                $query->where('category_id', $this->categoryId);
+            })
+            ->ordered()
+            ->get();
+
         return view('livewire.professional-search', [
             'professionals' => $professionals,
             'categories' => Category::active()->get(),
             'cantons' => Canton::orderBy('name')->get(),
+            'specialtiesFilter' => $specialtiesFilter,
         ])->layout('layouts.public');
     }
 }
