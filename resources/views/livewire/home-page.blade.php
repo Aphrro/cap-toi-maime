@@ -1,0 +1,188 @@
+<div>
+    {{-- Header --}}
+    <header class="bg-cap-900 text-white">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="{{ route('home') }}" class="font-display text-xl tracking-wide">Cap Toi M'aime</a>
+            <nav class="hidden md:flex items-center gap-6 text-sm">
+                <a href="{{ route('about') }}" class="hover:text-cap-200 transition">À propos</a>
+                <a href="{{ route('contact') }}" class="hover:text-cap-200 transition">Contact</a>
+                <a href="{{ route('register') }}" class="bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition">Espace Pro</a>
+            </nav>
+        </div>
+    </header>
+
+    {{-- Hero Section --}}
+    <section class="bg-gradient-to-b from-cap-900 to-cap-800 text-white py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-2">TROUVEZ LE BON ACCOMPAGNEMENT</h1>
+            <h2 class="text-xl md:text-3xl font-light mb-2">POUR VOTRE ENFANT</h2>
+            <p class="text-cap-200 mb-8">Phobie scolaire • Refus scolaire • Décrochage</p>
+
+            {{-- Search Box --}}
+            <div class="bg-white rounded-xl p-6 max-w-xl mx-auto text-gray-800 shadow-lg">
+                <form wire:submit="quickSearch" class="flex gap-2 mb-4">
+                    <div class="relative flex-1">
+                        <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                        </svg>
+                        <input
+                            type="text"
+                            wire:model="search"
+                            placeholder="Recherche rapide..."
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cap-500 focus:border-cap-500"
+                        >
+                    </div>
+                    <button type="submit" class="bg-cap-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-cap-800 transition">
+                        Chercher
+                    </button>
+                </form>
+
+                <div class="text-center text-gray-500 mb-4">ou</div>
+
+                <a
+                    href="{{ route('questionnaire') }}"
+                    class="flex items-center justify-center gap-2 w-full bg-cap-100 text-cap-900 py-4 rounded-lg font-medium hover:bg-cap-200 transition"
+                >
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+                    </svg>
+                    ÊTRE GUIDÉ - Questionnaire personnalisé
+                </a>
+            </div>
+        </div>
+    </section>
+
+    {{-- Categories --}}
+    <section class="py-12 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-lg font-semibold text-gray-700 mb-6">TYPES DE PROFESSIONNELS</h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                @foreach($categories as $category)
+                    <a
+                        href="{{ route('annuaire', ['categoryId' => $category->id]) }}"
+                        class="bg-gray-50 rounded-xl p-4 text-center hover:bg-cap-50 hover:shadow-md transition group"
+                    >
+                        <div class="w-12 h-12 mx-auto mb-3 rounded-full flex items-center justify-center" style="background-color: {{ $category->color }}20">
+                            @switch($category->icon)
+                                @case('brain')
+                                    <svg class="w-6 h-6" style="color: {{ $category->color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                    </svg>
+                                    @break
+                                @case('stethoscope')
+                                    <svg class="w-6 h-6" style="color: {{ $category->color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                    @break
+                                @case('scan')
+                                    <svg class="w-6 h-6" style="color: {{ $category->color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                    </svg>
+                                    @break
+                                @case('users')
+                                    <svg class="w-6 h-6" style="color: {{ $category->color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                    </svg>
+                                    @break
+                                @case('sparkles')
+                                    <svg class="w-6 h-6" style="color: {{ $category->color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                                    </svg>
+                                    @break
+                                @case('graduation-cap')
+                                    <svg class="w-6 h-6" style="color: {{ $category->color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                                    </svg>
+                                    @break
+                                @default
+                                    <svg class="w-6 h-6" style="color: {{ $category->color }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                    </svg>
+                            @endswitch
+                        </div>
+                        <div class="text-sm text-gray-700 font-medium group-hover:text-cap-900">{{ Str::limit($category->name, 20) }}</div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- Specialties --}}
+    <section class="py-8 px-4 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">SPÉCIALITÉS RECHERCHÉES</h3>
+            <div class="flex flex-wrap gap-2">
+                @foreach($specialties as $specialty)
+                    <a
+                        href="{{ route('annuaire', ['specialty' => $specialty->slug]) }}"
+                        class="bg-cap-100 text-cap-900 px-4 py-2 rounded-full text-sm font-medium hover:bg-cap-200 transition"
+                    >
+                        {{ $specialty->name }}
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- Featured Professionals --}}
+    @if($featuredPros->count() > 0)
+    <section class="py-12 px-4 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h3 class="text-lg font-semibold text-gray-700 mb-6">PROFESSIONNELS MIS EN AVANT</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                @foreach($featuredPros as $pro)
+                    <a href="{{ route('professional.show', $pro) }}" class="block">
+                        <div class="bg-white rounded-xl p-6 shadow-sm hover:shadow-lg transition text-center border border-gray-100">
+                            {{-- Avatar --}}
+                            @if($pro->getFirstMediaUrl('avatar'))
+                                <img src="{{ $pro->getFirstMediaUrl('avatar') }}" alt="{{ $pro->full_name }}" class="w-20 h-20 rounded-full mx-auto mb-4 object-cover">
+                            @else
+                                <div class="w-20 h-20 bg-cap-100 rounded-full mx-auto mb-4 flex items-center justify-center">
+                                    <span class="text-cap-900 font-bold text-xl">
+                                        {{ substr($pro->first_name, 0, 1) }}{{ substr($pro->last_name, 0, 1) }}
+                                    </span>
+                                </div>
+                            @endif
+
+                            <h4 class="font-semibold text-gray-900">{{ $pro->full_name }}</h4>
+                            <p class="text-cap-900 text-sm font-medium">{{ $pro->category->name }}</p>
+
+                            @if($pro->city)
+                                <p class="text-gray-500 text-sm mt-2 flex items-center justify-center gap-1">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                    {{ $pro->city->name }}, {{ $pro->city->canton->code }}
+                                </p>
+                            @endif
+
+                            @if($pro->is_verified)
+                                <p class="text-green-600 text-sm mt-2 flex items-center justify-center gap-1">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    Vérifié
+                                </p>
+                            @endif
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
+    {{-- Footer --}}
+    <footer class="bg-gray-900 text-gray-400 py-8 px-4">
+        <div class="max-w-6xl mx-auto text-center text-sm">
+            <p>© {{ date('Y') }} Cap Toi M'aime - Annuaire des professionnels</p>
+            <p class="mt-2 space-x-4">
+                <a href="{{ route('conditions') }}" class="hover:text-white transition">Mentions légales</a>
+                <a href="{{ route('confidentialite') }}" class="hover:text-white transition">Confidentialité</a>
+                <a href="{{ route('contact') }}" class="hover:text-white transition">Contact</a>
+            </p>
+        </div>
+    </footer>
+</div>

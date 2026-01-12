@@ -1,11 +1,16 @@
 <?php
 
+use App\Livewire\HomePage;
 use App\Livewire\ProfessionalSearch;
 use App\Livewire\ProfessionalShow;
+use App\Livewire\Questionnaire;
+use App\Livewire\Results;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', HomePage::class)->name('home');
+Route::get('/questionnaire', Questionnaire::class)->name('questionnaire');
+Route::get('/resultats', Results::class)->name('results');
 
 Route::get('/annuaire', ProfessionalSearch::class)->name('annuaire');
 Route::get('/professionnel/{professional:slug}', ProfessionalShow::class)->name('professional.show');
