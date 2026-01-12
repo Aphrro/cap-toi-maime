@@ -32,7 +32,7 @@
                         <a href="{{ route('faq') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('faq') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">FAQ</a>
                         <a href="{{ route('temoignages') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('temoignages') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Temoignages</a>
                         <a href="{{ route('contact') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('contact') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Contact</a>
-                        <a href="{{ route('login') }}" class="text-gray-500 text-sm hover:text-gray-700 transition-colors">Connexion</a>
+                        <a href="{{ route('espace-pro') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Espace Pro</a>
                         <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">Trouver un pro</a>
                     </div>
                     <!-- Mobile menu button -->

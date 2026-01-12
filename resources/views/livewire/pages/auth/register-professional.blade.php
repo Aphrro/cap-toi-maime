@@ -609,7 +609,7 @@ new #[Layout('layouts.guest')] class extends Component
                     Retour
                 </button>
             @else
-                <a href="{{ route('register') }}" class="px-4 py-2 text-gray-600 hover:text-gray-900" wire:navigate>
+                <a href="{{ route('espace-pro') }}" class="px-4 py-2 text-gray-600 hover:text-gray-900" wire:navigate>
                     Retour
                 </a>
             @endif

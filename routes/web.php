@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\EspacePro;
 use App\Livewire\HomePage;
 use App\Livewire\ProfessionalSearch;
 use App\Livewire\ProfessionalShow;
@@ -18,6 +19,7 @@ Route::get('/professionnel/{professional:slug}', ProfessionalShow::class)->name(
 Route::view('/a-propos', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
 Route::view('/faq', 'pages.faq')->name('faq');
+Route::get('/espace-pro', EspacePro::class)->name('espace-pro');
 
 Route::get('/temoignages', function () {
     return view('pages.temoignages', [
