@@ -113,7 +113,9 @@
                 <div class="bg-white rounded-2xl p-8 shadow-sm">
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <span class="text-2xl">&#x1F7E2;</span>
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
                         </div>
                         <div>
                             <h3 class="font-bold text-gray-900 mb-2">Repérage rapide de la disponibilité</h3>
@@ -139,7 +141,9 @@
                 <div class="bg-white rounded-2xl p-8 shadow-sm">
                     <div class="flex items-start gap-4">
                         <div class="w-12 h-12 bg-ctm-burgundy/10 rounded-xl flex items-center justify-center flex-shrink-0">
-                            <span class="text-2xl">&#x1F3A5;</span>
+                            <svg class="w-6 h-6 text-ctm-burgundy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
                         </div>
                         <div>
                             <h3 class="font-bold text-gray-900 mb-2">Presentation video</h3>
