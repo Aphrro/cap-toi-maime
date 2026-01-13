@@ -69,6 +69,29 @@ class ProfessionalSearch extends Component
         $this->resetPage();
     }
 
+    public function resetAllFilters()
+    {
+        $this->search = '';
+        $this->categoryId = null;
+        $this->cantonId = null;
+        $this->selectedSpecialties = [];
+        $this->selectedReimbursements = [];
+        $this->sortBy = 'name';
+        $this->resetPage();
+    }
+
+    public function clearSpecialties()
+    {
+        $this->selectedSpecialties = [];
+        $this->resetPage();
+    }
+
+    public function clearReimbursements()
+    {
+        $this->selectedReimbursements = [];
+        $this->resetPage();
+    }
+
     public function render()
     {
         $professionals = Professional::query()

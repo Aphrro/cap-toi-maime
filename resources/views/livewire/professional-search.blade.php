@@ -58,7 +58,7 @@
                     <label class="text-sm font-medium text-gray-700">Specialites</label>
                     @if(count($selectedSpecialties) > 0)
                         <button
-                            wire:click="$set('selectedSpecialties', [])"
+                            wire:click="clearSpecialties"
                             class="text-xs text-gray-500 hover:text-cap-900 flex items-center gap-1"
                         >
                             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@
                 <label class="text-sm font-medium text-gray-700">Remboursements acceptes</label>
                 @if(count($selectedReimbursements) > 0)
                     <button
-                        wire:click="$set('selectedReimbursements', [])"
+                        wire:click="clearReimbursements"
                         class="text-xs text-gray-500 hover:text-blue-600 flex items-center gap-1"
                     >
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,7 +162,7 @@
         @if($search || $categoryId || $cantonId || count($selectedSpecialties) > 0 || count($selectedReimbursements) > 0)
             <div class="mt-5 pt-4 border-t border-gray-100">
                 <button
-                    wire:click="$set('search', ''); $set('categoryId', null); $set('cantonId', null); $set('selectedSpecialties', []); $set('selectedReimbursements', [])"
+                    wire:click="resetAllFilters"
                     class="text-sm text-gray-500 hover:text-cap-900 flex items-center gap-2 mx-auto"
                 >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,7 +187,7 @@
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Aucun professionnel trouve</h3>
                     <p class="text-gray-500 mb-6">Essayez de modifier vos criteres de recherche</p>
                     <button
-                        wire:click="$set('search', ''); $set('categoryId', null); $set('cantonId', null); $set('selectedSpecialties', []); $set('selectedReimbursements', [])"
+                        wire:click="resetAllFilters"
                         class="inline-flex items-center gap-2 bg-cap-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-cap-800 transition"
                     >
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
