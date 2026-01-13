@@ -5,7 +5,7 @@
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
                     <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                        Pourquoi cet annuaire est&nbsp;ne&nbsp;?
+                        Pourquoi cet annuaire ?
                     </h1>
                     <p class="text-lg md:text-xl text-white/90 mb-8">
                         A force d'échanger avec des familles, nous avons fait un constat : trouver un professionnel disponible rapidement peut devenir un véritable parcours du combattant.
