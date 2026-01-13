@@ -34,20 +34,20 @@
     <!-- Corps de la carte -->
     <div class="p-6 flex-1 flex flex-col">
         <!-- Spécialités -->
-        @if($professional->spécialties && count($professional->spécialties) > 0)
+        @if($professional->specialties && count($professional->specialties) > 0)
             <div class="mb-4">
                 <h4 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
                     Domaines d'exercice
                 </h4>
                 <div class="flex flex-wrap gap-2">
-                    @foreach(array_slice($professional->spécialties, 0, 3) as $spécialty)
+                    @foreach(array_slice($professional->specialties, 0, 3) as $specialty)
                         <span class="px-3 py-1.5 bg-ctm-teal/10 text-ctm-teal rounded-lg text-sm font-medium border border-ctm-teal/30">
-                            {{ $spécialty }}
+                            {{ $specialty }}
                         </span>
                     @endforeach
-                    @if(count($professional->spécialties) > 3)
+                    @if(count($professional->specialties) > 3)
                         <span class="px-3 py-1.5 bg-gray-100 text-gray-600 rounded-lg text-sm font-medium">
-                            +{{ count($professional->spécialties) - 3 }}
+                            +{{ count($professional->specialties) - 3 }}
                         </span>
                     @endif
                 </div>

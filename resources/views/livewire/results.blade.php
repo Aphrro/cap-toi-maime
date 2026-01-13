@@ -98,11 +98,11 @@
                                                 </span>
                                             @endforeach
                                         </div>
-                                    @elseif($pro->spécialties && $pro->spécialties->isNotEmpty())
+                                    @elseif($pro->specialties && $pro->specialties->isNotEmpty())
                                         <div class="flex flex-wrap gap-1 mt-2">
-                                            @foreach($pro->spécialties->take(3) as $spécialty)
+                                            @foreach($pro->specialties->take(3) as $specialty)
                                                 <span class="bg-cap-100 text-cap-900 px-2 py-0.5 rounded text-xs font-medium">
-                                                    {{ $spécialty->name }}
+                                                    {{ $specialty->name }}
                                                 </span>
                                             @endforeach
                                         </div>

@@ -44,7 +44,7 @@ new #[Layout('layouts.guest')] class extends Component
 
     // Step 4: Professional info
     public ?int $category_id = null;
-    public array $spécialty_ids = [];
+    public array $specialty_ids = [];
     public array $languages = [];
     public ?string $consultation_type = null;
 
@@ -121,8 +121,8 @@ new #[Layout('layouts.guest')] class extends Component
         } elseif ($this->step === 4) {
             $this->validate([
                 'category_id' => ['required', 'exists:catégories,id'],
-                'spécialty_ids' => ['required', 'array', 'min:1'],
-                'spécialty_ids.*' => ['exists:spécialties,id'],
+                'specialty_ids' => ['required', 'array', 'min:1'],
+                'specialty_ids.*' => ['exists:spécialties,id'],
                 'languages' => ['required', 'array', 'min:1'],
                 'languages.*' => [Rule::in(array_keys(Professional::LANGUAGES))],
                 'consultation_type' => ['required', Rule::in(array_keys(Professional::CONSULTATION_TYPES))],
@@ -213,7 +213,7 @@ new #[Layout('layouts.guest')] class extends Component
             ]);
 
             // Attach spécialties
-            $professional->spécialties()->sync($this->spécialty_ids);
+            $professional->specialties()->sync($this->specialty_ids);
 
             // Upload avatar
             if ($this->avatar) {
@@ -384,7 +384,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <x-input-label for="category_id" value="Catégorie professionnelle" />
                     <select wire:model="category_id" id="category_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required>
                         <option value="">Sélectionnéz...</option>
-                        @foreach ($catégories as $category)
+                        @foreach ($categories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
@@ -394,14 +394,14 @@ new #[Layout('layouts.guest')] class extends Component
                 <div>
                     <x-input-label value="Spécialités" />
                     <div class="mt-2 grid grid-cols-2 gap-2 max-h-48 overflow-y-auto p-2 border rounded-md">
-                        @foreach ($spécialties as $spécialty)
+                        @foreach ($specialties as $specialty)
                             <label class="flex items-center">
-                                <input type="checkbox" wire:model="spécialty_ids" value="{{ $spécialty->id }}" class="rounded border-gray-300 text-cap-900 focus:ring-cap-900">
-                                <span class="ml-2 text-sm text-gray-700">{{ $spécialty->name }}</span>
+                                <input type="checkbox" wire:model="specialty_ids" value="{{ $specialty->id }}" class="rounded border-gray-300 text-cap-900 focus:ring-cap-900">
+                                <span class="ml-2 text-sm text-gray-700">{{ $specialty->name }}</span>
                             </label>
                         @endforeach
                     </div>
-                    <x-input-error :messages="$errors->get('spécialty_ids')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('specialty_ids')" class="mt-2" />
                 </div>
 
                 <div>

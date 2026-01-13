@@ -48,7 +48,7 @@
         <div class="max-w-6xl mx-auto">
             <h3 class="text-lg font-semibold text-gray-700 mb-6">TYPES DE PROFESSIONNELS</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                @foreach($catégories as $category)
+                @foreach($categories as $category)
                     <a
                         href="{{ route('annuaire', ['categoryId' => $category->id]) }}"
                         class="bg-gray-50 rounded-xl p-4 text-center hover:bg-cap-50 hover:shadow-md transition group"
@@ -104,12 +104,12 @@
         <div class="max-w-6xl mx-auto">
             <h3 class="text-lg font-semibold text-gray-700 mb-4">SPÉCIALITÉS RECHERCHÉES</h3>
             <div class="flex flex-wrap gap-2">
-                @foreach($spécialties as $spécialty)
+                @foreach($specialties as $specialty)
                     <a
-                        href="{{ route('annuaire', ['spécialty' => $spécialty->slug]) }}"
+                        href="{{ route('annuaire', ['specialty' => $specialty->slug]) }}"
                         class="bg-cap-100 text-cap-900 px-4 py-2 rounded-full text-sm font-medium hover:bg-cap-200 transition"
                     >
-                        {{ $spécialty->name }}
+                        {{ $specialty->name }}
                     </a>
                 @endforeach
             </div>

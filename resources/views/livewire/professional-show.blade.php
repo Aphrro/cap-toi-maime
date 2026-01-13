@@ -136,16 +136,16 @@
                     @endif
 
                     <!-- Spécialties -->
-                    @if($professional->spécialties && count($professional->spécialties) > 0)
+                    @if($professional->specialties && count($professional->specialties) > 0)
                         <div>
                             <h2 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
                                 <span class="mr-2">&#x1F3AF;</span>
                                 Spécialités
                             </h2>
                             <div class="flex flex-wrap gap-2">
-                                @foreach($professional->spécialties as $spécialty)
+                                @foreach($professional->specialties as $specialty)
                                     <span class="px-4 py-2 bg-ctm-burgundy/10 text-ctm-burgundy rounded-xl text-sm font-medium">
-                                        {{ $spécialty->name }}
+                                        {{ $specialty->name }}
                                     </span>
                                 @endforeach
                             </div>

@@ -30,7 +30,7 @@
                 <select wire:model.live="categoryId" id="category"
                         class="block w-full py-2 px-3 rounded-lg border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900 text-sm">
                     <option value="">Toutes les catégories</option>
-                    @foreach($catégories as $category)
+                    @foreach($categories as $category)
                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
                 </select>
@@ -48,11 +48,11 @@
         </div>
 
         <!-- Filtre par spécialité -->
-        @if($spécialtiesFilter && $spécialtiesFilter->count() > 0)
+        @if($specialtiesFilter && $specialtiesFilter->count() > 0)
             <div class="mt-4">
                 <label class="block text-sm font-medium text-gray-700 mb-2">Spécialités</label>
                 <div class="flex flex-wrap gap-2">
-                    @foreach($spécialtiesFilter as $spec)
+                    @foreach($specialtiesFilter as $spec)
                         <button
                             wire:click="toggleSpécialty({{ $spec->id }})"
                             class="px-3 py-1 rounded-full text-sm transition-colors
@@ -142,15 +142,15 @@
                                 </div>
 
                                 <!-- Spécialités -->
-                                @if($professional->spécialties && $professional->spécialties->isNotEmpty())
+                                @if($professional->specialties && $professional->specialties->isNotEmpty())
                                     <div class="mt-4 flex flex-wrap gap-1">
-                                        @foreach($professional->spécialties->take(3) as $spécialty)
+                                        @foreach($professional->specialties->take(3) as $specialty)
                                             <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-cap-100 text-cap-900">
-                                                {{ $spécialty->name }}
+                                                {{ $specialty->name }}
                                             </span>
                                         @endforeach
-                                        @if($professional->spécialties->count() > 3)
-                                            <span class="text-xs text-gray-500">+{{ $professional->spécialties->count() - 3 }}</span>
+                                        @if($professional->specialties->count() > 3)
+                                            <span class="text-xs text-gray-500">+{{ $professional->specialties->count() - 3 }}</span>
                                         @endif
                                     </div>
                                 @endif
