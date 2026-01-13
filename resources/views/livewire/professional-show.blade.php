@@ -90,7 +90,7 @@
                                 <iframe
                                     src="{{ $professional->video_embed_url }}"
                                     class="w-full h-full"
-                                    allowfullscréén
+                                    allowfullscreen
                                 ></iframe>
                             </div>
                         </div>
