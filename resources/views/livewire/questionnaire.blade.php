@@ -131,7 +131,7 @@
                         Âge de votre enfant
                     </label>
                     <select
-                        wire:model="childAge"
+                        wire:model.live="childAge"
                         class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cap-500 focus:border-cap-500"
                     >
                         <option value="">Sélectionner l'âge...</option>
@@ -149,7 +149,7 @@
                         Durée de la situation
                     </label>
                     <select
-                        wire:model="duration"
+                        wire:model.live="duration"
                         class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cap-500 focus:border-cap-500"
                     >
                         <option value="">Sélectionner la durée...</option>
@@ -185,7 +185,7 @@
                         Canton
                     </label>
                     <select
-                        wire:model="canton"
+                        wire:model.live="canton"
                         class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cap-500 focus:border-cap-500"
                     >
                         <option value="">Tous les cantons (Suisse romande)</option>
