@@ -85,7 +85,7 @@
 
                     <div class="space-y-3">
                         <a
-                            href="https://www.captoimaime.ch"
+                            href="https://infomaniak.events/fr-ch/shop/association-cap-toi-maime-CMM9TZMBZU/"
                             target="_blank"
                             class="flex items-center justify-center gap-2 w-full bg-ctm-burgundy text-white py-4 rounded-xl font-bold uppercase hover:bg-ctm-burgundy-dark transition-all hover:shadow-lg"
                         >
