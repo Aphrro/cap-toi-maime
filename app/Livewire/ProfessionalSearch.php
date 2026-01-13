@@ -17,6 +17,7 @@ class ProfessionalSearch extends Component
     public ?int $categoryId = null;
     public ?int $cantonId = null;
     public array $selectedSpecialties = [];
+    public array $selectedReimbursements = [];
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -51,6 +52,16 @@ class ProfessionalSearch extends Component
         $this->resetPage();
     }
 
+    public function toggleReimbursement($code)
+    {
+        if (in_array($code, $this->selectedReimbursements)) {
+            $this->selectedReimbursements = array_values(array_diff($this->selectedReimbursements, [$code]));
+        } else {
+            $this->selectedReimbursements[] = $code;
+        }
+        $this->resetPage();
+    }
+
     public function render()
     {
         $professionals = Professional::query()
@@ -77,6 +88,11 @@ class ProfessionalSearch extends Component
                     $q->whereIn('specialties.id', $this->selectedSpecialties);
                 });
             })
+            ->when(!empty($this->selectedReimbursements), function ($query) {
+                foreach ($this->selectedReimbursements as $reimbursement) {
+                    $query->whereJsonContains('reimbursements', $reimbursement);
+                }
+            })
             ->orderByDesc('is_featured')
             ->orderByDesc('is_verified')
             ->paginate(12);
@@ -94,6 +110,7 @@ class ProfessionalSearch extends Component
             'categories' => Category::active()->get(),
             'cantons' => Canton::orderBy('name')->get(),
             'specialtiesFilter' => $specialtiesFilter,
+            'reimbursementOptions' => Professional::REIMBURSEMENT_OPTIONS,
         ])->layout('layouts.public');
     }
 }

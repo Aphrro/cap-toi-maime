@@ -1,6 +1,17 @@
 <?php
 
 return [
+    // Questions sur l'annuaire
+    [
+        'question' => "Y a-t-il des frais pour utiliser l'annuaire ?",
+        'answer' => "L'annuaire Cap Toi M'aime fait partie des avantages dont beneficient les membres de l'association. Les frais d'adhesion couvrent les frais engendres par la maintenance du site. Nous ne poursuivons aucun but lucratif avec cet annuaire et ne prenons aucune commission.",
+    ],
+    [
+        'question' => "Puis-je annuler ou modifier mon rendez-vous ?",
+        'answer' => "Oui, vous recevrez un email de confirmation avec un lien pour annuler votre rendez-vous. Nous vous recommandons d'annuler au moins 48h a l'avance. Chaque professionnel possede sa propre politique d'annulation que vous pouvez consulter directement dans la FAQ de chaque profil. Pour modifier un rendez-vous, annulez d'abord l'ancien puis reprenez-en un nouveau a la nouvelle date souhaitee.",
+    ],
+
+    // Questions sur la phobie scolaire
     [
         'question' => "Qu'est-ce que la phobie scolaire ?",
         'answer' => "La phobie scolaire, egalement appelee refus scolaire anxieux, est une incapacite pour l'enfant ou l'adolescent a se rendre a l'ecole en raison d'une anxiete intense. Ce n'est pas un caprice ou de la paresse, mais une veritable souffrance psychologique qui necessite un accompagnement adapte.",
@@ -19,7 +30,7 @@ return [
     ],
     [
         'question' => "Quel type de professionnel consulter ?",
-        'answer' => "Plusieurs professionnels peuvent aider : psychologues, pedopsychiatres, therapeutes familiaux, coachs scolaires specialises. Le choix depend de la situation. Notre annuaire regroupe des professionnels formes a cette problematique specifique en Suisse romande.",
+        'answer' => "Plusieurs professionnels peuvent aider : psychologues, pedopsychiatres, therapeutes familiaux, coachs scolaires specialises. Le choix depend de la situation. L'annuaire Cap Toi M'aime regroupe des professionnels formes a cette problematique specifique en Suisse romande.",
     ],
     [
         'question' => "Combien de temps dure une phobie scolaire ?",

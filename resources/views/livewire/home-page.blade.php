@@ -1,10 +1,16 @@
 <div>
     {{-- Hero Section --}}
-    <section class="bg-gradient-to-b from-cap-900 to-cap-800 text-white py-16 px-4">
+    <section class="bg-gradient-to-b from-ctm-burgundy to-ctm-burgundy-dark text-white py-16 px-4">
         <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-3xl md:text-5xl font-bold mb-2">TROUVEZ LE BON ACCOMPAGNEMENT</h1>
-            <h2 class="text-xl md:text-3xl font-light mb-2">POUR VOTRE ENFANT</h2>
-            <p class="text-cap-200 mb-8">Phobie scolaire • Refus scolaire • Décrochage</p>
+            {{-- Logo --}}
+            <img src="{{ asset('logo-cap-toi-maime.png') }}" alt="Cap Toi M'aime" class="h-20 mx-auto mb-6 brightness-0 invert" onerror="this.style.display='none'">
+
+            <h1 class="text-2xl md:text-4xl font-bold mb-4">
+                Trouvez des therapeutes disponibles, proches de chez vous et formes au refus scolaire anxieux.
+            </h1>
+            <p class="text-xl text-white/80 mb-8">
+                Un annuaire de therapeutes tops et dispos, qui connaissent vraiment la phobie scolaire, et que l'equipe Cap Toi M'aime connait et recommande.
+            </p>
 
             {{-- Search Box --}}
             <div class="bg-white rounded-xl p-6 max-w-xl mx-auto text-gray-800 shadow-lg">
@@ -17,10 +23,10 @@
                             type="text"
                             wire:model="search"
                             placeholder="Recherche rapide..."
-                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cap-500 focus:border-cap-500"
+                            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-ctm-burgundy focus:border-ctm-burgundy"
                         >
                     </div>
-                    <button type="submit" class="bg-cap-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-cap-800 transition">
+                    <button type="submit" class="bg-ctm-burgundy text-white px-6 py-3 rounded-lg font-medium hover:bg-ctm-burgundy-dark transition">
                         Chercher
                     </button>
                 </form>
@@ -29,12 +35,12 @@
 
                 <a
                     href="{{ route('questionnaire') }}"
-                    class="flex items-center justify-center gap-2 w-full bg-cap-100 text-cap-900 py-4 rounded-lg font-medium hover:bg-cap-200 transition"
+                    class="flex items-center justify-center gap-2 w-full bg-ctm-burgundy/10 text-ctm-burgundy py-4 rounded-lg font-medium hover:bg-ctm-burgundy/20 transition"
                 >
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                     </svg>
-                    ÊTRE GUIDÉ - Questionnaire personnalisé
+                    ETRE GUIDE - Questionnaire personnalise
                 </a>
             </div>
         </div>
@@ -161,4 +167,19 @@
         </div>
     </section>
     @endif
+
+    {{-- CTA Section --}}
+    <section class="py-16 px-4 bg-ctm-burgundy/5">
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                Prets a trouver le professionnel qui vous convient a vous et a votre enfant ?
+            </h2>
+            <a
+                href="{{ route('questionnaire') }}"
+                class="inline-block bg-ctm-burgundy text-white px-8 py-4 rounded-lg font-medium hover:bg-ctm-burgundy-dark transition"
+            >
+                Commencez maintenant
+            </a>
+        </div>
+    </section>
 </div>

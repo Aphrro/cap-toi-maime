@@ -9,13 +9,11 @@ use App\Livewire\Results;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Route;
 
+// ═══════════════════════════════════════════════════════════
+// ROUTES PUBLIQUES (accessibles a tous)
+// ═══════════════════════════════════════════════════════════
+
 Route::get('/', HomePage::class)->name('home');
-Route::get('/questionnaire', Questionnaire::class)->name('questionnaire');
-Route::get('/resultats', Results::class)->name('results');
-
-Route::get('/annuaire', ProfessionalSearch::class)->name('annuaire');
-Route::get('/professionnel/{professional:slug}', ProfessionalShow::class)->name('professional.show');
-
 Route::view('/a-propos', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
 Route::view('/faq', 'pages.faq')->name('faq');
@@ -31,6 +29,28 @@ Route::get('/temoignages', function () {
 Route::view('/conditions-utilisation', 'pages.legal.conditions')->name('conditions');
 Route::view('/politique-confidentialite', 'pages.legal.confidentialite')->name('confidentialite');
 Route::view('/charte-ethique', 'pages.legal.charte-ethique')->name('charte-ethique');
+
+// ═══════════════════════════════════════════════════════════
+// PAGES ACCES MEMBRES
+// ═══════════════════════════════════════════════════════════
+
+Route::view('/acces-membre', 'pages.member-gate')->name('member.gate');
+Route::view('/adhesion-en-attente', 'pages.member-pending')->name('member.pending');
+
+// ═══════════════════════════════════════════════════════════
+// ROUTES RESERVEES AUX MEMBRES (auth + member approved)
+// ═══════════════════════════════════════════════════════════
+
+Route::middleware(['member'])->group(function () {
+    Route::get('/annuaire', ProfessionalSearch::class)->name('annuaire');
+    Route::get('/professionnel/{professional:slug}', ProfessionalShow::class)->name('professional.show');
+    Route::get('/questionnaire', Questionnaire::class)->name('questionnaire');
+    Route::get('/resultats', Results::class)->name('results');
+});
+
+// ═══════════════════════════════════════════════════════════
+// ROUTES AUTHENTIFIEES
+// ═══════════════════════════════════════════════════════════
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

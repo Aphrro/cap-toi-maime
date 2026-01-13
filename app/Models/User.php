@@ -35,6 +35,10 @@ class User extends Authenticatable implements FilamentUser
         'is_active',
         'suspended_at',
         'suspension_reason',
+        'member_status',
+        'member_approved_at',
+        'member_rejection_reason',
+        'association_member_id',
     ];
 
     /**
@@ -59,7 +63,35 @@ class User extends Authenticatable implements FilamentUser
             'password' => 'hashed',
             'is_active' => 'boolean',
             'suspended_at' => 'datetime',
+            'member_approved_at' => 'datetime',
         ];
+    }
+
+    public function isMember(): bool
+    {
+        return $this->member_status === 'approved';
+    }
+
+    public function isPendingMember(): bool
+    {
+        return $this->member_status === 'pending';
+    }
+
+    public function approveMembership(): void
+    {
+        $this->update([
+            'member_status' => 'approved',
+            'member_approved_at' => now(),
+            'member_rejection_reason' => null,
+        ]);
+    }
+
+    public function rejectMembership(string $reason): void
+    {
+        $this->update([
+            'member_status' => 'rejected',
+            'member_rejection_reason' => $reason,
+        ]);
     }
 
     public function parentProfile(): HasOne

@@ -66,6 +66,24 @@
                 </div>
             </div>
         @endif
+
+        <!-- Filtre par remboursements -->
+        <div class="mt-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Remboursements acceptes</label>
+            <div class="flex flex-wrap gap-2">
+                @foreach($reimbursementOptions as $code => $label)
+                    <button
+                        wire:click="toggleReimbursement('{{ $code }}')"
+                        class="px-3 py-1 rounded-full text-sm transition-colors
+                            {{ in_array($code, $selectedReimbursements)
+                                ? 'bg-blue-600 text-white'
+                                : 'bg-blue-50 text-blue-700 hover:bg-blue-100' }}"
+                    >
+                        {{ $label }}
+                    </button>
+                @endforeach
+            </div>
+        </div>
     </section>
 
     <!-- Results Section -->

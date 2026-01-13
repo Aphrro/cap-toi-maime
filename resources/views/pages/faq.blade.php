@@ -48,8 +48,8 @@
 
             <!-- CTA -->
             <div class="mt-12 bg-white rounded-2xl shadow-lg p-8 text-center">
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Vous n'avez pas trouve votre reponse ?</h2>
-                <p class="text-gray-600 mb-6">Contactez-nous directement ou consultez notre annuaire de professionnels.</p>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Vous ne trouvez pas la reponse a votre question ?</h2>
+                <p class="text-gray-600 mb-6">Contactez-nous a <a href="mailto:hello@captoimaime.ch" class="text-ctm-burgundy hover:underline">hello@captoimaime.ch</a> ou consultez notre annuaire de professionnels.</p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-ctm-teal hover:bg-ctm-teal-dark text-white font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

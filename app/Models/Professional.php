@@ -59,6 +59,16 @@ class Professional extends Model implements HasMedia
         'credential_documents',
         'accepts_terms',
         'accepts_ethics',
+        // Nouveaux champs profil
+        'profile_photo',
+        'video_url',
+        'who_am_i',
+        'my_approach',
+        'availability_status',
+        'reimbursements',
+        'faq_availability',
+        'faq_pricing',
+        'faq_cancellation',
     ];
 
     protected $casts = [
@@ -80,6 +90,23 @@ class Professional extends Model implements HasMedia
         'rating' => 'decimal:1',
         'reviews_count' => 'integer',
         'views_count' => 'integer',
+        // Nouveaux champs
+        'reimbursements' => 'array',
+    ];
+
+    public const REIMBURSEMENT_OPTIONS = [
+        'lamal' => 'LAMal',
+        'lca' => 'LCA',
+        'asca' => 'ASCA',
+        'rme' => 'RME',
+        'ai' => 'AI',
+        'bourses' => 'Bourses',
+    ];
+
+    public const AVAILABILITY_STATUSES = [
+        'available' => 'Disponible',
+        'limited' => 'RDV sous 2-4 sem.',
+        'waitlist' => 'Liste d\'attente',
     ];
 
     public const CONSULTATION_TYPES = [
@@ -126,6 +153,51 @@ class Professional extends Model implements HasMedia
     public function getSpecialtySlugsAttribute(): array
     {
         return $this->specialties->pluck('slug')->toArray();
+    }
+
+    /**
+     * Get availability badge info
+     */
+    public function getAvailabilityBadgeAttribute(): array
+    {
+        return match($this->availability_status) {
+            'available' => ['color' => 'green', 'label' => 'Disponible'],
+            'limited' => ['color' => 'orange', 'label' => 'RDV sous 2-4 sem.'],
+            'waitlist' => ['color' => 'gray', 'label' => 'Liste d\'attente'],
+            default => ['color' => 'gray', 'label' => 'Non renseigne'],
+        };
+    }
+
+    /**
+     * Get formatted reimbursements list
+     */
+    public function getReimbursementsListAttribute(): array
+    {
+        return collect($this->reimbursements ?? [])
+            ->map(fn($code) => self::REIMBURSEMENT_OPTIONS[$code] ?? $code)
+            ->toArray();
+    }
+
+    /**
+     * Get video embed URL (YouTube/Vimeo)
+     */
+    public function getVideoEmbedUrlAttribute(): ?string
+    {
+        if (!$this->video_url) {
+            return null;
+        }
+
+        // YouTube
+        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $this->video_url, $matches)) {
+            return "https://www.youtube.com/embed/{$matches[1]}";
+        }
+
+        // Vimeo
+        if (preg_match('/vimeo\.com\/(\d+)/', $this->video_url, $matches)) {
+            return "https://player.vimeo.com/video/{$matches[1]}";
+        }
+
+        return $this->video_url;
     }
 
     // ═══════════════════════════════════════════════════════════
