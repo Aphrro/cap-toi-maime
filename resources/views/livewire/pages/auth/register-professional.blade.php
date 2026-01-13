@@ -5,7 +5,7 @@ use App\Models\Professional;
 use App\Models\Category;
 use App\Models\Canton;
 use App\Models\City;
-use App\Models\Spécialty;
+use App\Models\Specialty;
 use App\Rules\SwissPhoneNumber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -120,9 +120,9 @@ new #[Layout('layouts.guest')] class extends Component
             ]);
         } elseif ($this->step === 4) {
             $this->validate([
-                'category_id' => ['required', 'exists:catégories,id'],
+                'category_id' => ['required', 'exists:categories,id'],
                 'specialty_ids' => ['required', 'array', 'min:1'],
-                'specialty_ids.*' => ['exists:spécialties,id'],
+                'specialty_ids.*' => ['exists:specialties,id'],
                 'languages' => ['required', 'array', 'min:1'],
                 'languages.*' => [Rule::in(array_keys(Professional::LANGUAGES))],
                 'consultation_type' => ['required', Rule::in(array_keys(Professional::CONSULTATION_TYPES))],
@@ -235,8 +235,8 @@ new #[Layout('layouts.guest')] class extends Component
         return [
             'cantons' => Canton::orderBy('name')->get(),
             'cities' => $this->canton_id ? City::where('canton_id', $this->canton_id)->orderBy('name')->get() : collect(),
-            'catégories' => Category::where('is_active', true)->orderBy('name')->get(),
-            'spécialties' => Spécialty::where('is_active', true)->orderBy('name')->get(),
+            'categories' => Category::where('is_active', true)->orderBy('name')->get(),
+            'specialties' => Specialty::where('is_active', true)->orderBy('name')->get(),
             'availableLanguages' => Professional::LANGUAGES,
             'consultationTypes' => Professional::CONSULTATION_TYPES,
             'professionalNumberTypes' => Professional::PROFESSIONAL_NUMBER_TYPES,
