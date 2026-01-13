@@ -130,7 +130,7 @@
                     <div>
                         <h3 class="text-white font-semibold uppercase text-sm mb-4">Contact</h3>
                         <ul class="space-y-2">
-                            <li class="text-sm text-gray-400">contact@captoimaime.ch</li>
+                            <li class="text-sm text-gray-400">hello@captoimaime.ch</li>
                             <li class="text-sm text-gray-400">Suisse romande</li>
                         </ul>
                     </div>

@@ -84,7 +84,7 @@
                             <li>Droit d'opposition au traitement</li>
                         </ul>
                         <p class="text-gray-600">
-                            Pour exercer ces droits, contactez-nous a : <a href="mailto:contact@captoimaime.ch" class="text-ctm-teal hover:underline">contact@captoimaime.ch</a>
+                            Pour exercer ces droits, contactez-nous a : <a href="mailto:hello@captoimaime.ch" class="text-ctm-teal hover:underline">hello@captoimaime.ch</a>
                         </p>
 
                         <h2 class="text-lg font-semibold text-gray-900">8. Cookies</h2>
@@ -94,7 +94,7 @@
 
                         <h2 class="text-lg font-semibold text-gray-900">9. Contact</h2>
                         <p class="text-gray-600">
-                            Pour toute question concernant cette politique de confidentialite, contactez notre delegue a la protection des donnees : <a href="mailto:contact@captoimaime.ch" class="text-ctm-teal hover:underline">contact@captoimaime.ch</a>
+                            Pour toute question concernant cette politique de confidentialite, contactez notre delegue a la protection des donnees : <a href="mailto:hello@captoimaime.ch" class="text-ctm-teal hover:underline">hello@captoimaime.ch</a>
                         </p>
                     </div>
                 </div>

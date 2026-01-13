@@ -83,7 +83,7 @@
 
                         <h2 class="text-lg font-semibold text-gray-900">9. Contact</h2>
                         <p class="text-gray-600">
-                            Pour toute question concernant ces conditions, veuillez nous contacter a : <a href="mailto:contact@captoimaime.ch" class="text-ctm-teal hover:underline">contact@captoimaime.ch</a>
+                            Pour toute question concernant ces conditions, veuillez nous contacter a : <a href="mailto:hello@captoimaime.ch" class="text-ctm-teal hover:underline">hello@captoimaime.ch</a>
                         </p>
                     </div>
                 </div>
