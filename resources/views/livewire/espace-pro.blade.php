@@ -21,20 +21,20 @@
                     <div class="bg-white/10 backdrop-blur rounded-2xl p-8">
                         <div class="grid grid-cols-2 gap-6 text-center">
                             <div>
-                                <div class="text-4xl font-bold mb-2">100%</div>
-                                <div class="text-white/80 text-sm">Gratuit</div>
+                                <div class="text-4xl font-bold mb-2">{{ $stats['pros_count'] ?? 0 }}</div>
+                                <div class="text-white/80 text-sm">Professionnels<br>référencés</div>
                             </div>
                             <div>
-                                <div class="text-4xl font-bold mb-2">500+</div>
-                                <div class="text-white/80 text-sm">Familles/mois</div>
+                                <div class="text-4xl font-bold mb-2">{{ $stats['members_count'] ?? 0 }}</div>
+                                <div class="text-white/80 text-sm">Familles<br>membres</div>
                             </div>
                             <div>
-                                <div class="text-4xl font-bold mb-2">24h</div>
-                                <div class="text-white/80 text-sm">Validation rapide</div>
+                                <div class="text-4xl font-bold mb-2">0%</div>
+                                <div class="text-white/80 text-sm">Commission<br><span class="text-xs">(100% gratuit)</span></div>
                             </div>
                             <div>
-                                <div class="text-4xl font-bold mb-2">6</div>
-                                <div class="text-white/80 text-sm">Cantons romands</div>
+                                <div class="text-4xl font-bold mb-2">7</div>
+                                <div class="text-white/80 text-sm">Cantons<br>couverts</div>
                             </div>
                         </div>
                     </div>
