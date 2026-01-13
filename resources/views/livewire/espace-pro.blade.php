@@ -127,52 +127,49 @@
 
     {{-- How it works --}}
     <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Comment ça marche ?</h2>
             </div>
 
-            <div class="grid md:grid-cols-4 gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                 {{-- Step 1 --}}
-                <div class="text-center">
+                <div class="text-center relative">
                     <div class="w-12 h-12 bg-ctm-burgundy text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
                     <h3 class="font-bold text-gray-900 mb-2">Inscription</h3>
                     <p class="text-gray-600 text-sm">Remplissez le formulaire avec vos informations professionnelles</p>
-                </div>
-
-                {{-- Arrow --}}
-                <div class="hidden md:flex items-center justify-center">
-                    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
+                    {{-- Arrow --}}
+                    <div class="hidden md:block absolute top-5 -right-4 transform translate-x-1/2">
+                        <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
                 </div>
 
                 {{-- Step 2 --}}
-                <div class="text-center">
+                <div class="text-center relative">
                     <div class="w-12 h-12 bg-ctm-burgundy text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
                     <h3 class="font-bold text-gray-900 mb-2">Validation</h3>
                     <p class="text-gray-600 text-sm">Notre équipe vérifie votre profil sous 24-48h</p>
-                </div>
-
-                {{-- Arrow --}}
-                <div class="hidden md:flex items-center justify-center">
-                    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
+                    {{-- Arrow --}}
+                    <div class="hidden md:block absolute top-5 -right-4 transform translate-x-1/2">
+                        <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
                 </div>
 
                 {{-- Step 3 --}}
-                <div class="text-center">
+                <div class="text-center relative">
                     <div class="w-12 h-12 bg-ctm-burgundy text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
                     <h3 class="font-bold text-gray-900 mb-2">Publication</h3>
                     <p class="text-gray-600 text-sm">Votre profil apparaît dans l'annuaire</p>
-                </div>
-
-                {{-- Arrow --}}
-                <div class="hidden md:flex items-center justify-center">
-                    <svg class="w-8 h-8 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
+                    {{-- Arrow --}}
+                    <div class="hidden md:block absolute top-5 -right-4 transform translate-x-1/2">
+                        <svg class="w-6 h-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </div>
                 </div>
 
                 {{-- Step 4 --}}
