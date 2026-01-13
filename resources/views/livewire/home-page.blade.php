@@ -3,7 +3,7 @@
     <section class="bg-gradient-to-b from-ctm-burgundy to-ctm-burgundy-dark text-white py-16 px-4">
         <div class="max-w-4xl mx-auto text-center">
             {{-- Logo --}}
-            <img src="{{ asset('logo-cap-toi-maime.png') }}" alt="Cap Toi M'aime" class="h-20 mx-auto mb-6 brightness-0 invert" onerror="this.style.display='none'">
+            <img src="{{ asset('logo-cap-toi-maime.png') }}" alt="Cap Toi M'aime" class="h-20 mx-auto mb-6 rounded-lg" onerror="this.style.display='none'">
 
             <h1 class="text-2xl md:text-4xl font-bold mb-4">
                 Trouvez des therapeutes disponibles, proches de chez vous et formes au refus scolaire anxieux.
