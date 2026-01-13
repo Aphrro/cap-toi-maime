@@ -1,11 +1,11 @@
-<x-public-layout title="Temoignages - Cap Toi M'aime">
+<x-public-layout title="Témoignages - Cap Toi M'aime">
     <!-- Hero -->
     <section class="bg-ctm-burgundy py-16 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
         <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-12"></div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-            <h1 class="font-display text-3xl md:text-4xl text-white uppercase">Temoignages</h1>
-            <p class="mt-4 text-lg text-ctm-cream">Ce que les familles disent de leur experience</p>
+            <h1 class="font-display text-3xl md:text-4xl text-white uppercase">Témoignages</h1>
+            <p class="mt-4 text-lg text-ctm-cream">Ce que les familles disent de leur expérience</p>
         </div>
     </section>
 
@@ -19,8 +19,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
                         </svg>
                     </div>
-                    <h2 class="text-xl font-semibold text-gray-900 mb-2">Aucun temoignage pour le moment</h2>
-                    <p class="text-gray-600">Les temoignages seront bientot disponibles.</p>
+                    <h2 class="text-xl font-semibold text-gray-900 mb-2">Aucun témoignage pour le moment</h2>
+                    <p class="text-gray-600">Les témoignages seront bientot disponibles.</p>
                 </div>
             @else
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -53,8 +53,8 @@
                                     </div>
                                     <div>
                                         <p class="font-semibold text-gray-900">{{ $testimonial->author_name }}</p>
-                                        @if($testimonial->author_role)
-                                            <p class="text-sm text-gray-500">{{ $testimonial->author_role }}</p>
+                                        @if($testimonial->author_rôle)
+                                            <p class="text-sm text-gray-500">{{ $testimonial->author_rôle }}</p>
                                         @endif
                                     </div>
                                 </div>
@@ -66,8 +66,8 @@
 
             <!-- CTA -->
             <div class="mt-12 bg-white rounded-2xl shadow-lg p-8 text-center">
-                <h2 class="text-xl font-semibold text-gray-900 mb-4">Vous souhaitez partager votre experience ?</h2>
-                <p class="text-gray-600 mb-6">Votre temoignage peut aider d'autres familles confrontees a la phobie scolaire.</p>
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Vous souhaitez partager votre expérience ?</h2>
+                <p class="text-gray-600 mb-6">Votre témoignage peut aider d'autrès familles confrontees à la phobie scolaire.</p>
                 <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>

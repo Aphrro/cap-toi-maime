@@ -8,7 +8,7 @@
                         Contactez-nous
                     </h1>
                     <p class="text-lg md:text-xl text-white/90 mb-8">
-                        Une question sur l'adhesion, l'annuaire ou l'association ? Notre equipe est a votre ecoute.
+                        Une question sur l'adhésion, l'annuaire ou l'association ? Notre équipe est à votre écoute.
                     </p>
                 </div>
                 <div class="hidden md:flex justify-center">
@@ -32,7 +32,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="font-bold">Delai de reponse</div>
+                                    <div class="font-bold">Délai de réponse</div>
                                     <div class="text-white/80 text-sm">Sous 48h ouvrées</div>
                                 </div>
                             </div>
@@ -77,7 +77,7 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="font-medium text-gray-900">Delai de reponse</div>
+                        <div class="font-medium text-gray-900">Délai de réponse</div>
                         <div class="text-gray-600 text-sm">Sous 48h ouvrées</div>
                     </div>
                 </div>
@@ -125,8 +125,8 @@
                                     required
                                     class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ctm-burgundy focus:border-ctm-burgundy transition"
                                 >
-                                    <option value="">Selectionnez un sujet...</option>
-                                    <option value="adhesion">Question sur l'adhesion</option>
+                                    <option value="">Sélectionnéz un sujet...</option>
+                                    <option value="adhésion">Question sur l'adhésion</option>
                                     <option value="annuaire">Question sur l'annuaire</option>
                                     <option value="professionnel">Je suis professionnel</option>
                                     <option value="autre">Autre</option>
@@ -140,7 +140,7 @@
                                     rows="5"
                                     required
                                     class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-ctm-burgundy focus:border-ctm-burgundy transition resize-none"
-                                    placeholder="Decrivez votre demande..."
+                                    placeholder="Décrivez votre demande..."
                                 ></textarea>
                             </div>
 
@@ -169,7 +169,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                 </div>
-                                <span>Questions frequentes (FAQ)</span>
+                                <span>Questions fréquentes (FAQ)</span>
                             </a>
                             <a href="{{ route('about') }}" class="flex items-center gap-3 text-gray-600 hover:text-ctm-burgundy transition">
                                 <div class="w-8 h-8 bg-ctm-burgundy/10 rounded-lg flex items-center justify-center">
@@ -177,7 +177,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                     </svg>
                                 </div>
-                                <span>A propos de l'annuaire</span>
+                                <span>À propos de l'annuaire</span>
                             </a>
                             <a href="{{ route('espace-pro') }}" class="flex items-center gap-3 text-gray-600 hover:text-ctm-burgundy transition">
                                 <div class="w-8 h-8 bg-ctm-burgundy/10 rounded-lg flex items-center justify-center">
@@ -193,7 +193,7 @@
                     {{-- Main Site Link --}}
                     <div class="bg-ctm-burgundy/5 rounded-2xl p-6 border border-ctm-burgundy/10">
                         <h3 class="font-bold text-gray-900 mb-2">Site principal</h3>
-                        <p class="text-gray-600 text-sm mb-4">Decouvrez l'association Cap Toi M'aime et toutes nos actions.</p>
+                        <p class="text-gray-600 text-sm mb-4">Découvrez l'association Cap Toi M'aime et toutes nos actions.</p>
                         <a
                             href="https://www.captoimaime.ch"
                             target="_blank"
@@ -213,8 +213,8 @@
     {{-- CTA Section --}}
     <section class="py-16 bg-ctm-burgundy text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">Vous etes professionnel ?</h2>
-            <p class="text-white/80 mb-8 text-lg">Rejoignez notre annuaire et aidez les familles a vous trouver.</p>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Vous êtes professionnel ?</h2>
+            <p class="text-white/80 mb-8 text-lg">Rejoignez notre annuaire et aidez les familles à vous trouver.</p>
             <a href="{{ route('espace-pro') }}" class="inline-flex items-center gap-2 bg-white text-ctm-burgundy hover:bg-gray-100 font-bold uppercase px-8 py-4 rounded-full transition-all hover:shadow-xl text-lg">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>

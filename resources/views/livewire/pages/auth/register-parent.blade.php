@@ -37,7 +37,7 @@ new #[Layout('layouts.guest')] class extends Component
 
     // Step 3: Children
     public array $children = [
-        ['first_name' => '', 'age' => '', 'problematique' => '', 'description' => '']
+        ['first_name' => '', 'age' => '', 'problématique' => '', 'description' => '']
     ];
 
     public function mount()
@@ -77,7 +77,7 @@ new #[Layout('layouts.guest')] class extends Component
 
     public function addChild()
     {
-        $this->children[] = ['first_name' => '', 'age' => '', 'problematique' => '', 'description' => ''];
+        $this->children[] = ['first_name' => '', 'age' => '', 'problématique' => '', 'description' => ''];
     }
 
     public function removeChild($index)
@@ -95,7 +95,7 @@ new #[Layout('layouts.guest')] class extends Component
             'children' => ['required', 'array', 'min:1'],
             'children.*.first_name' => ['required', 'string', 'max:100'],
             'children.*.age' => ['required', 'integer', new ValidChildAge],
-            'children.*.problematique' => ['required', 'string', 'in:' . implode(',', array_keys(Child::PROBLEMATIQUES))],
+            'children.*.problématique' => ['required', 'string', 'in:' . implode(',', array_keys(Child::PROBLEMATIQUES))],
             'children.*.description' => ['nullable', 'string', 'max:500'],
         ]);
 
@@ -110,7 +110,7 @@ new #[Layout('layouts.guest')] class extends Component
                 'is_active' => true,
             ]);
 
-            // Assign role
+            // Assign rôle
             $user->assignRole('parent');
 
             // Create parent profile
@@ -129,7 +129,7 @@ new #[Layout('layouts.guest')] class extends Component
                     'parent_id' => $parentProfile->id,
                     'first_name' => $childData['first_name'],
                     'age' => (int) $childData['age'],
-                    'problematique' => $childData['problematique'],
+                    'problématique' => $childData['problématique'],
                     'description' => $childData['description'] ?: null,
                 ]);
             }
@@ -146,7 +146,7 @@ new #[Layout('layouts.guest')] class extends Component
         return [
             'cantons' => Canton::orderBy('name')->get(),
             'cities' => $this->canton_id ? City::where('canton_id', $this->canton_id)->orderBy('name')->get() : collect(),
-            'problematiques' => Child::PROBLEMATIQUES,
+            'problématiques' => Child::PROBLEMATIQUES,
         ];
     }
 }; ?>
@@ -223,7 +223,7 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
 
                 <div>
-                    <x-input-label for="phone" value="Telephone (optionnel)" />
+                    <x-input-label for="phone" value="Téléphone (optionnel)" />
                     <x-text-input wire:model="phone" id="phone" type="tel" class="block mt-1 w-full" placeholder="+41 79 123 45 67" />
                     <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                 </div>
@@ -243,7 +243,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <div>
                         <x-input-label for="canton_id" value="Canton" />
                         <select wire:model.live="canton_id" id="canton_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900">
-                            <option value="">Selectionnez...</option>
+                            <option value="">Sélectionnéz...</option>
                             @foreach ($cantons as $canton)
                                 <option value="{{ $canton->id }}">{{ $canton->name }} ({{ $canton->code }})</option>
                             @endforeach
@@ -256,7 +256,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <div>
                         <x-input-label for="city_id" value="Ville (optionnel)" />
                         <select wire:model="city_id" id="city_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900">
-                            <option value="">Selectionnez...</option>
+                            <option value="">Sélectionnéz...</option>
                             @foreach ($cities as $city)
                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
                             @endforeach
@@ -296,18 +296,18 @@ new #[Layout('layouts.guest')] class extends Component
 
                         <div class="mb-4">
                             <x-input-label value="Problematique principale" />
-                            <select wire:model="children.{{ $index }}.problematique" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required>
-                                <option value="">Selectionnez...</option>
-                                @foreach ($problematiques as $key => $label)
+                            <select wire:model="children.{{ $index }}.problématique" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required>
+                                <option value="">Sélectionnéz...</option>
+                                @foreach ($problématiques as $key => $label)
                                     <option value="{{ $key }}">{{ $label }}</option>
                                 @endforeach
                             </select>
-                            <x-input-error :messages="$errors->get('children.'.$index.'.problematique')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('children.'.$index.'.problématique')" class="mt-2" />
                         </div>
 
                         <div>
                             <x-input-label value="Description (optionnel)" />
-                            <textarea wire:model="children.{{ $index }}.description" rows="2" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" placeholder="Decrivez brievement la situation..."></textarea>
+                            <textarea wire:model="children.{{ $index }}.description" rows="2" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" placeholder="Décrivez brievement la situation..."></textarea>
                             <x-input-error :messages="$errors->get('children.'.$index.'.description')" class="mt-2" />
                         </div>
                     </div>
@@ -347,7 +347,7 @@ new #[Layout('layouts.guest')] class extends Component
     </form>
 
     <p class="mt-6 text-center text-sm text-gray-600">
-        Deja inscrit ?
+        Déjà inscrit ?
         <a href="{{ route('login') }}" class="text-cap-900 hover:underline font-medium" wire:navigate>Se connecter</a>
     </p>
 </div>

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Conditions d'utilisation - Cap Toi M'aime</title>
-        <meta name="description" content="Conditions generales d'utilisation de la plateforme Cap Toi M'aime.">
+        <meta name="description" content="Conditions générales d'utilisation de la plateforme Cap Toi M'aime.">
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700|bowlby-one-sc:400&display=swap" rel="stylesheet" />
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -32,23 +32,23 @@
         <section class="py-16 bg-ctm-cream">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="bg-white rounded-2xl shadow-lg p-8 lg:p-12">
-                    <h1 class="text-2xl font-bold text-gray-900 mb-8">Conditions Generales d'Utilisation</h1>
-                    <p class="text-sm text-gray-500 mb-8">Derniere mise a jour : {{ date('d/m/Y') }}</p>
+                    <h1 class="text-2xl font-bold text-gray-900 mb-8">Conditions Générales d'Utilisation</h1>
+                    <p class="text-sm text-gray-500 mb-8">Dernière mise à jour : {{ date('d/m/Y') }}</p>
 
                     <div class="prose prose-gray max-w-none space-y-6">
                         <h2 class="text-lg font-semibold text-gray-900">1. Objet</h2>
                         <p class="text-gray-600">
-                            Les presentes Conditions Generales d'Utilisation (CGU) regissent l'acces et l'utilisation de la plateforme Cap Toi M'aime, un annuaire en ligne de professionnels specialises dans l'accompagnement de la phobie scolaire en Suisse romande.
+                            Les présentés Conditions Générales d'Utilisation (CGU) regissent l'acces et l'utilisation de la plateforme Cap Toi M'aime, un annuaire en ligne de professionnels spécialises dans l'accompagnément de la phobie scolaire en Suisse romande.
                         </p>
 
                         <h2 class="text-lg font-semibold text-gray-900">2. Acceptation des conditions</h2>
                         <p class="text-gray-600">
-                            L'utilisation de la plateforme implique l'acceptation pleine et entiere des presentes CGU. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser nos services.
+                            L'utilisation de la plateforme implique l'acceptation pleine et entière des présentés CGU. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser nos services.
                         </p>
 
                         <h2 class="text-lg font-semibold text-gray-900">3. Services proposes</h2>
                         <p class="text-gray-600">
-                            Cap Toi M'aime propose un annuaire permettant aux familles de trouver des professionnels qualifies pour accompagner leurs enfants confrontes a la phobie scolaire. Les services incluent :
+                            Cap Toi M'aime propose un annuaire permettant aux familles de trouver des professionnels qualifies pour accompagnér leurs enfants confrontes à la phobie scolaire. Les services incluent :
                         </p>
                         <ul class="list-disc list-inside text-gray-600 ml-4">
                             <li>La consultation de l'annuaire des professionnels</li>
@@ -58,27 +58,27 @@
 
                         <h2 class="text-lg font-semibold text-gray-900">4. Inscription des professionnels</h2>
                         <p class="text-gray-600">
-                            Les professionnels souhaitant apparaitre dans l'annuaire doivent fournir des informations exactes et verifiables concernant leurs qualifications, diplomes et experience. Cap Toi M'aime se reserve le droit de verifier ces informations et de refuser ou retirer toute inscription ne respectant pas nos criteres de qualite.
+                            Les professionnels souhaitant apparaitre dans l'annuaire doivent fournir des informations exactes et verifiables concernant leurs qualifications, diplômes et expérience. Cap Toi M'aime se réservé le droit de vérifiér ces informations et de refuser ou retirer toute inscription ne respectant pas nos critères de qualité.
                         </p>
 
-                        <h2 class="text-lg font-semibold text-gray-900">5. Responsabilites</h2>
+                        <h2 class="text-lg font-semibold text-gray-900">5. Responsabilités</h2>
                         <p class="text-gray-600">
-                            Cap Toi M'aime agit en tant qu'intermediaire et ne peut etre tenu responsable des prestations fournies par les professionnels listes dans l'annuaire. Les utilisateurs sont invites a exercer leur propre jugement dans le choix d'un professionnel.
+                            Cap Toi M'aime agit en tant qu'intermediaire et ne peut être tenu responsable des prestations fournies par les professionnels listes dans l'annuaire. Les utilisateurs sont invites a exercer leur propre jugement dans le choix d'un professionnel.
                         </p>
 
-                        <h2 class="text-lg font-semibold text-gray-900">6. Propriete intellectuelle</h2>
+                        <h2 class="text-lg font-semibold text-gray-900">6. Propriété intellectuelle</h2>
                         <p class="text-gray-600">
                             L'ensemble du contenu de la plateforme (textes, images, logos, etc.) est protege par le droit d'auteur. Toute reproduction sans autorisation est interdite.
                         </p>
 
                         <h2 class="text-lg font-semibold text-gray-900">7. Modification des CGU</h2>
                         <p class="text-gray-600">
-                            Cap Toi M'aime se reserve le droit de modifier les presentes CGU a tout moment. Les utilisateurs seront informes des modifications importantes.
+                            Cap Toi M'aime se réservé le droit de modifiér les présentés CGU a tout moment. Les utilisateurs seront informes des modifications importantes.
                         </p>
 
                         <h2 class="text-lg font-semibold text-gray-900">8. Droit applicable</h2>
                         <p class="text-gray-600">
-                            Les presentes CGU sont soumises au droit suisse. Tout litige sera soumis aux tribunaux competents du canton de Vaud.
+                            Les présentés CGU sont soumises au droit suisse. Tout litige sera soumis aux tribunaux competents du canton de Vaud.
                         </p>
 
                         <h2 class="text-lg font-semibold text-gray-900">9. Contact</h2>
@@ -93,7 +93,7 @@
         <!-- Footer -->
         <footer class="bg-ctm-black text-gray-300 py-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <p class="text-sm text-gray-500">&copy; {{ date('Y') }} Cap Toi M'aime. Tous droits reserves.</p>
+                <p class="text-sm text-gray-500">&copy; {{ date('Y') }} Cap Toi M'aime. Tous droits réservés.</p>
             </div>
         </footer>
     </body>

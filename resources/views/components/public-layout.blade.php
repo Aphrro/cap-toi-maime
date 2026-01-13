@@ -8,7 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title }}</title>
-        <meta name="description" content="Trouvez des therapeutes specialises dans le refus scolaire anxieux en Suisse romande.">
+        <meta name="description" content="Trouvez des thérapeutes spécialises dans le refus scolaire anxieux en Suisse romande.">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,9 +31,9 @@
                     <!-- Desktop menu -->
                     <div class="hidden md:flex items-center space-x-6">
                         <a href="{{ route('home') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('home') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Accueil</a>
-                        <a href="{{ route('about') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('about') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">A propos</a>
+                        <a href="{{ route('about') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('about') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">À propos</a>
                         <a href="{{ route('faq') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('faq') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">FAQ</a>
-                        <a href="{{ route('temoignages') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('temoignages') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Temoignages</a>
+                        <a href="{{ route('témoignages') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('témoignages') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Témoignages</a>
                         <a href="{{ route('contact') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('contact') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Contact</a>
                         <a href="{{ route('espace-pro') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Espace Pro</a>
                         <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">Trouver un pro</a>
@@ -79,13 +79,13 @@
                         Trouver un professionnel
                     </a>
                     <a href="{{ route('about') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('about') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
-                        A propos
+                        À propos
                     </a>
                     <a href="{{ route('faq') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('faq') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
                         FAQ
                     </a>
-                    <a href="{{ route('temoignages') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('temoignages') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
-                        Temoignages
+                    <a href="{{ route('témoignages') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('témoignages') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                        Témoignages
                     </a>
                     <a href="{{ route('contact') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('contact') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
                         Contact
@@ -114,7 +114,7 @@
                             <span class="font-display text-lg text-white uppercase">Cap Toi M'aime</span>
                         </div>
                         <p class="mt-4 text-sm text-gray-400 max-w-md">
-                            Association dediee a l'accompagnement des familles confrontees a la phobie scolaire en Suisse romande.
+                            Association dédiée à l'accompagnément des familles confrontees à la phobie scolaire en Suisse romande.
                         </p>
                     </div>
                     <div>
@@ -122,8 +122,8 @@
                         <ul class="space-y-2">
                             <li><a href="{{ route('annuaire') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Annuaire</a></li>
                             <li><a href="{{ route('faq') }}" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a></li>
-                            <li><a href="{{ route('temoignages') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Temoignages</a></li>
-                            <li><a href="{{ route('about') }}" class="text-sm text-gray-400 hover:text-white transition-colors">A propos</a></li>
+                            <li><a href="{{ route('témoignages') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Témoignages</a></li>
+                            <li><a href="{{ route('about') }}" class="text-sm text-gray-400 hover:text-white transition-colors">À propos</a></li>
                             <li><a href="{{ route('contact') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a></li>
                         </ul>
                     </div>
@@ -136,7 +136,7 @@
                     </div>
                 </div>
                 <div class="mt-12 pt-8 border-t border-gray-800 text-center">
-                    <p class="text-sm text-gray-500">&copy; {{ date('Y') }} Cap Toi M'aime. Tous droits reserves.</p>
+                    <p class="text-sm text-gray-500">&copy; {{ date('Y') }} Cap Toi M'aime. Tous droits réservés.</p>
                 </div>
             </div>
         </footer>

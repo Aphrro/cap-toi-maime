@@ -1,4 +1,4 @@
-<x-public-layout title="Adhesion en cours - Cap Toi M'aime">
+<x-public-layout title="Adhésion en cours - Cap Toi M'aime">
     {{-- Hero Section --}}
     <section class="bg-gradient-to-br from-ctm-burgundy to-ctm-burgundy-dark text-white py-16 md:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -11,10 +11,10 @@
                 </div>
 
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                    Adhesion en cours de validation
+                    Adhésion en cours de validation
                 </h1>
                 <p class="text-lg md:text-xl text-white/90">
-                    Merci pour votre demande ! Notre equipe examine votre dossier.
+                    Merci pour votre demande ! Notre équipe examine votre dossier.
                 </p>
             </div>
         </div>
@@ -33,7 +33,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-amber-800 mb-1">En attente de validation</h3>
-                        <p class="text-amber-700">Vous recevrez une reponse par email sous <strong>48 heures</strong>.</p>
+                        <p class="text-amber-700">Vous recevrez une réponse par email sous <strong>48 heures</strong>.</p>
                     </div>
                 </div>
             </div>
@@ -46,8 +46,8 @@
                     <div class="flex items-start gap-4">
                         <div class="w-10 h-10 bg-ctm-burgundy text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">1</div>
                         <div>
-                            <h4 class="font-semibold text-gray-900">Verification de votre demande</h4>
-                            <p class="text-gray-600 text-sm">Notre equipe examine votre dossier d'adhesion.</p>
+                            <h4 class="font-semibold text-gray-900">Vérification de votre demande</h4>
+                            <p class="text-gray-600 text-sm">Notre équipe examine votre dossier d'adhésion.</p>
                         </div>
                     </div>
 
@@ -55,7 +55,7 @@
                         <div class="w-10 h-10 bg-ctm-burgundy text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">2</div>
                         <div>
                             <h4 class="font-semibold text-gray-900">Confirmation par email</h4>
-                            <p class="text-gray-600 text-sm">Vous recevrez un email de confirmation a l'adresse suivante :</p>
+                            <p class="text-gray-600 text-sm">Vous recevrez un email de confirmation à l'adresse suivante :</p>
                             <p class="text-ctm-burgundy font-medium mt-1">{{ auth()->user()->email ?? 'Non connecte' }}</p>
                         </div>
                     </div>
@@ -63,8 +63,8 @@
                     <div class="flex items-start gap-4">
                         <div class="w-10 h-10 bg-ctm-burgundy text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">3</div>
                         <div>
-                            <h4 class="font-semibold text-gray-900">Acces a l'annuaire</h4>
-                            <p class="text-gray-600 text-sm">Une fois valide, vous aurez acces a l'annuaire complet des professionnels.</p>
+                            <h4 class="font-semibold text-gray-900">Accès à l'annuaire</h4>
+                            <p class="text-gray-600 text-sm">Une fois valide, vous aurez acces à l'annuaire complet des professionnels.</p>
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
-                        <span>Questions ? Ecrivez-nous a </span>
+                        <span>Questions ? Écrivez-nous à </span>
                         <a href="mailto:hello@captoimaime.ch" class="text-ctm-burgundy font-medium hover:underline">hello@captoimaime.ch</a>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                     </svg>
-                    Retour a l'accueil
+                    Retour à l'accueil
                 </a>
 
                 @auth
@@ -109,7 +109,7 @@
     <section class="py-16 bg-gray-50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-3">En attendant, decouvrez...</h2>
+                <h2 class="text-2xl font-bold text-gray-900 mb-3">En attendant, découvrez...</h2>
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
@@ -120,8 +120,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-bold text-gray-900 mb-1">A propos de l'annuaire</h3>
-                        <p class="text-gray-600 text-sm">Decouvrez comment nous selectionnons nos professionnels.</p>
+                        <h3 class="font-bold text-gray-900 mb-1">À propos de l'annuaire</h3>
+                        <p class="text-gray-600 text-sm">Découvrez comment nous selectionnons nos professionnels.</p>
                     </div>
                 </a>
 
@@ -132,8 +132,8 @@
                         </svg>
                     </div>
                     <div>
-                        <h3 class="font-bold text-gray-900 mb-1">Questions frequentes</h3>
-                        <p class="text-gray-600 text-sm">Retrouvez les reponses aux questions les plus courantes.</p>
+                        <h3 class="font-bold text-gray-900 mb-1">Questions fréquentes</h3>
+                        <p class="text-gray-600 text-sm">Retrouvez les réponses aux questions les plus courantes.</p>
                     </div>
                 </a>
             </div>

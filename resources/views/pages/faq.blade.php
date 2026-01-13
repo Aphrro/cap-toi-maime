@@ -5,10 +5,10 @@
             <div class="grid md:grid-cols-2 gap-12 items-center">
                 <div>
                     <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                        Questions Frequentes
+                        Questions Fréquentes
                     </h1>
                     <p class="text-lg md:text-xl text-white/90 mb-8">
-                        Trouvez des reponses a vos questions sur la phobie scolaire, l'annuaire et l'adhesion.
+                        Trouvez des réponses a vos questions sur la phobie scolaire, l'annuaire et l'adhésion.
                     </p>
                 </div>
                 <div class="hidden md:flex justify-center">
@@ -21,7 +21,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="font-bold">Reponses rapides</div>
+                                    <div class="font-bold">Réponses rapides</div>
                                     <div class="text-white/80 text-sm">Informations essentielles</div>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Toutes les questions</h2>
-                <p class="text-gray-600">Cliquez sur une question pour voir la reponse</p>
+                <p class="text-gray-600">Cliquez sur une question pour voir la réponse</p>
             </div>
 
             <div class="space-y-4" x-data="{ openIndex: null }">
@@ -124,9 +124,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold text-gray-900 mb-3">Vous ne trouvez pas la reponse ?</h2>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-3">Vous ne trouvez pas la réponse ?</h2>
                     <p class="text-gray-600 mb-8 max-w-lg mx-auto">
-                        Notre equipe est disponible pour repondre a toutes vos questions sur l'adhesion, l'annuaire ou le refus scolaire anxieux.
+                        Notre équipe est disponible pour répondre à toutes vos questions sur l'adhésion, l'annuaire ou le refus scolaire anxieux.
                     </p>
                 </div>
 
@@ -151,8 +151,8 @@
     {{-- CTA Section --}}
     <section class="py-16 bg-ctm-burgundy text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">Pret a trouver le bon professionnel ?</h2>
-            <p class="text-white/80 mb-8 text-lg">Consultez notre annuaire de professionnels specialises dans le refus scolaire anxieux.</p>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Prêt à trouver le bon professionnel ?</h2>
+            <p class="text-white/80 mb-8 text-lg">Consultez notre annuaire de professionnels spécialises dans le refus scolaire anxieux.</p>
             <a href="{{ route('annuaire') }}" class="inline-flex items-center gap-2 bg-white text-ctm-burgundy hover:bg-gray-100 font-bold uppercase px-8 py-4 rounded-full transition-all hover:shadow-xl text-lg">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>

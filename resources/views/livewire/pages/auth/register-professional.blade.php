@@ -5,7 +5,7 @@ use App\Models\Professional;
 use App\Models\Category;
 use App\Models\Canton;
 use App\Models\City;
-use App\Models\Specialty;
+use App\Models\Spécialty;
 use App\Rules\SwissPhoneNumber;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +44,7 @@ new #[Layout('layouts.guest')] class extends Component
 
     // Step 4: Professional info
     public ?int $category_id = null;
-    public array $specialty_ids = [];
+    public array $spécialty_ids = [];
     public array $languages = [];
     public ?string $consultation_type = null;
 
@@ -52,7 +52,7 @@ new #[Layout('layouts.guest')] class extends Component
     public array $diplomas = [['title' => '', 'institution' => '', 'year' => '']];
     public ?string $professional_number = '';
     public ?string $professional_number_type = null;
-    public ?int $years_experience = null;
+    public ?int $years_expérience = null;
     public ?string $insurance_company = '';
     public ?string $insurance_number = '';
 
@@ -120,9 +120,9 @@ new #[Layout('layouts.guest')] class extends Component
             ]);
         } elseif ($this->step === 4) {
             $this->validate([
-                'category_id' => ['required', 'exists:categories,id'],
-                'specialty_ids' => ['required', 'array', 'min:1'],
-                'specialty_ids.*' => ['exists:specialties,id'],
+                'category_id' => ['required', 'exists:catégories,id'],
+                'spécialty_ids' => ['required', 'array', 'min:1'],
+                'spécialty_ids.*' => ['exists:spécialties,id'],
                 'languages' => ['required', 'array', 'min:1'],
                 'languages.*' => [Rule::in(array_keys(Professional::LANGUAGES))],
                 'consultation_type' => ['required', Rule::in(array_keys(Professional::CONSULTATION_TYPES))],
@@ -135,7 +135,7 @@ new #[Layout('layouts.guest')] class extends Component
                 'diplomas.*.year' => ['required', 'numeric', 'integer', 'min:1950', 'max:' . date('Y')],
                 'professional_number_type' => ['nullable', Rule::in(array_keys(Professional::PROFESSIONAL_NUMBER_TYPES))],
                 'professional_number' => ['nullable', 'string', 'max:50'],
-                'years_experience' => ['required', 'integer', 'min:0', 'max:60'],
+                'years_expérience' => ['required', 'integer', 'min:0', 'max:60'],
                 'insurance_company' => ['nullable', 'string', 'max:255'],
                 'insurance_number' => ['nullable', 'string', 'max:100'],
             ]);
@@ -168,7 +168,7 @@ new #[Layout('layouts.guest')] class extends Component
                 'is_active' => true,
             ]);
 
-            // Assign role
+            // Assign rôle
             $user->assignRole('professional');
 
             // Handle credential document upload
@@ -200,7 +200,7 @@ new #[Layout('layouts.guest')] class extends Component
                 'diplomas' => $this->diplomas,
                 'professional_number' => $this->professional_number ?: null,
                 'professional_number_type' => $this->professional_number_type,
-                'years_experience' => $this->years_experience,
+                'years_expérience' => $this->years_expérience,
                 'insurance_company' => $this->insurance_company ?: null,
                 'insurance_number' => $this->insurance_number ?: null,
                 'school_phobia_training' => $this->school_phobia_training ?: null,
@@ -208,12 +208,12 @@ new #[Layout('layouts.guest')] class extends Component
                 'accepts_terms' => $this->accepts_terms,
                 'accepts_ethics' => $this->accepts_ethics,
                 'is_active' => false,
-                'is_verified' => false,
+                'is_vérifiéd' => false,
                 'validation_status' => 'pending',
             ]);
 
-            // Attach specialties
-            $professional->specialties()->sync($this->specialty_ids);
+            // Attach spécialties
+            $professional->spécialties()->sync($this->spécialty_ids);
 
             // Upload avatar
             if ($this->avatar) {
@@ -226,7 +226,7 @@ new #[Layout('layouts.guest')] class extends Component
             Auth::login($user);
         });
 
-        session()->flash('success', 'Votre profil a ete cree avec succes. Il sera visible dans l\'annuaire apres validation par notre equipe.');
+        session()->flash('success', 'Votre profil a été créé avec succes. Il sera visible dans l\'annuaire après validation par notre équipe.');
         $this->redirect(route('dashboard'), navigate: true);
     }
 
@@ -235,8 +235,8 @@ new #[Layout('layouts.guest')] class extends Component
         return [
             'cantons' => Canton::orderBy('name')->get(),
             'cities' => $this->canton_id ? City::where('canton_id', $this->canton_id)->orderBy('name')->get() : collect(),
-            'categories' => Category::where('is_active', true)->orderBy('name')->get(),
-            'specialties' => Specialty::where('is_active', true)->orderBy('name')->get(),
+            'catégories' => Category::where('is_active', true)->orderBy('name')->get(),
+            'spécialties' => Spécialty::where('is_active', true)->orderBy('name')->get(),
             'availableLanguages' => Professional::LANGUAGES,
             'consultationTypes' => Professional::CONSULTATION_TYPES,
             'professionalNumberTypes' => Professional::PROFESSIONAL_NUMBER_TYPES,
@@ -304,7 +304,7 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Step 2: Identity -->
         @if ($step === 2)
             <div class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Votre identite</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Votre identité</h3>
 
                 <div>
                     <x-input-label for="title" value="Titre (Dr., Prof., etc.)" />
@@ -330,10 +330,10 @@ new #[Layout('layouts.guest')] class extends Component
         <!-- Step 3: Contact -->
         @if ($step === 3)
             <div class="space-y-4">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Coordonnees</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Coordonnées</h3>
 
                 <div>
-                    <x-input-label for="phone" value="Telephone" />
+                    <x-input-label for="phone" value="Téléphone" />
                     <x-text-input wire:model="phone" id="phone" type="tel" class="block mt-1 w-full" placeholder="+41 22 123 45 67" required />
                     <x-input-error :messages="$errors->get('phone')" class="mt-2" />
                 </div>
@@ -354,7 +354,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <div>
                         <x-input-label for="canton_id" value="Canton" />
                         <select wire:model.live="canton_id" id="canton_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required>
-                            <option value="">Selectionnez...</option>
+                            <option value="">Sélectionnéz...</option>
                             @foreach ($cantons as $canton)
                                 <option value="{{ $canton->id }}">{{ $canton->name }} ({{ $canton->code }})</option>
                             @endforeach
@@ -364,7 +364,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <div>
                         <x-input-label for="city_id" value="Ville" />
                         <select wire:model="city_id" id="city_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required {{ !$canton_id ? 'disabled' : '' }}>
-                            <option value="">Selectionnez...</option>
+                            <option value="">Sélectionnéz...</option>
                             @foreach ($cities as $city)
                                 <option value="{{ $city->id }}">{{ $city->name }}</option>
                             @endforeach
@@ -381,10 +381,10 @@ new #[Layout('layouts.guest')] class extends Component
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Informations professionnelles</h3>
 
                 <div>
-                    <x-input-label for="category_id" value="Categorie professionnelle" />
+                    <x-input-label for="category_id" value="Catégorie professionnelle" />
                     <select wire:model="category_id" id="category_id" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required>
-                        <option value="">Selectionnez...</option>
-                        @foreach ($categories as $category)
+                        <option value="">Sélectionnéz...</option>
+                        @foreach ($catégories as $category)
                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
@@ -392,16 +392,16 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
 
                 <div>
-                    <x-input-label value="Specialites" />
+                    <x-input-label value="Spécialités" />
                     <div class="mt-2 grid grid-cols-2 gap-2 max-h-48 overflow-y-auto p-2 border rounded-md">
-                        @foreach ($specialties as $specialty)
+                        @foreach ($spécialties as $spécialty)
                             <label class="flex items-center">
-                                <input type="checkbox" wire:model="specialty_ids" value="{{ $specialty->id }}" class="rounded border-gray-300 text-cap-900 focus:ring-cap-900">
-                                <span class="ml-2 text-sm text-gray-700">{{ $specialty->name }}</span>
+                                <input type="checkbox" wire:model="spécialty_ids" value="{{ $spécialty->id }}" class="rounded border-gray-300 text-cap-900 focus:ring-cap-900">
+                                <span class="ml-2 text-sm text-gray-700">{{ $spécialty->name }}</span>
                             </label>
                         @endforeach
                     </div>
-                    <x-input-error :messages="$errors->get('specialty_ids')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('spécialty_ids')" class="mt-2" />
                 </div>
 
                 <div>
@@ -424,7 +424,7 @@ new #[Layout('layouts.guest')] class extends Component
                 <div>
                     <x-input-label for="consultation_type" value="Type de consultation" />
                     <select wire:model="consultation_type" id="consultation_type" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required>
-                        <option value="">Selectionnez...</option>
+                        <option value="">Sélectionnéz...</option>
                         @foreach ($consultationTypes as $key => $label)
                             <option value="{{ $key }}">{{ $label }}</option>
                         @endforeach
@@ -466,7 +466,7 @@ new #[Layout('layouts.guest')] class extends Component
                     </div>
                     <button type="button" wire:click="addDiploma" class="mt-2 text-sm text-cap-900 hover:underline flex items-center">
                         <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-                        Ajouter un diplome
+                        Ajouter un diplôme
                     </button>
                     <x-input-error :messages="$errors->get('diplomas')" class="mt-2" />
                     <x-input-error :messages="$errors->get('diplomas.*.title')" class="mt-2" />
@@ -475,7 +475,7 @@ new #[Layout('layouts.guest')] class extends Component
                 <!-- Professional Number -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <x-input-label for="professional_number_type" value="Type de numero professionnel" />
+                        <x-input-label for="professional_number_type" value="Type de numéro professionnel" />
                         <select wire:model="professional_number_type" id="professional_number_type" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900 text-sm">
                             <option value="">Aucun / Non applicable</option>
                             @foreach ($professionalNumberTypes as $key => $label)
@@ -485,17 +485,17 @@ new #[Layout('layouts.guest')] class extends Component
                         <x-input-error :messages="$errors->get('professional_number_type')" class="mt-2" />
                     </div>
                     <div>
-                        <x-input-label for="professional_number" value="Numero" />
+                        <x-input-label for="professional_number" value="Numéro" />
                         <x-text-input wire:model="professional_number" id="professional_number" type="text" class="block mt-1 w-full" placeholder="Ex: 7601000000000" />
                         <x-input-error :messages="$errors->get('professional_number')" class="mt-2" />
                     </div>
                 </div>
 
-                <!-- Experience -->
+                <!-- Expérience -->
                 <div>
-                    <x-input-label for="years_experience" value="Annees d'experience" />
-                    <x-text-input wire:model="years_experience" id="years_experience" type="number" min="0" max="60" class="block mt-1 w-32" required />
-                    <x-input-error :messages="$errors->get('years_experience')" class="mt-2" />
+                    <x-input-label for="years_expérience" value="Annees d'expérience" />
+                    <x-text-input wire:model="years_expérience" id="years_expérience" type="number" min="0" max="60" class="block mt-1 w-32" required />
+                    <x-input-error :messages="$errors->get('years_expérience')" class="mt-2" />
                 </div>
 
                 <!-- Insurance -->
@@ -520,15 +520,15 @@ new #[Layout('layouts.guest')] class extends Component
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Finalisation de votre profil</h3>
 
                 <div>
-                    <x-input-label for="bio" value="Biographie professionnelle (min. 100 caracteres)" />
-                    <textarea wire:model="bio" id="bio" rows="4" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required placeholder="Presentez-vous, votre parcours, votre approche..."></textarea>
-                    <div class="mt-1 text-sm text-gray-500">{{ strlen($bio) }}/2000 caracteres</div>
+                    <x-input-label for="bio" value="Biographie professionnelle (min. 100 caractères)" />
+                    <textarea wire:model="bio" id="bio" rows="4" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required placeholder="Presentez-vous, votre parcours, votre approché..."></textarea>
+                    <div class="mt-1 text-sm text-gray-500">{{ strlen($bio) }}/2000 caractères</div>
                     <x-input-error :messages="$errors->get('bio')" class="mt-2" />
                 </div>
 
                 <div>
                     <x-input-label for="school_phobia_training" value="Formation specifique phobie scolaire (optionnel)" />
-                    <textarea wire:model="school_phobia_training" id="school_phobia_training" rows="2" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" placeholder="Decrivez vos formations specifiques liees a la phobie scolaire..."></textarea>
+                    <textarea wire:model="school_phobia_training" id="school_phobia_training" rows="2" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" placeholder="Décrivez vos formations specifiques liees à la phobie scolaire..."></textarea>
                     <x-input-error :messages="$errors->get('school_phobia_training')" class="mt-2" />
                 </div>
 
@@ -554,7 +554,7 @@ new #[Layout('layouts.guest')] class extends Component
                     </div>
 
                     <div>
-                        <x-input-label value="Document justificatif (diplome, attestation)" />
+                        <x-input-label value="Document justificatif (diplôme, attestation)" />
                         <div class="mt-2">
                             <label class="cursor-pointer px-3 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 inline-flex items-center">
                                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
@@ -583,7 +583,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <label class="flex items-start">
                         <input type="checkbox" wire:model="accepts_ethics" class="mt-1 rounded border-gray-300 text-cap-900 focus:ring-cap-900">
                         <span class="ml-2 text-sm text-gray-700">
-                            Je m'engage a respecter la <a href="{{ route('charte-ethique') }}" target="_blank" class="text-cap-900 underline hover:text-cap-700">charte ethique</a> de Cap Toi M'aime et a accompagner les familles avec bienveillance
+                            Je m'engage à respecter la <a href="{{ route('charte-ethique') }}" target="_blank" class="text-cap-900 underline hover:text-cap-700">charte ethique</a> de Cap Toi M'aime et a accompagnér les familles avec bienveillance
                         </span>
                     </label>
                     <x-input-error :messages="$errors->get('accepts_ethics')" class="mt-1" />
@@ -595,7 +595,7 @@ new #[Layout('layouts.guest')] class extends Component
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                         <p class="text-sm text-amber-800">
-                            Votre profil sera examine par notre equipe avant d'etre visible dans l'annuaire. Vous recevrez un email de confirmation une fois valide.
+                            Votre profil sera examine par notre équipe avant d'être visible dans l'annuaire. Vous recevrez un email de confirmation une fois valide.
                         </p>
                     </div>
                 </div>
@@ -627,7 +627,7 @@ new #[Layout('layouts.guest')] class extends Component
     </form>
 
     <p class="mt-6 text-center text-sm text-gray-600">
-        Deja inscrit ?
+        Déjà inscrit ?
         <a href="{{ route('login') }}" class="text-cap-900 hover:underline font-medium" wire:navigate>Se connecter</a>
     </p>
 </div>

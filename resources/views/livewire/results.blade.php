@@ -78,7 +78,7 @@
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center gap-2">
                                         <h3 class="font-semibold text-gray-900 text-lg group-hover:text-cap-900 transition">{{ $pro->full_name }}</h3>
-                                        @if($pro->is_verified)
+                                        @if($pro->is_vérifiéd)
                                             <svg class="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                                             </svg>
@@ -86,10 +86,10 @@
                                     </div>
                                     <p class="text-cap-900 font-medium">{{ $pro->category->name }}</p>
 
-                                    {{-- Matched Specialties --}}
-                                    @if(!empty($pro->match_details['matched_specialties']))
+                                    {{-- Matched Spécialties --}}
+                                    @if(!empty($pro->match_details['matched_spécialties']))
                                         <div class="flex flex-wrap gap-1 mt-2">
-                                            @foreach($pro->match_details['matched_specialties'] as $spec)
+                                            @foreach($pro->match_details['matched_spécialties'] as $spec)
                                                 <span class="inline-flex items-center gap-1 bg-green-100 text-green-800 px-2 py-0.5 rounded text-xs font-medium">
                                                     <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
@@ -98,11 +98,11 @@
                                                 </span>
                                             @endforeach
                                         </div>
-                                    @elseif($pro->specialties && $pro->specialties->isNotEmpty())
+                                    @elseif($pro->spécialties && $pro->spécialties->isNotEmpty())
                                         <div class="flex flex-wrap gap-1 mt-2">
-                                            @foreach($pro->specialties->take(3) as $specialty)
+                                            @foreach($pro->spécialties->take(3) as $spécialty)
                                                 <span class="bg-cap-100 text-cap-900 px-2 py-0.5 rounded text-xs font-medium">
-                                                    {{ $specialty->name }}
+                                                    {{ $spécialty->name }}
                                                 </span>
                                             @endforeach
                                         </div>
@@ -185,7 +185,7 @@
                 </svg>
             </div>
             <h3 class="text-xl font-semibold text-gray-800 mb-2">Aucun professionnel trouvé</h3>
-            <p class="text-gray-500 mb-6">Essayez de modifier vos critères de recherche</p>
+            <p class="text-gray-500 mb-6">Essayez de modifiér vos critères de recherche</p>
             <div class="flex flex-col sm:flex-row gap-3 justify-center">
                 <a
                     href="{{ route('questionnaire') }}"

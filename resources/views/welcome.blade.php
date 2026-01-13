@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Cap Toi M'aime - Annuaire phobie scolaire Suisse romande</title>
-        <meta name="description" content="Trouvez des therapeutes specialises dans le refus scolaire anxieux en Suisse romande. Psychologues, pedopsychiatres et coachs verifies.">
+        <meta name="description" content="Trouvez des thérapeutes spécialises dans le refus scolaire anxieux en Suisse romande. Psychologues, pedopsychiatrès et coachs vérifiés.">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -27,9 +27,9 @@
                     </div>
                     <div class="hidden md:flex items-center space-x-6">
                         <a href="{{ route('home') }}" class="text-ctm-burgundy text-sm font-bold uppercase">Accueil</a>
-                        <a href="{{ route('about') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">A propos</a>
+                        <a href="{{ route('about') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">À propos</a>
                         <a href="{{ route('faq') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">FAQ</a>
-                        <a href="{{ route('temoignages') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Temoignages</a>
+                        <a href="{{ route('témoignages') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Témoignages</a>
                         <a href="{{ route('contact') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Contact</a>
                         <a href="{{ route('login') }}" class="text-gray-500 text-sm hover:text-gray-700 transition-colors">Connexion</a>
                         <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">Trouver un pro</a>
@@ -51,11 +51,11 @@
                     <!-- Left Column - Content -->
                     <div>
                         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                            Trouvez des therapeutes disponibles et
-                            <span class="text-ctm-burgundy">formes au refus scolaire anxieux</span>
+                            Trouvez des thérapeutes disponibles et
+                            <span class="text-ctm-burgundy">formés au refus scolaire anxieux</span>
                         </h1>
                         <p class="mt-6 text-lg text-gray-600 leading-relaxed">
-                            Notre annuaire regroupe des professionnels de confiance, verifies et specialises dans l'accompagnement de la phobie scolaire en Suisse romande.
+                            Notre annuaire regroupe des professionnels de confiance, vérifiés et spécialises dans l'accompagnément de la phobie scolaire en Suisse romande.
                         </p>
                         <div class="mt-8 flex flex-wrap gap-4">
                             <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white font-bold uppercase px-8 py-4 rounded-full transition-all hover:shadow-xl">
@@ -95,7 +95,7 @@
                                     </div>
                                     <div>
                                         <div class="font-semibold text-gray-900">Recherchez</div>
-                                        <div class="text-sm text-gray-600">Par specialite ou lieu</div>
+                                        <div class="text-sm text-gray-600">Par spécialité ou lieu</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-4 p-4 bg-ctm-cream rounded-xl">
@@ -106,7 +106,7 @@
                                     </div>
                                     <div>
                                         <div class="font-semibold text-gray-900">Consultez</div>
-                                        <div class="text-sm text-gray-600">Les disponibilites</div>
+                                        <div class="text-sm text-gray-600">Les disponibilités</div>
                                     </div>
                                 </div>
                                 <div class="flex items-center space-x-4 p-4 bg-ctm-cream rounded-xl">
@@ -127,15 +127,15 @@
             </div>
         </section>
 
-        <!-- Categories Section -->
+        <!-- Catégories Section -->
         <section class="py-20 bg-ctm-cream">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center">
                     <h2 class="font-display text-2xl md:text-3xl text-gray-900 uppercase">
-                        Nos categories de professionnels
+                        Nos catégories de professionnels
                     </h2>
                     <p class="mt-4 text-lg text-gray-600">
-                        Decouvrez les differents types de professionnels pour accompagner votre enfant
+                        Découvrez les diffèrents types de professionnels pour accompagnér votre enfant
                     </p>
                 </div>
 
@@ -147,7 +147,7 @@
                             </svg>
                         </div>
                         <h3 class="mt-4 text-lg font-semibold text-gray-900">Psychologue</h3>
-                        <p class="mt-2 text-sm text-gray-600">Accompagnement psychologique personnalise</p>
+                        <p class="mt-2 text-sm text-gray-600">Accompagnement psychologique personnalisé</p>
                     </div>
                     <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition-transform">
                         <div class="w-16 h-16 bg-ctm-teal/10 rounded-full flex items-center justify-center mx-auto">
@@ -156,7 +156,7 @@
                             </svg>
                         </div>
                         <h3 class="mt-4 text-lg font-semibold text-gray-900">Pedopsychiatre</h3>
-                        <p class="mt-2 text-sm text-gray-600">Suivi medical specialise enfants</p>
+                        <p class="mt-2 text-sm text-gray-600">Suivi médical spécialise enfants</p>
                     </div>
                     <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition-transform">
                         <div class="w-16 h-16 bg-ctm-burgundy/10 rounded-full flex items-center justify-center mx-auto">
@@ -164,7 +164,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
                             </svg>
                         </div>
-                        <h3 class="mt-4 text-lg font-semibold text-gray-900">Therapeute familial</h3>
+                        <h3 class="mt-4 text-lg font-semibold text-gray-900">Thérapeute familial</h3>
                         <p class="mt-2 text-sm text-gray-600">Therapie pour toute la famille</p>
                     </div>
                     <div class="bg-white rounded-2xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow hover:-translate-y-1 transform transition-transform">
@@ -195,10 +195,10 @@
         <section class="py-20 bg-white">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="font-display text-2xl md:text-3xl text-gray-900 uppercase">
-                    Vous etes professionnel ?
+                    Vous êtes professionnel ?
                 </h2>
                 <p class="mt-4 text-lg text-gray-600">
-                    Rejoignez notre annuaire et aidez les familles confrontees a la phobie scolaire a trouver le bon accompagnement.
+                    Rejoignez notre annuaire et aidez les familles confrontees à la phobie scolaire a trouver le bon accompagnément.
                 </p>
                 <div class="mt-8">
                     <a href="{{ route('contact') }}" class="inline-flex items-center bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white font-bold uppercase px-8 py-4 rounded-full transition-all hover:shadow-xl">
@@ -221,7 +221,7 @@
                             <span class="font-display text-lg text-white uppercase">Cap Toi M'aime</span>
                         </div>
                         <p class="mt-4 text-sm text-gray-400 max-w-md">
-                            Association dediee a l'accompagnement des familles confrontees a la phobie scolaire en Suisse romande.
+                            Association dédiée à l'accompagnément des familles confrontees à la phobie scolaire en Suisse romande.
                         </p>
                     </div>
                     <div>
@@ -229,8 +229,8 @@
                         <ul class="space-y-2">
                             <li><a href="{{ route('annuaire') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Annuaire</a></li>
                             <li><a href="{{ route('faq') }}" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a></li>
-                            <li><a href="{{ route('temoignages') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Temoignages</a></li>
-                            <li><a href="{{ route('about') }}" class="text-sm text-gray-400 hover:text-white transition-colors">A propos</a></li>
+                            <li><a href="{{ route('témoignages') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Témoignages</a></li>
+                            <li><a href="{{ route('about') }}" class="text-sm text-gray-400 hover:text-white transition-colors">À propos</a></li>
                             <li><a href="{{ route('contact') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a></li>
                         </ul>
                     </div>
@@ -243,7 +243,7 @@
                     </div>
                 </div>
                 <div class="mt-12 pt-8 border-t border-gray-800 text-center">
-                    <p class="text-sm text-gray-500">&copy; {{ date('Y') }} Cap Toi M'aime. Tous droits reserves.</p>
+                    <p class="text-sm text-gray-500">&copy; {{ date('Y') }} Cap Toi M'aime. Tous droits réservés.</p>
                 </div>
             </div>
         </footer>

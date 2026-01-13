@@ -8,7 +8,7 @@
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
-                Retour a l'annuaire
+                Retour à l'annuaire
             </a>
 
             <div class="flex flex-col md:flex-row md:items-center md:space-x-6">
@@ -35,9 +35,9 @@
                 <div class="flex-1">
                     <div class="flex items-center flex-wrap gap-2">
                         <h1 class="text-2xl md:text-3xl font-bold text-white">{{ $professional->full_name }}</h1>
-                        @if($professional->is_verified)
+                        @if($professional->is_vérifiéd)
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white">
-                                Verifie
+                                Vérifié
                             </span>
                         @endif
                     </div>
@@ -90,7 +90,7 @@
                                 <iframe
                                     src="{{ $professional->video_embed_url }}"
                                     class="w-full h-full"
-                                    allowfullscreen
+                                    allowfullscréén
                                 ></iframe>
                             </div>
                         </div>
@@ -109,12 +109,12 @@
                         </div>
                     @endif
 
-                    <!-- Mon approche -->
+                    <!-- Mon approché -->
                     @if($professional->my_approach)
                         <div>
                             <h2 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
                                 <span class="mr-2">&#x1F4A1;</span>
-                                Mon approche
+                                Mon approché
                             </h2>
                             <div class="prose text-gray-600">
                                 {!! nl2br(e($professional->my_approach)) !!}
@@ -129,23 +129,23 @@
                                 <svg class="w-5 h-5 mr-2 text-ctm-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                                 </svg>
-                                A propos
+                                À propos
                             </h2>
                             <p class="text-gray-600 whitespace-pre-line leading-relaxed">{{ $professional->bio }}</p>
                         </div>
                     @endif
 
-                    <!-- Specialties -->
-                    @if($professional->specialties && count($professional->specialties) > 0)
+                    <!-- Spécialties -->
+                    @if($professional->spécialties && count($professional->spécialties) > 0)
                         <div>
                             <h2 class="text-lg font-semibold text-gray-900 mb-3 flex items-center">
                                 <span class="mr-2">&#x1F3AF;</span>
-                                Specialites
+                                Spécialités
                             </h2>
                             <div class="flex flex-wrap gap-2">
-                                @foreach($professional->specialties as $specialty)
+                                @foreach($professional->spécialties as $spécialty)
                                     <span class="px-4 py-2 bg-ctm-burgundy/10 text-ctm-burgundy rounded-xl text-sm font-medium">
-                                        {{ $specialty->name }}
+                                        {{ $spécialty->name }}
                                     </span>
                                 @endforeach
                             </div>
@@ -237,7 +237,7 @@
                                         <span class="text-2xl">&#x1F4F1;</span>
                                     </div>
                                     <div>
-                                        <div class="text-sm font-medium text-gray-500">Telephone</div>
+                                        <div class="text-sm font-medium text-gray-500">Téléphone</div>
                                         <div class="text-ctm-teal font-medium">{{ $professional->phone }}</div>
                                     </div>
                                 </a>
@@ -288,13 +288,13 @@
                         <div class="border-t border-gray-200 pt-8">
                             <h2 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
                                 <span class="mr-2">&#x2753;</span>
-                                Questions frequentes
+                                Questions fréquentes
                             </h2>
                             <div class="space-y-3">
                                 @if($professional->faq_availability)
                                     <details class="bg-gray-50 rounded-xl p-4 group">
                                         <summary class="font-medium cursor-pointer flex items-center justify-between">
-                                            Disponibilites & modalites pratiques
+                                            Disponibilites & modalités pratiques
                                             <svg class="w-5 h-5 text-gray-500 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                                             </svg>
@@ -336,7 +336,7 @@
                             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                             </svg>
-                            Voir d'autres professionnels
+                            Voir d'autrès professionnels
                         </a>
                     </div>
                 </div>

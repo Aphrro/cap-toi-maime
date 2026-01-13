@@ -43,12 +43,12 @@
         </div>
     </section>
 
-    {{-- Categories --}}
+    {{-- Catégories --}}
     <section class="py-12 px-4 bg-white">
         <div class="max-w-6xl mx-auto">
             <h3 class="text-lg font-semibold text-gray-700 mb-6">TYPES DE PROFESSIONNELS</h3>
             <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                @foreach($categories as $category)
+                @foreach($catégories as $category)
                     <a
                         href="{{ route('annuaire', ['categoryId' => $category->id]) }}"
                         class="bg-gray-50 rounded-xl p-4 text-center hover:bg-cap-50 hover:shadow-md transition group"
@@ -99,17 +99,17 @@
         </div>
     </section>
 
-    {{-- Specialties --}}
+    {{-- Spécialties --}}
     <section class="py-8 px-4 bg-gray-50">
         <div class="max-w-6xl mx-auto">
             <h3 class="text-lg font-semibold text-gray-700 mb-4">SPÉCIALITÉS RECHERCHÉES</h3>
             <div class="flex flex-wrap gap-2">
-                @foreach($specialties as $specialty)
+                @foreach($spécialties as $spécialty)
                     <a
-                        href="{{ route('annuaire', ['specialty' => $specialty->slug]) }}"
+                        href="{{ route('annuaire', ['spécialty' => $spécialty->slug]) }}"
                         class="bg-cap-100 text-cap-900 px-4 py-2 rounded-full text-sm font-medium hover:bg-cap-200 transition"
                     >
-                        {{ $specialty->name }}
+                        {{ $spécialty->name }}
                     </a>
                 @endforeach
             </div>
@@ -149,7 +149,7 @@
                                 </p>
                             @endif
 
-                            @if($pro->is_verified)
+                            @if($pro->is_vérifiéd)
                                 <p class="text-green-600 text-sm mt-2 flex items-center justify-center gap-1">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>

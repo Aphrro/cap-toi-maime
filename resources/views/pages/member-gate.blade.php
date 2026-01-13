@@ -1,4 +1,4 @@
-<x-public-layout title="Acces reserve - Cap Toi M'aime">
+<x-public-layout title="Accès réservé - Cap Toi M'aime">
     {{-- Hero Section --}}
     <section class="bg-gradient-to-br from-ctm-burgundy to-ctm-burgundy-dark text-white py-16 md:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -7,7 +7,7 @@
                 <img src="{{ asset('logo-cap-toi-maime.png') }}" alt="Cap Toi M'aime" class="h-20 mx-auto mb-8 rounded-lg" onerror="this.style.display='none'">
 
                 <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                    Acces reserve aux membres
+                    Accès réservé aux membres
                 </h1>
                 <p class="text-lg md:text-xl text-white/90">
                     L'annuaire des professionnels est un avantage exclusif pour les membres de l'association Cap Toi M'aime.
@@ -26,8 +26,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                         </svg>
                     </div>
-                    <h3 class="font-bold text-gray-900 mb-2">Professionnels verifies</h3>
-                    <p class="text-gray-600 text-sm">Selection rigoureuse de praticiens formes au RSA</p>
+                    <h3 class="font-bold text-gray-900 mb-2">Professionnels vérifiés</h3>
+                    <p class="text-gray-600 text-sm">Selection rigoureuse de praticiens formés au RSA</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-2xl p-6 text-center">
@@ -46,7 +46,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
                         </svg>
                     </div>
-                    <h3 class="font-bold text-gray-900 mb-2">Communaute entraide</h3>
+                    <h3 class="font-bold text-gray-900 mb-2">Communauté entraide</h3>
                     <p class="text-gray-600 text-sm">Rejoignez des familles qui comprennent</p>
                 </div>
             </div>
@@ -66,13 +66,13 @@
                         <div class="flex items-start gap-4 mb-4">
                             <div class="w-8 h-8 bg-ctm-burgundy text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">1</div>
                             <div>
-                                <p class="text-gray-700">Remplissez le formulaire d'adhesion sur notre site principal</p>
+                                <p class="text-gray-700">Remplissez le formulaire d'adhésion sur notre site principal</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4 mb-4">
                             <div class="w-8 h-8 bg-ctm-burgundy text-white rounded-full flex items-center justify-center flex-shrink-0 text-sm font-bold">2</div>
                             <div>
-                                <p class="text-gray-700">Notre equipe etudie votre demande sous <strong>48h</strong></p>
+                                <p class="text-gray-700">Notre équipe étudie votre demande sous <strong>48h</strong></p>
                             </div>
                         </div>
                         <div class="flex items-start gap-4">
@@ -102,7 +102,7 @@
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
                             </svg>
-                            Deja membre ? Se connecter
+                            Déjà membre ? Se connecter
                         </a>
                     </div>
                 </div>
@@ -114,7 +114,7 @@
     <section class="py-16 bg-ctm-burgundy text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-2xl md:text-3xl font-bold mb-4">Des questions ?</h2>
-            <p class="text-white/80 mb-8 text-lg">Notre equipe est la pour vous accompagner.</p>
+            <p class="text-white/80 mb-8 text-lg">Notre équipe est la pour vous accompagnér.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="{{ route('faq') }}" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold uppercase px-8 py-4 rounded-full transition-all">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

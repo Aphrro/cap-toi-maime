@@ -23,7 +23,7 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
                 <div class="text-left">
                     <h3 class="text-lg font-semibold text-gray-900">Je suis un parent</h3>
-                    <p class="text-sm text-gray-500">Trouver un professionnel pour accompagner mon enfant</p>
+                    <p class="text-sm text-gray-500">Trouver un professionnel pour accompagnér mon enfant</p>
                 </div>
                 <div class="flex-shrink-0 ml-auto">
                     <svg class="w-5 h-5 text-gray-400 group-hover:text-cap-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -43,7 +43,7 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
                 <div class="text-left">
                     <h3 class="text-lg font-semibold text-gray-900">Je suis un professionnel</h3>
-                    <p class="text-sm text-gray-500">Rejoindre l'annuaire et accompagner des familles</p>
+                    <p class="text-sm text-gray-500">Rejoindre l'annuaire et accompagnér des familles</p>
                 </div>
                 <div class="flex-shrink-0 ml-auto">
                     <svg class="w-5 h-5 text-gray-400 group-hover:text-cap-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,7 +55,7 @@ new #[Layout('layouts.guest')] class extends Component
     </div>
 
     <p class="mt-8 text-sm text-gray-600">
-        Deja inscrit ?
+        Déjà inscrit ?
         <a href="{{ route('login') }}" class="text-cap-900 hover:underline font-medium" wire:navigate>Se connecter</a>
     </p>
 </div>

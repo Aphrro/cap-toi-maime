@@ -1,4 +1,4 @@
-<x-public-layout title="A propos - Cap Toi M'aime">
+<x-public-layout title="À propos - Cap Toi M'aime">
     {{-- Hero Section --}}
     <section class="bg-gradient-to-br from-ctm-burgundy to-ctm-burgundy-dark text-white py-16 md:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -8,7 +8,7 @@
                         Pourquoi cet annuaire est&nbsp;ne&nbsp;?
                     </h1>
                     <p class="text-lg md:text-xl text-white/90 mb-8">
-                        A force d'echanger avec des familles, nous avons fait un constat : trouver un professionnel disponible rapidement peut devenir un veritable parcours du combattant.
+                        A force d'échanger avec des familles, nous avons fait un constat : trouver un professionnel disponible rapidement peut devenir un véritable parcours du combattant.
                     </p>
                     <a href="{{ route('annuaire') }}" class="inline-flex items-center gap-2 bg-white text-ctm-burgundy hover:bg-gray-100 font-bold uppercase px-8 py-4 rounded-full transition-all hover:shadow-xl text-lg">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -27,8 +27,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="font-bold">Reserve aux membres</div>
-                                    <div class="text-white/80 text-sm">Avantage de l'adhesion</div>
+                                    <div class="font-bold">Réservé aux membres</div>
+                                    <div class="text-white/80 text-sm">Avantage de l'adhésion</div>
                                 </div>
                             </div>
                             <div class="flex items-center gap-4 text-left">
@@ -38,7 +38,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <div class="font-bold">Professionnels verifies</div>
+                                    <div class="font-bold">Professionnels vérifiés</div>
                                     <div class="text-white/80 text-sm">Formes au RSA</div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                 </div>
                                 <div>
                                     <div class="font-bold">Disponibilite en temps reel</div>
-                                    <div class="text-white/80 text-sm">Mise a jour reguliere</div>
+                                    <div class="text-white/80 text-sm">Mise à jour régulière</div>
                                 </div>
                             </div>
                         </div>
@@ -60,12 +60,12 @@
         </div>
     </section>
 
-    {{-- Notre reponse --}}
+    {{-- Notre réponse --}}
     <section class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Notre reponse</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Un annuaire associatif, independant et qualifie, pense pour les parents de jeunes en phobie / refus scolaire anxieux (RSA) en Suisse romande.</p>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Notre réponse</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">Un annuaire associatif, indépendant et qualifie, pensé pour les parents de jeunes en phobie / refus scolaire anxieux (RSA) en Suisse romande.</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
@@ -75,8 +75,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Reserve aux membres</h3>
-                    <p class="text-gray-600">Un outil reserve aux membres de Cap Toi M'aime : un avantage concret de l'adhesion, au service des familles.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Réservé aux membres</h3>
+                    <p class="text-gray-600">Un outil réservé aux membres de Cap Toi M'aime : un avantage concret de l'adhésion, au service des familles.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-2xl p-8 text-center">
@@ -85,8 +85,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3">Professionnels selectionnes</h3>
-                    <p class="text-gray-600">Une selection de professionnels connus de l'association, sensibilises et/ou formes a la thematique du refus scolaire anxieux.</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3">Professionnels sélectionnés</h3>
+                    <p class="text-gray-600">Une selection de professionnels connus de l'association, sensibilisés et/ou formes à la thématique du refus scolaire anxieux.</p>
                 </div>
 
                 <div class="bg-gray-50 rounded-2xl p-8 text-center">
@@ -96,7 +96,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Fiches claires</h3>
-                    <p class="text-gray-600">Des fiches detaillees : specialites, modalites de remboursement (LAMal/LCA/ASCA/RME), disponibilite en temps reel.</p>
+                    <p class="text-gray-600">Des fiches détaillées : spécialités, modalités de remboursement (LAMal/LCA/ASCA/RME), disponibilité en temps reel.</p>
                 </div>
             </div>
         </div>
@@ -116,8 +116,8 @@
                             <span class="text-2xl">&#x1F7E2;</span>
                         </div>
                         <div>
-                            <h3 class="font-bold text-gray-900 mb-2">Reperage rapide de la disponibilite</h3>
-                            <p class="text-gray-600">Code simple declare par les professionnels et mis a jour regulierement.</p>
+                            <h3 class="font-bold text-gray-900 mb-2">Repérage rapide de la disponibilité</h3>
+                            <p class="text-gray-600">Code simple déclaré par les professionnels et mis à jour régulièrement.</p>
                             <div class="flex flex-wrap gap-3 mt-4">
                                 <span class="flex items-center gap-2 text-sm">
                                     <span class="w-3 h-3 bg-green-500 rounded-full"></span>
@@ -143,7 +143,7 @@
                         </div>
                         <div>
                             <h3 class="font-bold text-gray-900 mb-2">Presentation video</h3>
-                            <p class="text-gray-600">Quand c'est possible, une presentation video du praticien pour "mettre un visage sur un nom" et comprendre son approche avant de reserver.</p>
+                            <p class="text-gray-600">Quand c'est possible, une presentation video du praticien pour "mettre un visage sur un nom" et comprendre son approché avant de réservér.</p>
                         </div>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Pourquoi nous l'avons construit ainsi ?</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Notre but est de reduire l'errance therapeutique, rassurer les parents et faciliter un premier pas utile.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">Notre but est de réduire l'errance therapeutique, rassurer les parents et faciliter un premier pas utile.</p>
             </div>
 
             <div class="bg-amber-50 border border-amber-200 rounded-2xl p-8">
@@ -168,7 +168,7 @@
                     </div>
                     <div>
                         <h3 class="font-bold text-amber-800 mb-2">Limites et rappel important</h3>
-                        <p class="text-amber-900">Cet annuaire est informatif : il ne remplace pas un avis medical et n'engage pas une garantie de resultat clinique. Chaque famille reste libre de son choix ; l'association met a disposition des informations fiables et actualisees pour faciliter l'orientation.</p>
+                        <p class="text-amber-900">Cet annuaire est informatif : il ne remplace pas un avis médical et n'engage pas une garantie de résultat clinique. Chaque famille reste libre de son choix ; l'association met a disposition des informations fiables et actualisées pour faciliter l'orientation.</p>
                     </div>
                 </div>
             </div>
@@ -178,8 +178,8 @@
     {{-- CTA Section --}}
     <section class="py-16 bg-ctm-burgundy text-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">Pret a trouver le bon professionnel ?</h2>
-            <p class="text-white/80 mb-8 text-lg">Consultez notre annuaire de professionnels specialises.</p>
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Prêt à trouver le bon professionnel ?</h2>
+            <p class="text-white/80 mb-8 text-lg">Consultez notre annuaire de professionnels spécialises.</p>
             <a href="{{ route('annuaire') }}" class="inline-flex items-center gap-2 bg-white text-ctm-burgundy hover:bg-gray-100 font-bold uppercase px-8 py-4 rounded-full transition-all hover:shadow-xl text-lg">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>

@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ $title ?? 'Cap Toi M\'aime - Annuaire phobie scolaire Suisse romande' }}</title>
-        <meta name="description" content="Trouvez des therapeutes specialises dans le refus scolaire anxieux en Suisse romande.">
+        <meta name="description" content="Trouvez des thérapeutes spécialises dans le refus scolaire anxieux en Suisse romande.">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

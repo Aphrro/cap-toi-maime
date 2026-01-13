@@ -8,7 +8,7 @@
                         Rejoignez l'annuaire des professionnels de la phobie scolaire
                     </h1>
                     <p class="text-lg md:text-xl text-white/90 mb-8">
-                        Faites-vous connaître auprès des familles en Suisse romande qui recherchent un accompagnement spécialisé pour leur enfant.
+                        Faites-vous connaître auprès des familles en Suisse romande qui recherchent un accompagnément spécialisé pour leur enfant.
                     </p>
                     <a href="{{ route('register.professional') }}" class="inline-flex items-center gap-2 bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white font-bold uppercase px-8 py-4 rounded-full transition-all hover:shadow-xl text-lg">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -61,7 +61,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Visibilité ciblée</h3>
-                    <p class="text-gray-600">Soyez visible auprès des familles qui recherchent spécifiquement un accompagnement pour la phobie scolaire.</p>
+                    <p class="text-gray-600">Soyez visible auprès des familles qui recherchent spécifiquement un accompagnément pour la phobie scolaire.</p>
                 </div>
 
                 {{-- Benefit 2 --}}
@@ -72,7 +72,7 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3">Mise en relation qualifiée</h3>
-                    <p class="text-gray-600">Notre questionnaire intelligent oriente les familles vers les professionnels les plus adaptés à leur situation.</p>
+                    <p class="text-gray-600">Notre questionnaire intelligent orienté les familles vers les professionnels les plus adaptés à leur situation.</p>
                 </div>
 
                 {{-- Benefit 3 --}}
@@ -94,7 +94,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
                 <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Qui peut s'inscrire ?</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Notre annuaire accueille tous les professionnels formés à l'accompagnement du refus scolaire anxieux.</p>
+                <p class="text-gray-600 max-w-2xl mx-auto">Notre annuaire accueille tous les professionnels formés à l'accompagnément du refus scolaire anxieux.</p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -233,7 +233,7 @@
                         </div>
                         <div>
                             <h3 class="font-semibold text-gray-900">Présentation de votre pratique</h3>
-                            <p class="text-gray-600 text-sm">Décrivez votre approche et vos spécialités</p>
+                            <p class="text-gray-600 text-sm">Décrivez votre approché et vos spécialités</p>
                         </div>
                     </div>
                 </div>
@@ -272,7 +272,7 @@
                 </div>
 
                 <div class="bg-gray-50 rounded-xl p-6">
-                    <h3 class="font-bold text-gray-900 mb-2">Puis-je modifier mon profil après inscription ?</h3>
+                    <h3 class="font-bold text-gray-900 mb-2">Puis-je modifiér mon profil après inscription ?</h3>
                     <p class="text-gray-600">Oui, vous avez accès à votre espace personnel pour mettre à jour vos informations à tout moment.</p>
                 </div>
 
