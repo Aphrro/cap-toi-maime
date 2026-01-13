@@ -156,7 +156,8 @@ class TrackingService
     {
         $visitorId = request()->cookie(self::VISITOR_COOKIE_NAME);
 
-        if (!$visitorId) {
+        // Validate visitor ID - must be a valid UUID format (36 chars) or regenerate
+        if (!$visitorId || !$this->isValidVisitorId($visitorId)) {
             $visitorId = Str::uuid()->toString();
             Cookie::queue(
                 self::VISITOR_COOKIE_NAME,
@@ -170,6 +171,17 @@ class TrackingService
         }
 
         return $visitorId;
+    }
+
+    protected function isValidVisitorId(?string $visitorId): bool
+    {
+        if (!$visitorId) {
+            return false;
+        }
+
+        // UUID format: 36 characters (32 hex + 4 dashes)
+        // Also accept any string up to 64 characters as fallback
+        return strlen($visitorId) <= 64 && preg_match('/^[a-f0-9\-]+$/i', $visitorId);
     }
 
     protected function findActiveSession(string $visitorId): ?UserSession
