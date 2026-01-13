@@ -18,11 +18,13 @@ class ProfessionalSearch extends Component
     public ?int $cantonId = null;
     public array $selectedSpecialties = [];
     public array $selectedReimbursements = [];
+    public string $sortBy = 'name';
 
     protected $queryString = [
         'search' => ['except' => ''],
         'categoryId' => ['except' => null],
         'cantonId' => ['except' => null],
+        'sortBy' => ['except' => 'name'],
     ];
 
     public function updatingSearch(): void
@@ -38,6 +40,11 @@ class ProfessionalSearch extends Component
     }
 
     public function updatingCantonId(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatedSortBy(): void
     {
         $this->resetPage();
     }
@@ -92,10 +99,26 @@ class ProfessionalSearch extends Component
                 foreach ($this->selectedReimbursements as $reimbursement) {
                     $query->whereJsonContains('reimbursements', $reimbursement);
                 }
-            })
-            ->orderByDesc('is_featured')
-            ->orderByDesc('is_verified')
-            ->paginate(12);
+            });
+
+        // Appliquer le tri
+        switch ($this->sortBy) {
+            case 'canton':
+                $professionals->join('cities', 'professionals.city_id', '=', 'cities.id')
+                    ->join('cantons', 'cities.canton_id', '=', 'cantons.id')
+                    ->orderBy('cantons.name')
+                    ->select('professionals.*');
+                break;
+            case 'verified':
+                $professionals->orderByDesc('is_verified')->orderBy('last_name');
+                break;
+            case 'name':
+            default:
+                $professionals->orderBy('last_name')->orderBy('first_name');
+                break;
+        }
+
+        $professionals = $professionals->paginate(12);
 
         // Filtrer les spécialités selon la catégorie sélectionnée
         $specialtiesFilter = Specialty::active()
