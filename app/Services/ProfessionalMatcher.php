@@ -114,7 +114,7 @@ class ProfessionalMatcher
     private function calculateScore(Professional $pro, array $criteria): float
     {
         $score = 0.0;
-        $proSpecSlugs = $pro->specialties->pluck('slug')->toArray();
+        $proSpecSlugs = $pro->specialties ? $pro->specialties->pluck('slug')->toArray() : [];
 
         // ═══════════════════════════════════════════════════════════
         // 1. SCORE SPECIALITES (35%)
@@ -231,7 +231,7 @@ class ProfessionalMatcher
      */
     private function getMatchDetails(Professional $pro, array $criteria): array
     {
-        $proSpecSlugs = $pro->specialties->pluck('slug')->toArray();
+        $proSpecSlugs = $pro->specialties ? $pro->specialties->pluck('slug')->toArray() : [];
         $matchedSpecs = [];
 
         if (!empty($criteria['specialty_slugs'])) {
