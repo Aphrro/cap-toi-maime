@@ -13,7 +13,7 @@
                     <p class="text-ctm-cream font-medium">{{ $professional->category->name }}</p>
                 </div>
 
-                @if($professional->is_vérifiéd)
+                @if($professional->is_verified)
                     <div class="px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg bg-green-500 text-white backdrop-blur-sm">
                         Vérifié
                     </div>

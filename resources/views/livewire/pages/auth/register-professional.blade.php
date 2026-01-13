@@ -208,7 +208,7 @@ new #[Layout('layouts.guest')] class extends Component
                 'accepts_terms' => $this->accepts_terms,
                 'accepts_ethics' => $this->accepts_ethics,
                 'is_active' => false,
-                'is_vérifiéd' => false,
+                'is_verified' => false,
                 'validation_status' => 'pending',
             ]);
 

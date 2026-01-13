@@ -13,6 +13,11 @@ class EnsureUserIsMember
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Bypass pour environnement local (dev)
+        if (app()->environment('local')) {
+            return $next($request);
+        }
+
         if (!auth()->check()) {
             return redirect()->route('member.gate');
         }

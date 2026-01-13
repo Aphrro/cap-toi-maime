@@ -35,7 +35,7 @@
                 <div class="flex-1">
                     <div class="flex items-center flex-wrap gap-2">
                         <h1 class="text-2xl md:text-3xl font-bold text-white">{{ $professional->full_name }}</h1>
-                        @if($professional->is_vérifiéd)
+                        @if($professional->is_verified)
                             <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white">
                                 Vérifié
                             </span>
