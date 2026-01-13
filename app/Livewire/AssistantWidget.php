@@ -68,8 +68,13 @@ class AssistantWidget extends Component
     }
 
     #[On('behavior-update')]
-    public function handleBehaviorUpdate(array $data)
+    public function handleBehaviorUpdate(array $data = [])
     {
+        // Skip if no data
+        if (empty($data)) {
+            return;
+        }
+
         // Real-time behavior analysis from JavaScript
         $tracking = app(TrackingService::class);
         $analyzer = app(BehaviorAnalyzer::class);
