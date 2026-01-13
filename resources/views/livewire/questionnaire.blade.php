@@ -42,22 +42,17 @@
                     'decrochage' => ['label' => 'Décrochage scolaire', 'desc' => 'Absences répétées, désengagement progressif', 'icon' => 'M13 17h8m0 0V9m0 8l-8-8-4 4-6-6'],
                     'unknown' => ['label' => 'Je ne sais pas', 'desc' => 'J\'ai besoin d\'aide pour identifier la situation', 'icon' => 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z']
                 ] as $value => $option)
-                    <label
+                    <div
+                        wire:click="$set('situation', '{{ $value }}')"
                         class="flex items-start p-4 bg-white rounded-xl border-2 cursor-pointer transition
                             {{ $situation === $value ? 'border-cap-500 bg-cap-50 shadow-md' : 'border-gray-200 hover:border-cap-300 hover:shadow-sm' }}"
                     >
-                        <input
-                            type="radio"
-                            wire:model="situation"
-                            value="{{ $value }}"
-                            class="sr-only"
-                        >
                         <div class="w-10 h-10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0 {{ $situation === $value ? 'bg-cap-500 text-white' : 'bg-gray-100 text-gray-500' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $option['icon'] }}"/>
                             </svg>
                         </div>
-                        <div>
+                        <div class="flex-1">
                             <span class="font-semibold text-gray-800 block">{{ $option['label'] }}</span>
                             <span class="text-sm text-gray-500">{{ $option['desc'] }}</span>
                         </div>
@@ -66,7 +61,7 @@
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                             </svg>
                         @endif
-                    </label>
+                    </div>
                 @endforeach
             </div>
         @endif
