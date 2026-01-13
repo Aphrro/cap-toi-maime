@@ -520,9 +520,14 @@ new #[Layout('layouts.guest')] class extends Component
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Finalisation de votre profil</h3>
 
                 <div>
-                    <x-input-label for="bio" value="Biographie professionnelle (min. 100 caractères)" />
-                    <textarea wire:model="bio" id="bio" rows="4" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required placeholder="Presentez-vous, votre parcours, votre approché..."></textarea>
-                    <div class="mt-1 text-sm text-gray-500">{{ strlen($bio) }}/2000 caractères</div>
+                    <x-input-label for="bio" value="Biographie professionnelle (min. 100 caracteres)" />
+                    <textarea wire:model.live="bio" id="bio" rows="4" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required placeholder="Presentez-vous, votre parcours, votre approche..."></textarea>
+                    <div class="mt-1 text-sm {{ strlen($bio) >= 100 ? 'text-green-600' : 'text-gray-500' }}">
+                        {{ strlen($bio) }}/2000 caracteres
+                        @if(strlen($bio) < 100)
+                            <span class="text-amber-600">(minimum 100)</span>
+                        @endif
+                    </div>
                     <x-input-error :messages="$errors->get('bio')" class="mt-2" />
                 </div>
 
