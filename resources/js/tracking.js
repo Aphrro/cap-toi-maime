@@ -1,230 +1,354 @@
 /**
- * Cap Toi M'aime User Tracking Module
- * Tracks user behavior for personalized recommendations
+ * Cap Toi M'aime Smart Behavior Tracking
+ * Analyzes user behavior in real-time for intelligent assistance
  */
 
-class UserTracker {
+class SmartTracker {
     constructor() {
-        this.sessionId = null;
         this.pageLoadTime = Date.now();
-        this.maxScrollDepth = 0;
-        this.isInitialized = false;
-        this.eventQueue = [];
-        this.isProcessing = false;
+        this.lastActivityTime = Date.now();
+        this.scrollData = {
+            maxDepth: 0,
+            directionChanges: 0,
+            lastDirection: null,
+            lastScrollY: 0,
+            bounces: 0,
+            timeAtBottom: 0,
+            bottomReachedAt: null
+        };
+        this.mouseData = {
+            hesitationCount: 0,
+            hoverOnCta: 0,
+            lastMoveTime: 0,
+            exitIntentTriggered: false
+        };
+        this.clickData = {
+            total: 0,
+            rapidClicks: [],
+            lastClickTime: 0,
+            lastClickElement: null
+        };
+        this.formData = {
+            started: false,
+            fieldsInteracted: 0,
+            abandoned: false
+        };
+        this.behaviorBuffer = [];
+        this.analysisInterval = null;
+
+        this.init();
     }
 
     init() {
-        if (this.isInitialized) return;
-        this.isInitialized = true;
-
         this.trackPageView();
         this.setupScrollTracking();
+        this.setupMouseTracking();
         this.setupClickTracking();
-        this.setupVisibilityTracking();
-        this.setupLinkTracking();
-        this.processQueue();
+        this.setupFormTracking();
+        this.setupExitIntent();
+        this.setupIdleDetection();
+        this.startBehaviorAnalysis();
     }
 
-    async trackPageView() {
-        await this.sendEvent('page_view', 'navigation', 'viewed', {
-            url: window.location.pathname,
-            referrer: document.referrer,
-            title: document.title,
-            query: window.location.search
-        });
-    }
-
+    // ==================== SCROLL TRACKING ====================
     setupScrollTracking() {
         let ticking = false;
 
-        const onScroll = () => {
+        window.addEventListener('scroll', () => {
             if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const scrollPercent = Math.round(
-                        (window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight)) * 100
-                    );
-
-                    if (scrollPercent > this.maxScrollDepth) {
-                        this.maxScrollDepth = scrollPercent;
-
-                        // Track at key milestones
-                        if ([25, 50, 75, 90].includes(scrollPercent)) {
-                            this.sendEvent('scroll', 'engagement', 'depth', {
-                                depth: scrollPercent
-                            });
-                        }
-                    }
+                requestAnimationFrame(() => {
+                    this.analyzeScroll();
                     ticking = false;
                 });
                 ticking = true;
             }
-        };
-
-        window.addEventListener('scroll', onScroll, { passive: true });
+        }, { passive: true });
     }
 
+    analyzeScroll() {
+        const scrollY = window.scrollY;
+        const windowHeight = window.innerHeight;
+        const docHeight = document.documentElement.scrollHeight;
+        const scrollPercent = Math.round((scrollY / Math.max(1, docHeight - windowHeight)) * 100);
+
+        // Track max depth
+        if (scrollPercent > this.scrollData.maxDepth) {
+            this.scrollData.maxDepth = scrollPercent;
+
+            // Track milestone depths
+            if ([25, 50, 75, 90].includes(scrollPercent)) {
+                this.sendEvent('scroll', 'engagement', 'depth_milestone', { depth: scrollPercent });
+            }
+        }
+
+        // Detect direction changes (potential confusion)
+        const direction = scrollY > this.scrollData.lastScrollY ? 'down' : 'up';
+        if (this.scrollData.lastDirection && direction !== this.scrollData.lastDirection) {
+            this.scrollData.directionChanges++;
+            if (this.scrollData.directionChanges > 3) {
+                this.scrollData.bounces++;
+            }
+        }
+        this.scrollData.lastDirection = direction;
+        this.scrollData.lastScrollY = scrollY;
+
+        // Track time at bottom
+        if (scrollPercent >= 90) {
+            if (!this.scrollData.bottomReachedAt) {
+                this.scrollData.bottomReachedAt = Date.now();
+            }
+            this.scrollData.timeAtBottom = (Date.now() - this.scrollData.bottomReachedAt) / 1000;
+        } else {
+            this.scrollData.bottomReachedAt = null;
+        }
+
+        this.updateActivity();
+    }
+
+    // ==================== MOUSE TRACKING ====================
+    setupMouseTracking() {
+        let hoverTimeout = null;
+
+        // Track mouse hesitation (stopped moving for 2+ seconds)
+        document.addEventListener('mousemove', (e) => {
+            const now = Date.now();
+
+            if (this.mouseData.lastMoveTime && (now - this.mouseData.lastMoveTime) > 2000) {
+                this.mouseData.hesitationCount++;
+            }
+
+            this.mouseData.lastMoveTime = now;
+            this.updateActivity();
+        }, { passive: true });
+
+        // Track CTA hovers
+        document.addEventListener('mouseover', (e) => {
+            const cta = e.target.closest('a.bg-ctm-burgundy, button.bg-ctm-burgundy, [data-cta], .cta');
+            if (cta) {
+                clearTimeout(hoverTimeout);
+                hoverTimeout = setTimeout(() => {
+                    this.mouseData.hoverOnCta++;
+                    this.sendEvent('hover', 'engagement', 'cta_hover', {
+                        element: cta.textContent?.trim().substring(0, 30)
+                    });
+                }, 500); // Only count if hovered for 500ms+
+            }
+        }, { passive: true });
+
+        document.addEventListener('mouseout', (e) => {
+            const cta = e.target.closest('a.bg-ctm-burgundy, button.bg-ctm-burgundy, [data-cta], .cta');
+            if (cta) {
+                clearTimeout(hoverTimeout);
+            }
+        }, { passive: true });
+    }
+
+    setupExitIntent() {
+        document.addEventListener('mouseout', (e) => {
+            if (e.clientY <= 0 && !this.mouseData.exitIntentTriggered) {
+                this.mouseData.exitIntentTriggered = true;
+                this.sendEvent('exit_intent', 'engagement', 'detected', {
+                    time_on_page: this.getTimeOnPage(),
+                    scroll_depth: this.scrollData.maxDepth
+                });
+
+                // Dispatch event for assistant to catch
+                window.dispatchEvent(new CustomEvent('user-exit-intent', {
+                    detail: { timeOnPage: this.getTimeOnPage() }
+                }));
+            }
+        }, { passive: true });
+    }
+
+    // ==================== CLICK TRACKING ====================
     setupClickTracking() {
         document.addEventListener('click', (e) => {
-            // Track elements with data-track attribute
-            const trackElement = e.target.closest('[data-track]');
-            if (trackElement) {
-                const trackData = this.parseTrackData(trackElement.dataset.track);
-                this.sendEvent('click', trackData.category || 'interaction',
-                    trackData.action || 'clicked', trackData);
-            }
+            const now = Date.now();
+            this.clickData.total++;
 
-            // Track button clicks
-            const button = e.target.closest('button, [role="button"]');
-            if (button && !trackElement) {
-                this.sendEvent('click', 'button', 'clicked', {
-                    text: button.textContent?.trim().substring(0, 50),
-                    class: button.className?.substring(0, 100)
-                });
-            }
+            // Detect rapid clicks (same element within 1 second)
+            if (this.clickData.lastClickElement === e.target &&
+                (now - this.clickData.lastClickTime) < 1000) {
+                this.clickData.rapidClicks.push(now);
 
-            // Track CTA clicks
-            const cta = e.target.closest('.cta, [data-cta]');
-            if (cta) {
-                this.sendEvent('click', 'cta', 'clicked', {
-                    text: cta.textContent?.trim().substring(0, 50),
-                    href: cta.href || null
-                });
-            }
-        });
-    }
+                // Keep only recent rapid clicks
+                this.clickData.rapidClicks = this.clickData.rapidClicks.filter(
+                    t => now - t < 3000
+                );
 
-    setupLinkTracking() {
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('a[href]');
-            if (!link) return;
+                // Detect rage clicks
+                if (this.clickData.rapidClicks.length >= 3) {
+                    this.sendEvent('rage_click', 'frustration', 'detected', {
+                        element: this.getElementDescription(e.target),
+                        count: this.clickData.rapidClicks.length
+                    });
 
-            const href = link.getAttribute('href');
-
-            // Track external links
-            if (href && (href.startsWith('http') && !href.includes(window.location.hostname))) {
-                this.sendEvent('click', 'external_link', 'clicked', {
-                    url: href,
-                    text: link.textContent?.trim().substring(0, 50)
-                });
-            }
-
-            // Track phone/email links
-            if (href?.startsWith('tel:')) {
-                this.sendEvent('click', 'contact', 'phone_clicked', {
-                    phone: href.replace('tel:', '')
-                });
-            }
-            if (href?.startsWith('mailto:')) {
-                this.sendEvent('click', 'contact', 'email_clicked', {
-                    email: href.replace('mailto:', '')
-                });
-            }
-
-            // Track professional card clicks
-            if (link.closest('[data-professional-id]')) {
-                const card = link.closest('[data-professional-id]');
-                this.sendEvent('click', 'professional', 'card_clicked', {
-                    professional_id: card.dataset.professionalId
-                });
-            }
-        });
-    }
-
-    setupVisibilityTracking() {
-        // Track page visibility changes
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                this.sendEvent('visibility', 'engagement', 'hidden', {
-                    time_on_page: this.getTimeOnPage(),
-                    scroll_depth: this.maxScrollDepth
-                });
+                    window.dispatchEvent(new CustomEvent('user-frustrated', {
+                        detail: { type: 'rage_click' }
+                    }));
+                }
             } else {
-                this.sendEvent('visibility', 'engagement', 'visible', {});
+                this.clickData.rapidClicks = [];
             }
-        });
 
-        // Track page exit
-        window.addEventListener('beforeunload', () => {
-            this.sendEventSync('page_exit', 'navigation', 'left', {
-                time_on_page: this.getTimeOnPage(),
-                scroll_depth: this.maxScrollDepth
-            });
+            this.clickData.lastClickTime = now;
+            this.clickData.lastClickElement = e.target;
+
+            // Track specific click types
+            this.trackClickType(e);
+            this.updateActivity();
         });
     }
 
+    trackClickType(e) {
+        const target = e.target;
+
+        // Professional card click
+        const proCard = target.closest('[data-professional-id]');
+        if (proCard) {
+            this.sendEvent('click', 'professional', 'card_viewed', {
+                professional_id: proCard.dataset.professionalId
+            });
+        }
+
+        // Filter interaction
+        const filter = target.closest('[data-filter], select, input[type="checkbox"]');
+        if (filter) {
+            this.sendEvent('filter', 'search', 'applied', {
+                filter_type: filter.dataset?.filter || filter.name || 'unknown'
+            });
+        }
+
+        // Back button / navigation
+        if (target.closest('a[href*="back"], button[onclick*="back"], .back-button')) {
+            this.sendEvent('navigation', 'behavior', 'back', {});
+        }
+
+        // Contact actions
+        const contactLink = target.closest('a[href^="tel:"], a[href^="mailto:"], [data-contact]');
+        if (contactLink) {
+            this.sendEvent('contact', 'conversion', 'initiated', {
+                type: contactLink.href?.startsWith('tel:') ? 'phone' : 'email'
+            });
+        }
+    }
+
+    // ==================== FORM TRACKING ====================
+    setupFormTracking() {
+        document.addEventListener('focusin', (e) => {
+            if (e.target.matches('input, textarea, select')) {
+                if (!this.formData.started) {
+                    this.formData.started = true;
+                    this.sendEvent('form', 'interaction', 'started', {
+                        form_id: e.target.closest('form')?.id || 'unknown'
+                    });
+                }
+                this.formData.fieldsInteracted++;
+            }
+        });
+
+        // Track form abandonment
+        window.addEventListener('beforeunload', () => {
+            if (this.formData.started && this.formData.fieldsInteracted > 0) {
+                const form = document.querySelector('form');
+                if (form && !form.dataset.submitted) {
+                    this.sendEventSync('form', 'interaction', 'abandoned', {
+                        fields_completed: this.formData.fieldsInteracted
+                    });
+                }
+            }
+        });
+    }
+
+    // ==================== IDLE DETECTION ====================
+    setupIdleDetection() {
+        setInterval(() => {
+            const idleTime = (Date.now() - this.lastActivityTime) / 1000;
+
+            if (idleTime > 60 && idleTime < 65) {
+                this.sendEvent('idle', 'behavior', 'detected', {
+                    idle_seconds: Math.round(idleTime),
+                    page: window.location.pathname
+                });
+
+                window.dispatchEvent(new CustomEvent('user-idle', {
+                    detail: { seconds: idleTime }
+                }));
+            }
+        }, 5000);
+    }
+
+    updateActivity() {
+        this.lastActivityTime = Date.now();
+    }
+
+    // ==================== BEHAVIOR ANALYSIS ====================
+    startBehaviorAnalysis() {
+        // Send behavior data every 10 seconds
+        this.analysisInterval = setInterval(() => {
+            this.sendBehaviorSnapshot();
+        }, 10000);
+
+        // Also send on page unload
+        window.addEventListener('beforeunload', () => {
+            this.sendBehaviorSnapshot(true);
+        });
+    }
+
+    sendBehaviorSnapshot(sync = false) {
+        const data = {
+            scroll: {
+                depth: this.scrollData.maxDepth,
+                direction_changes: this.scrollData.directionChanges,
+                bounces: this.scrollData.bounces,
+                time_at_bottom: this.scrollData.timeAtBottom,
+                speed: this.calculateScrollSpeed()
+            },
+            mouse: {
+                hesitation_count: this.mouseData.hesitationCount,
+                hover_on_cta: this.mouseData.hoverOnCta,
+                exit_intent: this.mouseData.exitIntentTriggered
+            },
+            clicks: {
+                total: this.clickData.total,
+                rapid_same_element: this.clickData.rapidClicks.length
+            },
+            time: {
+                on_page: this.getTimeOnPage(),
+                idle: (Date.now() - this.lastActivityTime) / 1000
+            },
+            page: window.location.pathname
+        };
+
+        if (sync) {
+            this.sendEventSync('behavior_snapshot', 'analysis', 'periodic', data);
+        } else {
+            this.sendEvent('behavior_snapshot', 'analysis', 'periodic', data);
+
+            // Also dispatch for Livewire to catch
+            window.dispatchEvent(new CustomEvent('behavior-update', { detail: data }));
+        }
+    }
+
+    calculateScrollSpeed() {
+        // Simple approximation
+        if (this.scrollData.directionChanges > 5) return 'erratic';
+        if (this.scrollData.maxDepth > 50 && this.getTimeOnPage() < 10) return 'fast';
+        if (this.scrollData.maxDepth < 30 && this.getTimeOnPage() > 30) return 'slow';
+        return 'normal';
+    }
+
+    // ==================== UTILITY METHODS ====================
     getTimeOnPage() {
         return Math.round((Date.now() - this.pageLoadTime) / 1000);
     }
 
-    parseTrackData(dataString) {
-        if (!dataString) return {};
-
-        try {
-            return JSON.parse(dataString);
-        } catch (e) {
-            // Try parsing as key=value pairs
-            const data = {};
-            dataString.split(',').forEach(pair => {
-                const [key, value] = pair.split(':').map(s => s.trim());
-                if (key && value) data[key] = value;
-            });
-            return data;
-        }
-    }
-
-    async sendEvent(type, category, action, data = {}) {
-        this.eventQueue.push({ type, category, action, data, timestamp: Date.now() });
-        this.processQueue();
-    }
-
-    sendEventSync(type, category, action, data = {}) {
-        const payload = JSON.stringify({ type, category, action, data });
-
-        // Use sendBeacon for reliable delivery on page exit
-        if (navigator.sendBeacon) {
-            const blob = new Blob([payload], { type: 'application/json' });
-            navigator.sendBeacon('/api/track', blob);
-        }
-    }
-
-    async processQueue() {
-        if (this.isProcessing || this.eventQueue.length === 0) return;
-
-        this.isProcessing = true;
-
-        while (this.eventQueue.length > 0) {
-            const event = this.eventQueue.shift();
-
-            try {
-                await fetch('/api/track', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': this.getCsrfToken(),
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        type: event.type,
-                        category: event.category,
-                        action: event.action,
-                        data: event.data
-                    }),
-                    keepalive: true
-                });
-            } catch (e) {
-                console.warn('Tracking failed:', e);
-                // Re-add to queue on failure (max 3 retries)
-                if (!event.retries || event.retries < 3) {
-                    event.retries = (event.retries || 0) + 1;
-                    this.eventQueue.push(event);
-                }
-            }
-
-            // Small delay between events
-            await new Promise(resolve => setTimeout(resolve, 100));
-        }
-
-        this.isProcessing = false;
+    getElementDescription(element) {
+        if (!element) return 'unknown';
+        const tag = element.tagName?.toLowerCase() || '';
+        const className = element.className?.toString().substring(0, 50) || '';
+        const text = element.textContent?.trim().substring(0, 20) || '';
+        return `${tag}.${className}[${text}]`;
     }
 
     getCsrfToken() {
@@ -232,31 +356,52 @@ class UserTracker {
         return meta ? meta.getAttribute('content') : '';
     }
 
-    // Public API for manual tracking
-    track(category, action, data = {}) {
-        this.sendEvent('custom', category, action, data);
+    async trackPageView() {
+        await this.sendEvent('page_view', 'navigation', 'viewed', {
+            url: window.location.pathname,
+            referrer: document.referrer,
+            title: document.title
+        });
     }
 
+    async sendEvent(type, category, action, data = {}) {
+        try {
+            await fetch('/api/track', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': this.getCsrfToken(),
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({ type, category, action, data }),
+                keepalive: true
+            });
+        } catch (e) {
+            console.warn('Tracking failed:', e);
+        }
+    }
+
+    sendEventSync(type, category, action, data = {}) {
+        const payload = JSON.stringify({ type, category, action, data });
+        if (navigator.sendBeacon) {
+            const blob = new Blob([payload], { type: 'application/json' });
+            navigator.sendBeacon('/api/track', blob);
+        }
+    }
+
+    // ==================== PUBLIC API ====================
     trackSearch(query, filters = {}, resultsCount = 0) {
         this.sendEvent('search', 'search', 'performed', {
             query,
             filters,
             results_count: resultsCount
         });
-    }
 
-    trackFilter(filterName, filterValue) {
-        this.sendEvent('filter', 'search', 'applied', {
-            filter_name: filterName,
-            filter_value: filterValue
-        });
-    }
-
-    trackProfessionalView(professionalId, professionalName) {
-        this.sendEvent('view', 'professional', 'viewed', {
-            professional_id: professionalId,
-            professional_name: professionalName
-        });
+        if (resultsCount === 0) {
+            window.dispatchEvent(new CustomEvent('search-no-results', {
+                detail: { query, filters }
+            }));
+        }
     }
 
     trackQuestionnaireStep(step, data = {}) {
@@ -266,21 +411,35 @@ class UserTracker {
         });
     }
 
-    trackContactAction(type, professionalId = null) {
-        this.sendEvent('contact', 'contact', type, {
-            professional_id: professionalId
-        });
+    getBehaviorSummary() {
+        return {
+            timeOnPage: this.getTimeOnPage(),
+            scrollDepth: this.scrollData.maxDepth,
+            engagement: this.calculateEngagementScore(),
+            frustrationSignals: this.getFrustrationSignals()
+        };
+    }
+
+    calculateEngagementScore() {
+        let score = 0;
+        score += Math.min(30, this.getTimeOnPage() / 2); // Max 30 for time
+        score += Math.min(30, this.scrollData.maxDepth / 3); // Max 30 for scroll
+        score += Math.min(20, this.clickData.total * 3); // Max 20 for clicks
+        score += Math.min(20, this.mouseData.hoverOnCta * 5); // Max 20 for CTA interest
+        return Math.round(score);
+    }
+
+    getFrustrationSignals() {
+        const signals = [];
+        if (this.clickData.rapidClicks.length >= 3) signals.push('rage_clicks');
+        if (this.scrollData.bounces >= 2) signals.push('scroll_bouncing');
+        if (this.mouseData.hesitationCount >= 3) signals.push('hesitation');
+        if (this.mouseData.exitIntentTriggered) signals.push('exit_intent');
+        return signals;
     }
 }
 
-// Create global instance
-window.userTracker = new UserTracker();
+// Initialize tracker
+window.smartTracker = new SmartTracker();
 
-// Auto-initialize when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => window.userTracker.init());
-} else {
-    window.userTracker.init();
-}
-
-export default window.userTracker;
+export default window.smartTracker;
