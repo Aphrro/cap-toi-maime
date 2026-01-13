@@ -22,6 +22,12 @@ class EnsureUserIsMember
             return redirect()->route('member.gate');
         }
 
+        // Bypass pour compte dev/admin
+        $devEmails = ['deepmock@gmail.com'];
+        if (in_array(auth()->user()->email, $devEmails)) {
+            return $next($request);
+        }
+
         if (auth()->user()->member_status !== 'approved') {
             return redirect()->route('member.pending');
         }
