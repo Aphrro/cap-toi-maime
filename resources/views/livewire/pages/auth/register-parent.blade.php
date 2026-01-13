@@ -296,7 +296,7 @@ new #[Layout('layouts.guest')] class extends Component
 
                         <div class="mb-4">
                             <x-input-label value="Problematique principale" />
-                            <select wire:model="children.{{ $index }}.problématique" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required>
+                            <select wire:model="children.{{ $index }}.problematique" class="block mt-1 w-full rounded-md border-gray-300 shadow-sm focus:border-cap-900 focus:ring-cap-900" required>
                                 <option value="">Sélectionnéz...</option>
                                 @foreach ($problematiques as $key => $label)
                                     <option value="{{ $key }}">{{ $label }}</option>

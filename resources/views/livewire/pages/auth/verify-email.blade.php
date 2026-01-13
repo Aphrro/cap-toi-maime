@@ -11,7 +11,7 @@ new #[Layout('layouts.guest')] class extends Component
     /**
      * Send an email vérification notification to the user.
      */
-    public function sendVérification(): void
+    public function sendVerification(): void
     {
         if (Auth::user()->hasVérifiédEmail()) {
             $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
@@ -47,7 +47,7 @@ new #[Layout('layouts.guest')] class extends Component
     @endif
 
     <div class="mt-4 flex items-center justify-between">
-        <x-primary-button wire:click="sendVérification">
+        <x-primary-button wire:click="sendVerification">
             {{ __('Resend Vérification Email') }}
         </x-primary-button>
 

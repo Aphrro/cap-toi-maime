@@ -31,7 +31,7 @@
                         <a href="{{ route('home') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('home') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Accueil</a>
                         <a href="{{ route('about') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('about') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">À propos</a>
                         <a href="{{ route('faq') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('faq') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">FAQ</a>
-                        <a href="{{ route('témoignages') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('témoignages') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Témoignages</a>
+                        <a href="{{ route('temoignages') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('temoignages') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Témoignages</a>
                         <a href="{{ route('contact') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('contact') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Contact</a>
                         <a href="{{ route('espace-pro') }}" class="text-ctm-teal text-sm font-bold uppercase hover:text-ctm-teal-dark transition-colors">Espace Pro</a>
                         <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">Trouver un pro</a>
@@ -82,7 +82,7 @@
                     <a href="{{ route('faq') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('faq') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
                         FAQ
                     </a>
-                    <a href="{{ route('témoignages') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('témoignages') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                    <a href="{{ route('temoignages') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('temoignages') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
                         Témoignages
                     </a>
                     <a href="{{ route('contact') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('contact') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
@@ -120,7 +120,7 @@
                         <ul class="space-y-2">
                             <li><a href="{{ route('annuaire') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Annuaire</a></li>
                             <li><a href="{{ route('faq') }}" class="text-sm text-gray-400 hover:text-white transition-colors">FAQ</a></li>
-                            <li><a href="{{ route('témoignages') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Témoignages</a></li>
+                            <li><a href="{{ route('temoignages') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Témoignages</a></li>
                             <li><a href="{{ route('about') }}" class="text-sm text-gray-400 hover:text-white transition-colors">À propos</a></li>
                             <li><a href="{{ route('contact') }}" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a></li>
                         </ul>

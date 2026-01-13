@@ -52,7 +52,7 @@ new #[Layout('layouts.guest')] class extends Component
     public array $diplomas = [['title' => '', 'institution' => '', 'year' => '']];
     public ?string $professional_number = '';
     public ?string $professional_number_type = null;
-    public ?int $years_expérience = null;
+    public ?int $years_experience = null;
     public ?string $insurance_company = '';
     public ?string $insurance_number = '';
 
@@ -135,7 +135,7 @@ new #[Layout('layouts.guest')] class extends Component
                 'diplomas.*.year' => ['required', 'numeric', 'integer', 'min:1950', 'max:' . date('Y')],
                 'professional_number_type' => ['nullable', Rule::in(array_keys(Professional::PROFESSIONAL_NUMBER_TYPES))],
                 'professional_number' => ['nullable', 'string', 'max:50'],
-                'years_expérience' => ['required', 'integer', 'min:0', 'max:60'],
+                'years_experience' => ['required', 'integer', 'min:0', 'max:60'],
                 'insurance_company' => ['nullable', 'string', 'max:255'],
                 'insurance_number' => ['nullable', 'string', 'max:100'],
             ]);
@@ -200,7 +200,7 @@ new #[Layout('layouts.guest')] class extends Component
                 'diplomas' => $this->diplomas,
                 'professional_number' => $this->professional_number ?: null,
                 'professional_number_type' => $this->professional_number_type,
-                'years_expérience' => $this->years_expérience,
+                'years_experience' => $this->years_experience,
                 'insurance_company' => $this->insurance_company ?: null,
                 'insurance_number' => $this->insurance_number ?: null,
                 'school_phobia_training' => $this->school_phobia_training ?: null,
@@ -493,9 +493,9 @@ new #[Layout('layouts.guest')] class extends Component
 
                 <!-- Expérience -->
                 <div>
-                    <x-input-label for="years_expérience" value="Annees d'expérience" />
-                    <x-text-input wire:model="years_expérience" id="years_expérience" type="number" min="0" max="60" class="block mt-1 w-32" required />
-                    <x-input-error :messages="$errors->get('years_expérience')" class="mt-2" />
+                    <x-input-label for="years_experience" value="Annees d'expérience" />
+                    <x-text-input wire:model="years_experience" id="years_experience" type="number" min="0" max="60" class="block mt-1 w-32" required />
+                    <x-input-error :messages="$errors->get('years_experience')" class="mt-2" />
                 </div>
 
                 <!-- Insurance -->
