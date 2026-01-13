@@ -17,15 +17,16 @@
     </head>
     <body class="antialiased font-sans bg-white">
         <!-- Navigation -->
-        <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+        <nav class="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm" x-data="{ mobileMenuOpen: false }">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-20">
                     <div class="flex items-center">
                         <a href="{{ route('home') }}" class="flex items-center space-x-3">
                             <img src="{{ asset('logo-cap-toi-maime.png') }}" alt="Logo" class="h-12 w-12" onerror="this.style.display='none'">
-                            <span class="font-display text-xl text-ctm-burgundy uppercase tracking-wide">Cap Toi M'aime</span>
+                            <span class="font-display text-xl text-ctm-burgundy uppercase tracking-wide hidden sm:inline">Cap Toi M'aime</span>
                         </a>
                     </div>
+                    <!-- Desktop menu -->
                     <div class="hidden md:flex items-center space-x-6">
                         <a href="{{ route('home') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('home') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">Accueil</a>
                         <a href="{{ route('about') }}" class="text-sm font-bold uppercase transition-colors {{ request()->routeIs('about') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">A propos</a>
@@ -36,9 +37,60 @@
                         <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">Trouver un pro</a>
                     </div>
                     <!-- Mobile menu button -->
-                    <div class="md:hidden flex items-center">
-                        <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-4 py-2 rounded-full">
+                    <div class="md:hidden flex items-center space-x-3">
+                        <a href="{{ route('annuaire') }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-xs font-bold uppercase px-3 py-2 rounded-full">
                             Annuaire
+                        </a>
+                        <button
+                            @click="mobileMenuOpen = !mobileMenuOpen"
+                            class="p-2 rounded-lg text-ctm-teal hover:bg-gray-100 transition-colors"
+                            aria-label="Menu"
+                        >
+                            <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                            <svg x-show="mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" x-cloak>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div
+                x-show="mobileMenuOpen"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 -translate-y-2"
+                x-transition:enter-end="opacity-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 translate-y-0"
+                x-transition:leave-end="opacity-0 -translate-y-2"
+                class="md:hidden bg-white border-t border-gray-100 shadow-lg"
+                x-cloak
+            >
+                <div class="px-4 py-4 space-y-1">
+                    <a href="{{ route('home') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('home') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                        Accueil
+                    </a>
+                    <a href="{{ route('annuaire') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('annuaire') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                        Trouver un professionnel
+                    </a>
+                    <a href="{{ route('about') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('about') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                        A propos
+                    </a>
+                    <a href="{{ route('faq') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('faq') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                        FAQ
+                    </a>
+                    <a href="{{ route('temoignages') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('temoignages') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                        Temoignages
+                    </a>
+                    <a href="{{ route('contact') }}" class="block px-4 py-3 rounded-xl text-base font-semibold transition-colors {{ request()->routeIs('contact') ? 'bg-ctm-burgundy/10 text-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                        Contact
+                    </a>
+                    <div class="border-t border-gray-100 my-2 pt-2">
+                        <a href="{{ route('espace-pro') }}" class="block px-4 py-3 rounded-xl text-base font-semibold text-ctm-teal hover:bg-ctm-teal/10 transition-colors">
+                            Espace Pro
                         </a>
                     </div>
                 </div>
