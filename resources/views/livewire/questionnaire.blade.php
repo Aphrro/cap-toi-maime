@@ -281,6 +281,18 @@
         @endif
 
         {{-- Navigation --}}
+        @php
+            // Determiner si le bouton Suivant doit etre desactive
+            $canProceed = match($step) {
+                1 => !empty($situation),
+                2 => true, // Optionnel
+                3 => !empty($childAge) && !empty($duration),
+                4 => true, // Canton optionnel, mode par defaut
+                5 => !empty($priorities),
+                default => true
+            };
+        @endphp
+
         <div class="flex justify-between mt-8">
             <button
                 wire:click="previousStep"
@@ -294,7 +306,11 @@
 
             <button
                 wire:click="nextStep"
-                class="flex items-center gap-2 px-8 py-3 bg-cap-900 text-white rounded-lg font-medium hover:bg-cap-800 transition shadow-lg"
+                @if(!$canProceed) disabled @endif
+                class="flex items-center gap-2 px-8 py-3 rounded-lg font-medium transition shadow-lg
+                    {{ $canProceed
+                        ? 'bg-cap-900 text-white hover:bg-cap-800 cursor-pointer'
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed' }}"
             >
                 @if($step === $totalSteps)
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

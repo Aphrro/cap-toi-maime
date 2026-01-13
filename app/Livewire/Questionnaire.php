@@ -77,11 +77,14 @@ class Questionnaire extends Component
 
     private function validateStep(): bool
     {
-        if ($this->step === 1 && !$this->situation) {
-            $this->addError('situation', 'Veuillez sélectionner une situation');
-            return false;
-        }
-        return true;
+        return match ($this->step) {
+            1 => !empty($this->situation),
+            2 => true, // Optionnel
+            3 => !empty($this->childAge) && !empty($this->duration),
+            4 => true, // Canton optionnel, mode par defaut
+            5 => !empty($this->priorities),
+            default => true
+        };
     }
 
     private function submitQuestionnaire()
