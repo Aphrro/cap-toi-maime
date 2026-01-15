@@ -11,7 +11,16 @@ class Canton extends Model
 {
     use HasSlug;
 
-    protected $fillable = ['name', 'code', 'slug'];
+    protected $fillable = ['name', 'code', 'slug', 'order', 'is_active'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true)->orderBy('order');
+    }
 
     public function getSlugOptions(): SlugOptions
     {

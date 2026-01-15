@@ -12,7 +12,16 @@ class City extends Model
 {
     use HasSlug;
 
-    protected $fillable = ['name', 'slug', 'postal_code', 'canton_id', 'latitude', 'longitude'];
+    protected $fillable = ['name', 'slug', 'postal_code', 'canton_id', 'latitude', 'longitude', 'is_active'];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true)->orderBy('name');
+    }
 
     public function getSlugOptions(): SlugOptions
     {

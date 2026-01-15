@@ -232,6 +232,38 @@ class Professional extends Model implements HasMedia
         return $this->belongsToMany(Specialty::class, 'professional_specialty');
     }
 
+    /**
+     * Many-to-many relation with reimbursement types
+     */
+    public function reimbursementTypes(): BelongsToMany
+    {
+        return $this->belongsToMany(ReimbursementType::class, 'professional_reimbursement');
+    }
+
+    /**
+     * Many-to-many relation with languages (new pivot table)
+     */
+    public function languagesRelation(): BelongsToMany
+    {
+        return $this->belongsToMany(Language::class, 'professional_language');
+    }
+
+    /**
+     * Relation avec le canton via la ville
+     */
+    public function canton(): BelongsTo
+    {
+        return $this->belongsTo(Canton::class);
+    }
+
+    /**
+     * Relation avec la profession
+     */
+    public function profession(): BelongsTo
+    {
+        return $this->belongsTo(Profession::class);
+    }
+
     // ═══════════════════════════════════════════════════════════
     // MEDIA
     // ═══════════════════════════════════════════════════════════
