@@ -19,6 +19,8 @@ class Specialty extends Model
         'slug',
         'name',
         'description',
+        'icon',
+        'order',
         'sort_order',
         'is_active',
     ];

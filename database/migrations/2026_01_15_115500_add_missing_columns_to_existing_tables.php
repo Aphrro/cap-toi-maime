@@ -31,10 +31,7 @@ return new class extends Migration
         // Add missing columns to specialties
         Schema::table('specialties', function (Blueprint $table) {
             if (!Schema::hasColumn('specialties', 'order')) {
-                $table->integer('order')->default(0)->after('icon');
-            }
-            if (!Schema::hasColumn('specialties', 'is_active')) {
-                $table->boolean('is_active')->default(true)->after('order');
+                $table->integer('order')->default(0)->after('description');
             }
         });
 
@@ -63,7 +60,7 @@ return new class extends Migration
         });
 
         Schema::table('specialties', function (Blueprint $table) {
-            $table->dropColumn(['order', 'is_active']);
+            $table->dropColumn('order');
         });
 
         Schema::table('professionals', function (Blueprint $table) {
