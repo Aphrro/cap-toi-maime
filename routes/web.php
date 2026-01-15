@@ -68,13 +68,26 @@ require __DIR__.'/auth.php';
 Route::get('/setup-admin-secret-2026', function () {
     $adminEmail = 'admin@captoimaime.ch';
 
+    // Creer le role admin si necessaire
+    \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+
     // Verifier si admin existe deja
     $existingUser = \App\Models\User::where('email', $adminEmail)->first();
     if ($existingUser) {
+        // S'assurer qu'il a le role admin
+        if (!$existingUser->hasRole('admin')) {
+            $existingUser->assignRole('admin');
+        }
+        // Reset password au cas ou
+        $existingUser->password = \Illuminate\Support\Facades\Hash::make('admin123');
+        $existingUser->user_type = 'admin';
+        $existingUser->save();
+
         return response()->json([
-            'status' => 'exists',
-            'message' => 'Admin existe deja',
+            'status' => 'fixed',
+            'message' => 'Admin mis a jour avec role et password reset',
             'email' => $adminEmail,
+            'password' => 'admin123',
             'user_type' => $existingUser->user_type,
             'roles' => $existingUser->getRoleNames(),
         ]);
