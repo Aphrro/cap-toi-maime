@@ -129,7 +129,7 @@ class User extends Authenticatable implements FilamentUser
         return $this->suspended_at !== null;
     }
 
-    public function suspend(string $reason = null): void
+    public function suspend(?string $reason = null): void
     {
         $this->update([
             'suspended_at' => now(),

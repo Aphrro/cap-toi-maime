@@ -182,6 +182,11 @@ new #[Layout('layouts.guest')] class extends Component
                 ];
             }
 
+            // Determine consultation modes based on type
+            $modeCabinet = in_array($this->consultation_type, ['cabinet', 'mixte']);
+            $modeVisio = in_array($this->consultation_type, ['en_ligne', 'mixte']);
+            $modeDomicile = $this->consultation_type === 'domicile';
+
             // Create professional profile
             $professional = Professional::create([
                 'user_id' => $user->id,
@@ -196,6 +201,9 @@ new #[Layout('layouts.guest')] class extends Component
                 'category_id' => $this->category_id,
                 'languages' => $this->languages,
                 'consultation_type' => $this->consultation_type,
+                'mode_cabinet' => $modeCabinet,
+                'mode_visio' => $modeVisio,
+                'mode_domicile' => $modeDomicile,
                 'bio' => $this->bio,
                 'diplomas' => $this->diplomas,
                 'professional_number' => $this->professional_number ?: null,
