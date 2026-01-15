@@ -11,21 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->datetime('start_date');
-            $table->datetime('end_date')->nullable();
-            $table->string('location')->nullable();
-            $table->string('address')->nullable();
-            $table->integer('max_professionals')->nullable();
-            $table->integer('max_members')->nullable();
-            $table->enum('status', ['draft', 'published', 'cancelled', 'completed'])->default('draft');
-            $table->string('image')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('events')) {
+            Schema::create('events', function (Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->text('description')->nullable();
+                $table->datetime('start_date');
+                $table->datetime('end_date')->nullable();
+                $table->string('location')->nullable();
+                $table->string('address')->nullable();
+                $table->integer('max_professionals')->nullable();
+                $table->integer('max_members')->nullable();
+                $table->enum('status', ['draft', 'published', 'cancelled', 'completed'])->default('draft');
+                $table->string('image')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

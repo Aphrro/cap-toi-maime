@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('email_logs', function (Blueprint $table) {
-            $table->id();
-            $table->string('to');
-            $table->string('subject');
-            $table->string('template')->nullable();
-            $table->json('data')->nullable();
-            $table->enum('status', ['sent', 'failed', 'pending'])->default('pending');
-            $table->timestamp('sent_at')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('email_logs')) {
+            Schema::create('email_logs', function (Blueprint $table) {
+                $table->id();
+                $table->string('to');
+                $table->string('subject');
+                $table->string('template')->nullable();
+                $table->json('data')->nullable();
+                $table->enum('status', ['sent', 'failed', 'pending'])->default('pending');
+                $table->timestamp('sent_at')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

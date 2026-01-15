@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('professional_reimbursement', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('professional_id')->constrained()->onDelete('cascade');
-            $table->foreignId('reimbursement_type_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-            $table->unique(['professional_id', 'reimbursement_type_id'], 'pro_reimb_unique');
-        });
+        if (!Schema::hasTable('professional_reimbursement')) {
+            Schema::create('professional_reimbursement', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('professional_id')->constrained()->onDelete('cascade');
+                $table->foreignId('reimbursement_type_id')->constrained()->onDelete('cascade');
+                $table->timestamps();
+                $table->unique(['professional_id', 'reimbursement_type_id'], 'pro_reimb_unique');
+            });
+        }
     }
 
     /**

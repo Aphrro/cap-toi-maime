@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('professional_language', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('professional_id')->constrained()->onDelete('cascade');
-            $table->foreignId('language_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
-            $table->unique(['professional_id', 'language_id'], 'pro_lang_unique');
-        });
+        if (!Schema::hasTable('professional_language')) {
+            Schema::create('professional_language', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('professional_id')->constrained()->onDelete('cascade');
+                $table->foreignId('language_id')->constrained()->onDelete('cascade');
+                $table->timestamps();
+                $table->unique(['professional_id', 'language_id'], 'pro_lang_unique');
+            });
+        }
     }
 
     /**

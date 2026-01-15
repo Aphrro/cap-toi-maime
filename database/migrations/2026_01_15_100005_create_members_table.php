@@ -11,18 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('members', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('phone')->nullable();
-            $table->date('membership_start');
-            $table->date('membership_end');
-            $table->enum('status', ['pending', 'active', 'expired', 'cancelled'])->default('pending');
-            $table->text('admin_notes')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('members')) {
+            Schema::create('members', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('user_id')->constrained()->onDelete('cascade');
+                $table->string('first_name');
+                $table->string('last_name');
+                $table->string('phone')->nullable();
+                $table->date('membership_start');
+                $table->date('membership_end');
+                $table->enum('status', ['pending', 'active', 'expired', 'cancelled'])->default('pending');
+                $table->text('admin_notes')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**
