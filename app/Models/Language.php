@@ -15,7 +15,7 @@ class Language extends Model
 
     public function professionals(): BelongsToMany
     {
-        return $this->belongsToMany(Professional::class);
+        return $this->belongsToMany(Professional::class, 'professional_language');
     }
 
     public function scopeActive($query)
