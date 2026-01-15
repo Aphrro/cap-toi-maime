@@ -65,6 +65,20 @@ Route::view('profile', 'profile')
 require __DIR__.'/auth.php';
 
 // ═══════════════════════════════════════════════════════════
+// PAGES CMS DYNAMIQUES (doit etre a la fin!)
+// ═══════════════════════════════════════════════════════════
+
+Route::get('/{slug}', function (string $slug) {
+    $page = \App\Models\Page::where('slug', $slug)->where('is_active', true)->first();
+
+    if (!$page) {
+        abort(404);
+    }
+
+    return view('pages.cms', ['page' => $page]);
+})->where('slug', '[a-z0-9\-]+')->name('page.show');
+
+// ═══════════════════════════════════════════════════════════
 // ROUTE TEMPORAIRE - CREATION ADMIN (A SUPPRIMER APRES USAGE)
 // ═══════════════════════════════════════════════════════════
 Route::get('/setup-admin-secret-2026', function () {
