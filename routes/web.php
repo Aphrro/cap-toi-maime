@@ -61,3 +61,44 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 require __DIR__.'/auth.php';
+
+// ═══════════════════════════════════════════════════════════
+// ROUTE TEMPORAIRE - CREATION ADMIN (A SUPPRIMER APRES USAGE)
+// ═══════════════════════════════════════════════════════════
+Route::get('/setup-admin-secret-2026', function () {
+    $adminEmail = 'admin@captoimaime.ch';
+
+    // Verifier si admin existe deja
+    $existingUser = \App\Models\User::where('email', $adminEmail)->first();
+    if ($existingUser) {
+        return response()->json([
+            'status' => 'exists',
+            'message' => 'Admin existe deja',
+            'email' => $adminEmail,
+            'user_type' => $existingUser->user_type,
+            'roles' => $existingUser->getRoleNames(),
+        ]);
+    }
+
+    // Creer le role admin si necessaire
+    \Spatie\Permission\Models\Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+
+    // Creer l'admin
+    $user = \App\Models\User::create([
+        'name' => 'Admin Cap Toi M\'aime',
+        'email' => $adminEmail,
+        'password' => \Illuminate\Support\Facades\Hash::make('admin123'),
+        'user_type' => 'admin',
+        'is_active' => true,
+    ]);
+
+    $user->assignRole('admin');
+
+    return response()->json([
+        'status' => 'created',
+        'message' => 'Admin cree avec succes!',
+        'email' => $adminEmail,
+        'password' => 'admin123',
+        'warning' => 'CHANGEZ CE MOT DE PASSE! Et supprimez cette route!',
+    ]);
+});
