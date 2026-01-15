@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             ReimbursementTypeSeeder::class,
             FaqSeeder::class,
             PageSeeder::class,
+            SettingSeeder::class,
         ]);
     }
 }
