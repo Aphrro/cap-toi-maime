@@ -48,6 +48,9 @@ class AdminPanelProvider extends PanelProvider
                     ->label('Contenu')
                     ->icon('heroicon-o-document-text'),
                 NavigationGroup::make()
+                    ->label('Communication')
+                    ->icon('heroicon-o-envelope'),
+                NavigationGroup::make()
                     ->label('Paramètres')
                     ->icon('heroicon-o-cog-6-tooth')
                     ->collapsed(),

@@ -17,13 +17,13 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationLabel = 'Evenements';
+    protected static ?string $navigationLabel = 'Événements';
 
-    protected static ?string $navigationGroup = 'Evenements';
+    protected static ?string $navigationGroup = 'Événements';
 
-    protected static ?string $modelLabel = 'Evenement';
+    protected static ?string $modelLabel = 'Événement';
 
-    protected static ?string $pluralModelLabel = 'Evenements';
+    protected static ?string $pluralModelLabel = 'Événements';
 
     protected static ?int $navigationSort = 1;
 
