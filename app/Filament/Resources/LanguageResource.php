@@ -18,7 +18,7 @@ class LanguageResource extends Resource
 
     protected static ?string $navigationLabel = 'Langues';
 
-    protected static ?string $navigationGroup = 'Parametres';
+    protected static ?string $navigationGroup = 'Paramètres';
 
     protected static ?string $modelLabel = 'Langue';
 

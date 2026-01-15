@@ -16,7 +16,7 @@ class CantonResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-map';
 
-    protected static ?string $navigationGroup = 'Parametres';
+    protected static ?string $navigationGroup = 'Paramètres';
 
     protected static ?string $navigationLabel = 'Cantons';
 
