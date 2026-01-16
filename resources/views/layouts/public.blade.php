@@ -98,16 +98,22 @@
                         </a>
                     </div>
                     <!-- Desktop menu -->
-                    <div class="hidden md:flex items-center space-x-1">
+                    <div class="hidden md:flex items-center gap-1">
                         @foreach($navbarLinks as $link)
                             @if($link['is_active'] ?? true)
-                            <a href="{{ $link['url'] }}" class="px-4 py-2 text-sm font-bold uppercase whitespace-nowrap transition-colors {{ request()->is(ltrim($link['url'], '/')) || request()->is(ltrim($link['url'], '/') . '/*') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">
+                            @php
+                                $isActive = request()->is(ltrim($link['url'], '/')) || request()->is(ltrim($link['url'], '/') . '/*') || (ltrim($link['url'], '/') === '' && request()->is('/'));
+                            @endphp
+                            <a href="{{ $link['url'] }}" class="relative px-3 py-2 text-sm font-bold uppercase whitespace-nowrap text-ctm-teal hover:text-ctm-burgundy transition-colors">
                                 {{ $link['label'] }}
+                                @if($isActive)
+                                <span class="absolute bottom-0 left-3 right-3 h-0.5 bg-ctm-burgundy rounded-full"></span>
+                                @endif
                             </a>
                             @endif
                         @endforeach
                         @if($navbarCtaVisible)
-                        <a href="{{ $navbarCtaUrl }}" class="ml-4 bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl whitespace-nowrap">
+                        <a href="{{ $navbarCtaUrl }}" class="ml-3 bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl whitespace-nowrap">
                             {{ $navbarCtaText }}
                         </a>
                         @endif
