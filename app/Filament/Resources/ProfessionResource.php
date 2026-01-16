@@ -19,7 +19,7 @@ class ProfessionResource extends Resource
 
     protected static ?string $navigationLabel = 'Professions';
 
-    protected static ?string $navigationGroup = 'Paramètres';
+    protected static ?string $navigationGroup = 'Annuaire';
 
     protected static ?string $modelLabel = 'Profession';
 

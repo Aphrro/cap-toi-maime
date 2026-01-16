@@ -11,7 +11,6 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -43,20 +42,21 @@ class AdminPanelProvider extends PanelProvider
                     ->icon('heroicon-o-users'),
                 NavigationGroup::make()
                     ->label('Événements')
-                    ->icon('heroicon-o-calendar'),
+                    ->icon('heroicon-o-calendar-days'),
+                NavigationGroup::make()
+                    ->label('Localisation')
+                    ->icon('heroicon-o-map-pin')
+                    ->collapsed(),
                 NavigationGroup::make()
                     ->label('Contenu')
                     ->icon('heroicon-o-document-text'),
                 NavigationGroup::make()
-                    ->label('Communication')
-                    ->icon('heroicon-o-envelope'),
+                    ->label('Messages')
+                    ->icon('heroicon-o-envelope')
+                    ->collapsed(),
                 NavigationGroup::make()
                     ->label('Paramètres')
                     ->icon('heroicon-o-cog-6-tooth')
-                    ->collapsed(),
-                NavigationGroup::make()
-                    ->label('Système')
-                    ->icon('heroicon-o-server')
                     ->collapsed(),
             ])
             ->sidebarCollapsibleOnDesktop()
@@ -66,10 +66,13 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                \App\Filament\Widgets\StatsOverview::class,
+                \App\Filament\Widgets\PendingProfessionals::class,
+                \App\Filament\Widgets\PendingMembers::class,
+                \App\Filament\Widgets\ExpiringMembers::class,
+                \App\Filament\Widgets\UpcomingEvents::class,
+                \App\Filament\Widgets\QuickActions::class,
             ])
             ->middleware([
                 EncryptCookies::class,

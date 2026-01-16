@@ -16,7 +16,7 @@ class SpecialtyResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-sparkles';
 
-    protected static ?string $navigationGroup = 'Paramètres';
+    protected static ?string $navigationGroup = 'Annuaire';
 
     protected static ?string $navigationLabel = 'Specialites';
 

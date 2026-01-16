@@ -4,7 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Professional;
 use App\Models\Member;
-use App\Models\Event;
+use App\Models\ContactMessage;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -14,26 +14,38 @@ class StatsOverview extends BaseWidget
 
     protected function getStats(): array
     {
+        $pendingPros = Professional::where('validation_status', 'pending')->count();
+        $pendingMembers = Member::where('status', 'pending')->count();
+        $activeMembers = Member::where('status', 'active')->count();
+        $unreadMessages = ContactMessage::where('is_read', false)->count();
+
         return [
-            Stat::make('Pros à valider', Professional::where('validation_status', 'pending')->count())
-                ->description('En attente de validation')
-                ->color('warning')
-                ->icon('heroicon-o-clock')
-                ->url(route('filament.admin.resources.professionals.index', ['tableFilters[validation_status][value]' => 'pending'])),
+            Stat::make('Pros en attente', $pendingPros)
+                ->description('À valider')
+                ->descriptionIcon('heroicon-m-clock')
+                ->color($pendingPros > 0 ? 'warning' : 'success')
+                ->url(route('filament.admin.resources.professionals.index', [
+                    'tableFilters[validation_status][value]' => 'pending'
+                ])),
 
-            Stat::make('Pros actifs', Professional::where('validation_status', 'approved')->where('is_active', true)->count())
-                ->description('Visibles dans l\'annuaire')
-                ->color('success')
-                ->icon('heroicon-o-check-circle'),
+            Stat::make('Membres en attente', $pendingMembers)
+                ->description('Adhésions à valider')
+                ->descriptionIcon('heroicon-m-user-plus')
+                ->color($pendingMembers > 0 ? 'warning' : 'success')
+                ->url(route('filament.admin.resources.members.index', [
+                    'tableFilters[status][value]' => 'pending'
+                ])),
 
-            Stat::make('Membres actifs', Member::active()->count())
+            Stat::make('Membres actifs', $activeMembers)
                 ->description('Adhésions valides')
-                ->color('info')
-                ->icon('heroicon-o-users'),
+                ->descriptionIcon('heroicon-m-users')
+                ->color('success'),
 
-            Stat::make('Événements à venir', Event::upcoming()->published()->count())
-                ->description('Speed Dating programmés')
-                ->icon('heroicon-o-calendar'),
+            Stat::make('Messages non lus', $unreadMessages)
+                ->description('À traiter')
+                ->descriptionIcon('heroicon-m-envelope')
+                ->color($unreadMessages > 0 ? 'danger' : 'gray')
+                ->url(route('filament.admin.resources.contact-messages.index')),
         ];
     }
 }

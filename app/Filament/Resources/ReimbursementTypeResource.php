@@ -18,7 +18,7 @@ class ReimbursementTypeResource extends Resource
 
     protected static ?string $navigationLabel = 'Types de remboursement';
 
-    protected static ?string $navigationGroup = 'Paramètres';
+    protected static ?string $navigationGroup = 'Annuaire';
 
     protected static ?string $modelLabel = 'Type de remboursement';
 
