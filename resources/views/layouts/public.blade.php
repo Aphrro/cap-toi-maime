@@ -98,7 +98,7 @@
                         </a>
                     </div>
                     <!-- Desktop menu -->
-                    <div class="hidden md:flex items-center">
+                    <div class="hidden md:flex items-center space-x-1">
                         @foreach($navbarLinks as $link)
                             @if($link['is_active'] ?? true)
                             @php
@@ -107,16 +107,15 @@
                                 $isActive = ($linkPath === '' && $currentPath === '/')
                                          || ($linkPath !== '' && ($currentPath === $linkPath || str_starts_with($currentPath, $linkPath . '/')));
                             @endphp
-                            <a href="{{ $link['url'] }}" class="relative px-4 py-2 text-sm font-semibold text-gray-700 hover:text-ctm-burgundy transition-colors">
+                            <a href="{{ $link['url'] }}"
+                               class="relative px-4 py-2 text-sm font-medium whitespace-nowrap {{ $isActive ? 'text-ctm-teal' : 'text-gray-600 hover:text-ctm-teal' }} transition-colors duration-200">
                                 {{ $link['label'] }}
-                                @if($isActive)
-                                <span class="absolute bottom-0 left-4 right-4 h-0.5 bg-ctm-burgundy rounded-full"></span>
-                                @endif
+                                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-ctm-teal rounded-full transition-all duration-200 {{ $isActive ? 'w-6' : 'w-0' }}"></span>
                             </a>
                             @endif
                         @endforeach
                         @if($navbarCtaVisible)
-                        <a href="{{ $navbarCtaUrl }}" class="ml-4 bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition-all">
+                        <a href="{{ $navbarCtaUrl }}" class="ml-6 bg-ctm-teal hover:bg-ctm-teal-dark text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-all duration-200 shadow-sm hover:shadow-md">
                             {{ $navbarCtaText }}
                         </a>
                         @endif
@@ -124,8 +123,8 @@
                     <!-- Mobile menu button -->
                     <div class="md:hidden flex items-center space-x-3">
                         @if($navbarCtaVisible)
-                        <a href="{{ $navbarCtaUrl }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-xs font-bold uppercase px-3 py-2 rounded-full">
-                            Annuaire
+                        <a href="{{ $navbarCtaUrl }}" class="bg-ctm-teal hover:bg-ctm-teal-dark text-white text-xs font-bold px-4 py-2 rounded-full shadow-sm">
+                            {{ $navbarCtaText }}
                         </a>
                         @endif
                         <button
@@ -165,7 +164,7 @@
                             $isActiveMobile = ($linkPath === '' && $currentPath === '/')
                                      || ($linkPath !== '' && ($currentPath === $linkPath || str_starts_with($currentPath, $linkPath . '/')));
                         @endphp
-                        <a href="{{ $link['url'] }}" class="block px-4 py-3 rounded-lg text-base font-medium transition-colors {{ $isActiveMobile ? 'bg-ctm-burgundy/10 text-ctm-burgundy border-l-4 border-ctm-burgundy' : 'text-gray-700 hover:bg-gray-50' }}">
+                        <a href="{{ $link['url'] }}" class="block px-4 py-3 rounded-lg text-base font-medium transition-colors {{ $isActiveMobile ? 'bg-ctm-teal/10 text-ctm-teal border-l-4 border-ctm-teal' : 'text-gray-700 hover:bg-gray-50' }}">
                             {{ $link['label'] }}
                         </a>
                         @endif
