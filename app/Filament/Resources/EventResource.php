@@ -30,73 +30,121 @@ class EventResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Forms\Components\Section::make('Informations generales')
-                ->schema([
-                    Forms\Components\TextInput::make('title')
-                        ->label('Titre')
-                        ->required()
-                        ->maxLength(255)
-                        ->live(onBlur: true)
-                        ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('slug', Str::slug($state))),
-                    Forms\Components\TextInput::make('slug')
-                        ->label('Slug')
-                        ->required()
-                        ->maxLength(255)
-                        ->unique(ignoreRecord: true),
-                    Forms\Components\RichEditor::make('description')
-                        ->label('Description')
-                        ->columnSpanFull(),
-                    Forms\Components\FileUpload::make('image')
-                        ->label('Image')
-                        ->image()
-                        ->directory('events')
-                        ->columnSpanFull(),
-                ]),
-            Forms\Components\Section::make('Date et lieu')
-                ->schema([
-                    Forms\Components\Grid::make(2)->schema([
-                        Forms\Components\DateTimePicker::make('start_date')
-                            ->label('Date de debut')
-                            ->required(),
-                        Forms\Components\DateTimePicker::make('end_date')
-                            ->label('Date de fin')
-                            ->required()
-                            ->after('start_date'),
-                    ]),
-                    Forms\Components\TextInput::make('location')
-                        ->label('Lieu')
-                        ->maxLength(255),
-                    Forms\Components\Textarea::make('address')
-                        ->label('Adresse')
-                        ->rows(2),
-                ]),
-            Forms\Components\Section::make('Capacite')
-                ->schema([
-                    Forms\Components\Grid::make(2)->schema([
-                        Forms\Components\TextInput::make('max_professionals')
-                            ->label('Max professionnels')
-                            ->numeric()
-                            ->minValue(0),
-                        Forms\Components\TextInput::make('max_members')
-                            ->label('Max membres')
-                            ->numeric()
-                            ->minValue(0),
-                    ]),
-                ]),
-            Forms\Components\Section::make('Statut')
-                ->schema([
-                    Forms\Components\Select::make('status')
-                        ->label('Statut')
-                        ->options([
-                            'draft' => 'Brouillon',
-                            'published' => 'Publie',
-                            'cancelled' => 'Annule',
-                            'completed' => 'Termine',
-                        ])
-                        ->required()
-                        ->default('draft')
-                        ->native(false),
-                ]),
+            Forms\Components\Tabs::make('Evenement')
+                ->tabs([
+                    Forms\Components\Tabs\Tab::make('Informations')
+                        ->icon('heroicon-o-information-circle')
+                        ->schema([
+                            Forms\Components\TextInput::make('title')
+                                ->label('Titre')
+                                ->required()
+                                ->maxLength(255)
+                                ->live(onBlur: true)
+                                ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('slug', Str::slug($state))),
+                            Forms\Components\TextInput::make('slug')
+                                ->label('Slug')
+                                ->required()
+                                ->maxLength(255)
+                                ->unique(ignoreRecord: true),
+                            Forms\Components\Select::make('event_type')
+                                ->label('Type d\'evenement')
+                                ->options([
+                                    'general' => 'General',
+                                    'speed_dating' => 'Speed Dating Therapeutes/Parents',
+                                    'conference' => 'Conference',
+                                    'workshop' => 'Atelier',
+                                ])
+                                ->default('general')
+                                ->required()
+                                ->live(),
+                            Forms\Components\RichEditor::make('description')
+                                ->label('Description')
+                                ->toolbarButtons(['bold', 'italic', 'bulletList', 'link']),
+                            Forms\Components\FileUpload::make('image')
+                                ->label('Image')
+                                ->image()
+                                ->directory('events'),
+                        ]),
+
+                    Forms\Components\Tabs\Tab::make('Date et lieu')
+                        ->icon('heroicon-o-calendar')
+                        ->schema([
+                            Forms\Components\Grid::make(2)->schema([
+                                Forms\Components\DateTimePicker::make('start_date')
+                                    ->label('Date de debut')
+                                    ->required(),
+                                Forms\Components\DateTimePicker::make('end_date')
+                                    ->label('Date de fin')
+                                    ->after('start_date'),
+                            ]),
+                            Forms\Components\TextInput::make('location')
+                                ->label('Lieu')
+                                ->maxLength(255),
+                            Forms\Components\Textarea::make('address')
+                                ->label('Adresse')
+                                ->rows(2),
+                        ]),
+
+                    Forms\Components\Tabs\Tab::make('Inscription')
+                        ->icon('heroicon-o-user-plus')
+                        ->schema([
+                            Forms\Components\Grid::make(2)->schema([
+                                Forms\Components\TextInput::make('max_professionals')
+                                    ->label('Max professionnels')
+                                    ->numeric()
+                                    ->minValue(0),
+                                Forms\Components\TextInput::make('max_members')
+                                    ->label('Max membres')
+                                    ->numeric()
+                                    ->minValue(0),
+                            ]),
+                            Forms\Components\Toggle::make('registration_required')
+                                ->label('Inscription obligatoire')
+                                ->live(),
+                            Forms\Components\TextInput::make('registration_url')
+                                ->label('Lien d\'inscription externe')
+                                ->url()
+                                ->visible(fn ($get) => $get('registration_required'))
+                                ->helperText('Si vous utilisez un formulaire externe'),
+                        ]),
+
+                    Forms\Components\Tabs\Tab::make('Therapeutes presents')
+                        ->icon('heroicon-o-users')
+                        ->visible(fn ($get) => $get('event_type') === 'speed_dating')
+                        ->schema([
+                            Forms\Components\Placeholder::make('speed_dating_info')
+                                ->content('Selectionnez les therapeutes qui seront presents a ce Speed Dating.')
+                                ->columnSpanFull(),
+                            Forms\Components\Select::make('professionals')
+                                ->label('Therapeutes participants')
+                                ->relationship('professionals', 'id')
+                                ->getOptionLabelFromRecordUsing(fn ($record) =>
+                                    $record->full_name . ' - ' . ($record->profession?->name ?? 'N/A')
+                                )
+                                ->multiple()
+                                ->searchable()
+                                ->preload()
+                                ->optionsLimit(50),
+                        ]),
+
+                    Forms\Components\Tabs\Tab::make('Statut')
+                        ->icon('heroicon-o-cog-6-tooth')
+                        ->schema([
+                            Forms\Components\Select::make('status')
+                                ->label('Statut')
+                                ->options([
+                                    'draft' => 'Brouillon',
+                                    'published' => 'Publie',
+                                    'cancelled' => 'Annule',
+                                    'completed' => 'Termine',
+                                ])
+                                ->required()
+                                ->default('draft')
+                                ->native(false),
+                        ]),
+                ])
+                ->columnSpanFull()
+                ->persistTabInQueryString(),
         ]);
     }
 
@@ -105,23 +153,42 @@ class EventResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('image')
-                    ->label('Image')
+                    ->label('')
                     ->circular(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Titre')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->limit(40),
+                Tables\Columns\TextColumn::make('event_type')
+                    ->label('Type')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state): string => match($state) {
+                        'speed_dating' => 'Speed Dating',
+                        'conference' => 'Conference',
+                        'workshop' => 'Atelier',
+                        default => 'General',
+                    })
+                    ->color(fn (?string $state): string => match($state) {
+                        'speed_dating' => 'success',
+                        'conference' => 'info',
+                        'workshop' => 'warning',
+                        default => 'gray',
+                    }),
                 Tables\Columns\TextColumn::make('start_date')
-                    ->label('Date debut')
+                    ->label('Date')
                     ->dateTime('d/m/Y H:i')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('location')
                     ->label('Lieu')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('registrations_count')
-                    ->label('Inscriptions')
-                    ->counts('registrations')
-                    ->sortable(),
+                    ->searchable()
+                    ->limit(20)
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('professionals_count')
+                    ->label('Therapeutes')
+                    ->counts('professionals')
+                    ->badge()
+                    ->color('info'),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Statut')
                     ->badge()
@@ -145,8 +212,16 @@ class EventResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('start_date', 'desc')
+            ->defaultSort('start_date', 'asc')
             ->filters([
+                Tables\Filters\SelectFilter::make('event_type')
+                    ->label('Type')
+                    ->options([
+                        'general' => 'General',
+                        'speed_dating' => 'Speed Dating',
+                        'conference' => 'Conference',
+                        'workshop' => 'Atelier',
+                    ]),
                 Tables\Filters\SelectFilter::make('status')
                     ->label('Statut')
                     ->options([

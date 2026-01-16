@@ -47,6 +47,15 @@ class ProfessionalResource extends Resource
                         Forms\Components\Tabs\Tab::make('Identite')
                             ->icon('heroicon-o-user')
                             ->schema([
+                                Forms\Components\FileUpload::make('profile_photo')
+                                    ->label('Photo de profil')
+                                    ->image()
+                                    ->avatar()
+                                    ->directory('professionals/photos')
+                                    ->imageResizeMode('cover')
+                                    ->imageCropAspectRatio('1:1')
+                                    ->imageResizeTargetWidth('400')
+                                    ->imageResizeTargetHeight('400'),
                                 Forms\Components\Grid::make(2)->schema([
                                     Forms\Components\TextInput::make('title')
                                         ->label('Titre')
@@ -77,23 +86,40 @@ class ProfessionalResource extends Resource
                         Forms\Components\Tabs\Tab::make('Localisation')
                             ->icon('heroicon-o-map-pin')
                             ->schema([
+                                Forms\Components\Grid::make(2)->schema([
+                                    Forms\Components\Select::make('canton_id')
+                                        ->label('Canton')
+                                        ->relationship('canton', 'name')
+                                        ->required()
+                                        ->searchable()
+                                        ->preload()
+                                        ->live(),
+                                    Forms\Components\Select::make('city_id')
+                                        ->label('Ville')
+                                        ->relationship('city', 'name', fn ($query, $get) =>
+                                            $query->when($get('canton_id'), fn ($q, $v) => $q->where('canton_id', $v))
+                                        )
+                                        ->required()
+                                        ->searchable()
+                                        ->preload(),
+                                ]),
                                 Forms\Components\TextInput::make('address')
                                     ->label('Adresse')
                                     ->maxLength(255),
-                                Forms\Components\Select::make('city_id')
-                                    ->label('Ville')
-                                    ->relationship('city', 'name')
-                                    ->searchable()
-                                    ->preload(),
                             ]),
 
                         Forms\Components\Tabs\Tab::make('Profession')
                             ->icon('heroicon-o-academic-cap')
                             ->schema([
+                                Forms\Components\Select::make('profession_id')
+                                    ->label('Profession')
+                                    ->relationship('profession', 'name')
+                                    ->required()
+                                    ->searchable()
+                                    ->preload(),
                                 Forms\Components\Select::make('category_id')
                                     ->label('Categorie')
                                     ->relationship('category', 'name')
-                                    ->required()
                                     ->searchable()
                                     ->preload(),
                                 Forms\Components\Select::make('specialties')
@@ -102,49 +128,134 @@ class ProfessionalResource extends Resource
                                     ->multiple()
                                     ->preload()
                                     ->searchable(),
+                                Forms\Components\Select::make('reimbursementTypes')
+                                    ->label('Types de remboursement')
+                                    ->relationship('reimbursementTypes', 'name')
+                                    ->multiple()
+                                    ->searchable()
+                                    ->preload()
+                                    ->helperText('LAMal, ASCA, RME, AI, etc.'),
                                 Forms\Components\Select::make('languages')
                                     ->label('Langues')
                                     ->multiple()
                                     ->options(Professional::LANGUAGES),
-                                Forms\Components\Select::make('consultation_type')
-                                    ->label('Type de consultation')
-                                    ->options(Professional::CONSULTATION_TYPES),
+                                Forms\Components\Section::make('Modes de consultation')
+                                    ->schema([
+                                        Forms\Components\Grid::make(3)->schema([
+                                            Forms\Components\Toggle::make('mode_cabinet')
+                                                ->label('En cabinet'),
+                                            Forms\Components\Toggle::make('mode_visio')
+                                                ->label('En visio'),
+                                            Forms\Components\Toggle::make('mode_domicile')
+                                                ->label('A domicile'),
+                                        ]),
+                                    ]),
                             ]),
 
                         Forms\Components\Tabs\Tab::make('Presentation')
                             ->icon('heroicon-o-document-text')
                             ->schema([
+                                Forms\Components\RichEditor::make('who_am_i')
+                                    ->label('Qui suis-je ?')
+                                    ->toolbarButtons(['bold', 'italic', 'bulletList', 'orderedList', 'link'])
+                                    ->helperText('Presentation personnelle du professionnel'),
+                                Forms\Components\RichEditor::make('my_approach')
+                                    ->label('Mon approche')
+                                    ->toolbarButtons(['bold', 'italic', 'bulletList', 'orderedList', 'link'])
+                                    ->helperText('Description de l\'approche therapeutique'),
                                 Forms\Components\Textarea::make('bio')
-                                    ->label('Biographie')
-                                    ->rows(5)
-                                    ->maxLength(2000),
+                                    ->label('Biographie courte')
+                                    ->rows(3)
+                                    ->maxLength(500)
+                                    ->helperText('Resume pour les listes'),
+                                Forms\Components\Section::make('Video de presentation')
+                                    ->description('Optionnel - Permet aux familles de decouvrir le professionnel')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('video_url')
+                                            ->label('URL de la video')
+                                            ->url()
+                                            ->helperText('Lien YouTube ou Vimeo')
+                                            ->live(),
+                                        Forms\Components\Select::make('video_type')
+                                            ->label('Type de video')
+                                            ->options([
+                                                'youtube' => 'YouTube',
+                                                'vimeo' => 'Vimeo',
+                                            ])
+                                            ->visible(fn ($get) => filled($get('video_url'))),
+                                    ])
+                                    ->collapsible()
+                                    ->collapsed(),
+                            ]),
+
+                        Forms\Components\Tabs\Tab::make('FAQ')
+                            ->icon('heroicon-o-question-mark-circle')
+                            ->schema([
+                                Forms\Components\Placeholder::make('faq_info')
+                                    ->content('Questions frequentes personnalisees pour ce professionnel.')
+                                    ->columnSpanFull(),
+                                Forms\Components\Repeater::make('personal_faq')
+                                    ->label('')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('question')
+                                            ->label('Question')
+                                            ->required()
+                                            ->maxLength(255),
+                                        Forms\Components\RichEditor::make('answer')
+                                            ->label('Reponse')
+                                            ->toolbarButtons(['bold', 'italic', 'bulletList', 'link'])
+                                            ->required(),
+                                    ])
+                                    ->defaultItems(0)
+                                    ->addActionLabel('Ajouter une question')
+                                    ->collapsible()
+                                    ->itemLabel(fn (array $state): ?string => $state['question'] ?? 'Nouvelle question'),
                             ]),
 
                         Forms\Components\Tabs\Tab::make('Statut')
                             ->icon('heroicon-o-shield-check')
                             ->schema([
-                                Forms\Components\Grid::make(3)->schema([
-                                    Forms\Components\Select::make('validation_status')
-                                        ->label('Statut de validation')
-                                        ->options([
-                                            'pending' => 'En attente',
-                                            'approved' => 'Approuve',
-                                            'rejected' => 'Refuse',
-                                        ])
-                                        ->required()
-                                        ->live(),
-                                    Forms\Components\Toggle::make('is_active')
-                                        ->label('Actif')
-                                        ->default(true),
-                                    Forms\Components\Toggle::make('is_verified')
-                                        ->label('Verifie'),
-                                    Forms\Components\Toggle::make('is_featured')
-                                        ->label('Mis en avant'),
-                                ]),
-                                Forms\Components\Textarea::make('rejection_reason')
-                                    ->label('Raison du refus')
-                                    ->visible(fn ($get) => $get('validation_status') === 'rejected')
-                                    ->required(fn ($get) => $get('validation_status') === 'rejected'),
+                                Forms\Components\Section::make('Validation')
+                                    ->schema([
+                                        Forms\Components\Select::make('validation_status')
+                                            ->label('Statut de validation')
+                                            ->options([
+                                                'pending' => 'En attente',
+                                                'approved' => 'Approuve',
+                                                'rejected' => 'Refuse',
+                                            ])
+                                            ->required()
+                                            ->live(),
+                                        Forms\Components\Textarea::make('rejection_reason')
+                                            ->label('Raison du refus')
+                                            ->visible(fn ($get) => $get('validation_status') === 'rejected')
+                                            ->required(fn ($get) => $get('validation_status') === 'rejected')
+                                            ->helperText('Cette raison sera communiquee au professionnel'),
+                                    ]),
+                                Forms\Components\Section::make('Disponibilite')
+                                    ->description('Code couleur affiche sur la fiche')
+                                    ->schema([
+                                        Forms\Components\Radio::make('availability_status')
+                                            ->label('')
+                                            ->options([
+                                                'available' => 'Disponible - Prend de nouveaux patients',
+                                                'limited' => 'Limite - RDV sous 2-4 semaines',
+                                                'waitlist' => 'Liste d\'attente',
+                                            ])
+                                            ->default('available'),
+                                    ]),
+                                Forms\Components\Section::make('Options')
+                                    ->schema([
+                                        Forms\Components\Grid::make(3)->schema([
+                                            Forms\Components\Toggle::make('is_active')
+                                                ->label('Actif')
+                                                ->default(true),
+                                            Forms\Components\Toggle::make('is_verified')
+                                                ->label('Verifie'),
+                                            Forms\Components\Toggle::make('is_featured')
+                                                ->label('Mis en avant'),
+                                        ]),
+                                    ]),
                             ]),
                     ])
                     ->columnSpanFull(),
@@ -155,21 +266,41 @@ class ProfessionalResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('profile_photo')
+                    ->circular()
+                    ->label('')
+                    ->defaultImageUrl(fn (Professional $record) =>
+                        'https://ui-avatars.com/api/?name=' . urlencode($record->full_name ?? 'P') . '&background=random'
+                    ),
                 Tables\Columns\TextColumn::make('full_name')
                     ->label('Nom')
                     ->searchable(['first_name', 'last_name'])
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable()
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('category.name')
-                    ->label('Categorie')
+                    ->sortable()
+                    ->description(fn (Professional $record) => $record->email),
+                Tables\Columns\TextColumn::make('profession.name')
+                    ->label('Profession')
                     ->badge()
-                    ->sortable(),
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('city.name')
                     ->label('Ville')
+                    ->description(fn (Professional $record) => $record->canton?->name)
                     ->sortable()
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('availability_status')
+                    ->label('Dispo')
+                    ->badge()
+                    ->formatStateUsing(fn (?string $state): string => match ($state) {
+                        'available' => 'Dispo',
+                        'limited' => 'Limite',
+                        'waitlist' => 'Attente',
+                        default => '?',
+                    })
+                    ->color(fn (?string $state): string => match ($state) {
+                        'available' => 'success',
+                        'limited' => 'warning',
+                        'waitlist' => 'gray',
+                        default => 'gray',
+                    }),
                 Tables\Columns\TextColumn::make('validation_status')
                     ->label('Validation')
                     ->badge()
@@ -193,7 +324,7 @@ class ProfessionalResource extends Resource
                     ->label('Inscription')
                     ->date('d/m/Y')
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
@@ -204,9 +335,19 @@ class ProfessionalResource extends Resource
                         'approved' => 'Approuve',
                         'rejected' => 'Refuse',
                     ]),
-                Tables\Filters\SelectFilter::make('category_id')
-                    ->label('Categorie')
-                    ->relationship('category', 'name'),
+                Tables\Filters\SelectFilter::make('availability_status')
+                    ->label('Disponibilite')
+                    ->options([
+                        'available' => 'Disponible',
+                        'limited' => 'Limite',
+                        'waitlist' => 'Liste d\'attente',
+                    ]),
+                Tables\Filters\SelectFilter::make('profession_id')
+                    ->label('Profession')
+                    ->relationship('profession', 'name'),
+                Tables\Filters\SelectFilter::make('canton_id')
+                    ->label('Canton')
+                    ->relationship('canton', 'name'),
                 Tables\Filters\TernaryFilter::make('is_active')
                     ->label('Actif'),
                 Tables\Filters\TrashedFilter::make(),
