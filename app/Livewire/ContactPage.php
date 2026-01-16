@@ -2,18 +2,25 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Concerns\WithPageContent;
 use App\Models\ContactMessage;
-use App\Models\Page;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class ContactPage extends Component
 {
+    use WithPageContent;
+
     public string $name = '';
     public string $email = '';
     public string $subject = '';
     public string $message = '';
     public bool $success = false;
+
+    public function mount(): void
+    {
+        $this->loadPageContent('contact');
+    }
 
     protected function rules(): array
     {
@@ -90,14 +97,39 @@ class ContactPage extends Component
 
     public function render()
     {
-        $page = Page::where('slug', 'contact')->where('is_active', true)->first();
-        $content = $page?->content ?? [];
+        // Build content structure compatible with template
+        $content = $this->pageContent;
+
+        // Ensure hero section has required fields
+        if (!isset($content['hero'])) {
+            $content['hero'] = [];
+        }
+        $content['hero'] = array_merge([
+            'title' => 'Contactez-nous',
+            'subtitle' => 'Une question ? Nous sommes là pour vous aider.',
+        ], $content['hero']);
+
+        // Map new CMS structure to template expectations
+        if (!isset($content['form_section'])) {
+            $content['form_section'] = [
+                'show' => true,
+                'title' => 'Envoyez-nous un message',
+                'success_message' => $this->getContent('form.success_message', 'Merci pour votre message. Nous vous répondrons dans les plus brefs délais.'),
+            ];
+        }
+
+        if (!isset($content['info_section'])) {
+            $content['info_section'] = [
+                'website' => $this->getContent('info.website_url', 'www.captoimaime.ch'),
+                'website_title' => 'Site principal',
+                'website_description' => $this->getContent('info.website_text', 'Visitez le site de l\'association Cap Toi M\'aime'),
+            ];
+        }
 
         return view('livewire.contact-page', [
-            'page' => $page,
             'content' => $content,
         ])->layout('layouts.public', [
-            'title' => $page?->meta['title'] ?? 'Contact - Cap Toi M\'aime',
+            'title' => $this->getMeta('title', 'Contact - Cap Toi M\'aime'),
         ]);
     }
 }
