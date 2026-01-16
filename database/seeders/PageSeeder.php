@@ -11,117 +11,154 @@ class PageSeeder extends Seeder
     {
         $pages = [
             // =============================================
-            // PAGE ACCUEIL - 5 sections
+            // PAGE ACCUEIL
             // =============================================
             [
                 'slug' => 'accueil',
                 'title' => 'Accueil',
                 'content' => [
-                    // === SECTION 1 : HERO ===
                     'hero' => [
-                        'title' => 'Pourquoi cet annuaire ?',
-                        'paragraph' => "A force d'echanger avec des familles, nous avons fait un constat : trouver un professionnel disponible rapidement peut devenir un veritable parcours du combattant.",
-                        'button_text' => 'CONSULTER L\'ANNUAIRE',
-                        'button_url' => '/annuaire',
+                        'title' => 'Trouvez des thérapeutes disponibles, proches de chez vous et formés au refus scolaire anxieux.',
+                        'subtitle' => 'Un annuaire de thérapeutes tops et dispos, qui connaissent vraiment la phobie scolaire, et que l\'équipe Cap Toi M\'aime connaît et recommande.',
+                        'button_text' => 'ÊTRE GUIDÉ - Questionnaire personnalisé',
+                        'button_url' => '/questionnaire',
                         'background_color' => '#7A1F2E',
                         'text_color' => '#FFFFFF',
                         'background_image' => null,
-                        'highlights' => [
-                            [
-                                'icon' => 'heroicon-o-users',
-                                'title' => 'Reserve aux membres',
-                                'description' => 'Avantage de l\'adhesion',
-                            ],
-                            [
-                                'icon' => 'heroicon-o-shield-check',
-                                'title' => 'Professionnels verifies',
-                                'description' => 'Formes au RSA',
-                            ],
-                            [
-                                'icon' => 'heroicon-o-clock',
-                                'title' => 'Disponibilite en temps reel',
-                                'description' => 'Mise a jour reguliere',
-                            ],
-                        ],
                     ],
-
-                    // === SECTION 2 : NOTRE REPONSE ===
-                    'reponse' => [
-                        'show' => true,
-                        'title' => 'Notre reponse',
-                        'paragraph' => "Un annuaire associatif, independant et qualifie, pense pour les parents de jeunes en phobie / refus scolaire anxieux (RSA) en Suisse romande.",
-                        'background_color' => '#FFFFFF',
-                        'cards' => [
-                            [
-                                'icon' => 'heroicon-o-check',
-                                'title' => 'Reserve aux membres',
-                                'description' => "Un outil reserve aux membres de Cap Toi M'aime : un avantage concret de l'adhesion, au service des familles.",
-                            ],
-                            [
-                                'icon' => 'heroicon-o-shield-check',
-                                'title' => 'Professionnels selectionnes',
-                                'description' => "Une selection de professionnels connus de l'association, sensibilises et/ou formes a la thematique du refus scolaire anxieux.",
-                            ],
-                            [
-                                'icon' => 'heroicon-o-document-text',
-                                'title' => 'Fiches claires',
-                                'description' => "Des fiches detaillees : specialites, modalites de remboursement (LAMal/LCA/ASCA/RME), disponibilite en temps reel.",
-                            ],
-                        ],
+                    'search' => [
+                        'title' => 'Recherche rapide',
+                        'placeholder' => 'Recherche rapide...',
+                        'button_text' => 'Chercher',
+                        'show_filters' => true,
+                        'show_canton_filter' => true,
+                        'show_specialty_filter' => true,
                     ],
-
-                    // === SECTION 3 : NOTRE PLUS ===
-                    'plus' => [
-                        'show' => true,
-                        'title' => 'Notre "plus" pour vous faire gagner du temps',
-                        'background_color' => '#F9FAFB',
-                        'features' => [
-                            [
-                                'icon' => 'heroicon-o-clock',
-                                'title' => 'Reperage rapide de la disponibilite',
-                                'description' => "Code simple declare par les professionnels et mis a jour regulierement.",
-                                'show_availability_badges' => true,
-                            ],
-                            [
-                                'icon' => 'heroicon-o-video-camera',
-                                'title' => 'Presentation video',
-                                'description' => "Quand c'est possible, une presentation video du praticien pour \"mettre un visage sur un nom\" et comprendre son approche avant de reserver.",
-                                'show_availability_badges' => false,
-                            ],
+                    'sections' => [
+                        'professions' => [
+                            'title' => 'TYPES DE PROFESSIONNELS',
+                            'subtitle' => '',
+                            'show_count' => true,
                         ],
-                    ],
-
-                    // === SECTION 4 : POURQUOI ===
-                    'pourquoi' => [
-                        'show' => true,
-                        'title' => 'Pourquoi nous l\'avons construit ainsi ?',
-                        'paragraph' => "Notre but est de reduire l'errance therapeutique, rassurer les parents et faciliter un premier pas utile.",
-                        'background_color' => '#FFFFFF',
-                        'alert' => [
+                        'specialties' => [
+                            'title' => 'SPÉCIALITÉS RECHERCHÉES',
+                            'subtitle' => '',
+                            'show_icons' => true,
+                        ],
+                        'featured' => [
+                            'title' => 'PROFESSIONNELS MIS EN AVANT',
+                            'subtitle' => '',
                             'show' => true,
-                            'icon' => 'heroicon-o-exclamation-triangle',
-                            'title' => 'Limites et rappel important',
-                            'text' => "Cet annuaire est informatif : il ne remplace pas un avis medical et n'engage pas une garantie de resultat clinique. Chaque famille reste libre de son choix ; l'association met a disposition des informations fiables et actualisees pour faciliter l'orientation.",
-                            'background_color' => '#FEF3C7',
+                        ],
+                        'stats' => [
+                            'show' => false,
+                            'items' => [],
                         ],
                     ],
-
-                    // === SECTION 5 : CTA FINAL ===
                     'cta' => [
-                        'show' => true,
-                        'title' => 'Pret a trouver le bon professionnel ?',
-                        'subtitle' => 'Consultez notre annuaire de professionnels specialises.',
-                        'button_text' => 'CONSULTER L\'ANNUAIRE',
-                        'button_url' => '/annuaire',
+                        'title' => 'Prêts à trouver le professionnel qui vous convient à vous et à votre enfant ?',
+                        'subtitle' => '',
+                        'button_text' => 'Commencez maintenant',
+                        'button_url' => '/questionnaire',
+                        'background_color' => '#7A1F2E',
+                    ],
+                ],
+                'meta' => ['description' => 'Annuaire des professionnels spécialisés dans le refus scolaire anxieux en Suisse romande'],
+                'is_active' => true,
+            ],
+
+            // =============================================
+            // PAGE CONTACT
+            // =============================================
+            [
+                'slug' => 'contact',
+                'title' => 'Contact',
+                'content' => [
+                    'hero' => [
+                        'title' => 'Contactez-nous',
+                        'subtitle' => 'Une question sur l\'adhésion, l\'annuaire ou l\'association ? Notre équipe est à votre écoute.',
                         'background_color' => '#7A1F2E',
                         'text_color' => '#FFFFFF',
                     ],
+                    'form' => [
+                        'title' => 'Envoyez-nous un message',
+                        'show_form' => true,
+                        'fields' => ['name', 'email', 'subject', 'message'],
+                        'submit_text' => 'Envoyer le message',
+                        'subjects' => [
+                            ['value' => 'adhesion', 'label' => 'Question sur l\'adhésion'],
+                            ['value' => 'annuaire', 'label' => 'Question sur l\'annuaire'],
+                            ['value' => 'professionnel', 'label' => 'Je suis professionnel'],
+                            ['value' => 'autre', 'label' => 'Autre'],
+                        ],
+                    ],
+                    'info' => [
+                        'title' => 'Nos coordonnées',
+                        'email' => 'hello@captoimaime.ch',
+                        'phone' => '',
+                        'address' => 'Suisse romande',
+                        'hours' => 'Délai de réponse : Sous 48h ouvrées',
+                    ],
+                    'links' => [
+                        'title' => 'Liens utiles',
+                        'items' => [
+                            ['label' => 'Questions fréquentes (FAQ)', 'url' => '/faq', 'icon' => 'question-mark-circle'],
+                            ['label' => 'À propos de l\'annuaire', 'url' => '/a-propos', 'icon' => 'information-circle'],
+                            ['label' => 'Espace professionnels', 'url' => '/espace-professionnels', 'icon' => 'briefcase'],
+                        ],
+                    ],
+                    'cta' => [
+                        'title' => 'Vous êtes professionnel ?',
+                        'subtitle' => 'Rejoignez notre annuaire et aidez les familles à vous trouver.',
+                        'button_text' => 'Espace professionnels',
+                        'button_url' => '/espace-professionnels',
+                        'background_color' => '#7A1F2E',
+                    ],
                 ],
-                'meta' => [
-                    'title' => 'Cap Toi M\'aime - Annuaire de professionnels specialises RSA',
-                    'description' => 'Trouvez des professionnels formes au refus scolaire anxieux en Suisse romande.',
-                    'keywords' => 'phobie scolaire, refus scolaire, therapeute, psychologue, suisse',
+                'meta' => ['description' => 'Contactez l\'association Cap Toi M\'aime'],
+                'is_active' => true,
+            ],
+
+            // =============================================
+            // PAGE FAQ
+            // =============================================
+            [
+                'slug' => 'faq',
+                'title' => 'Questions Fréquentes',
+                'content' => [
+                    'hero' => [
+                        'title' => 'Questions Fréquentes',
+                        'subtitle' => 'Trouvez des réponses à vos questions sur la phobie scolaire, l\'annuaire et l\'adhésion.',
+                        'background_color' => '#7A1F2E',
+                        'text_color' => '#FFFFFF',
+                    ],
+                    'badges' => [
+                        'title' => '',
+                        'items' => [
+                            ['icon' => 'question-mark-circle', 'title' => 'Réponses rapides', 'description' => 'Informations essentielles'],
+                            ['icon' => 'book-open', 'title' => 'Comprendre le RSA', 'description' => 'Refus scolaire anxieux'],
+                            ['icon' => 'chat-bubble-left-right', 'title' => 'Besoin d\'aide ?', 'description' => 'Contactez-nous'],
+                        ],
+                    ],
+                    'faq' => [
+                        'title' => 'FAQ',
+                        'show_faq' => true,
+                        'categories' => [
+                            ['key' => 'all', 'label' => 'Toutes'],
+                            ['key' => 'general', 'label' => 'Général'],
+                            ['key' => 'parents', 'label' => 'Parents'],
+                            ['key' => 'professionnels', 'label' => 'Professionnels'],
+                        ],
+                    ],
+                    'cta' => [
+                        'title' => 'Vous n\'avez pas trouvé votre réponse ?',
+                        'subtitle' => 'Notre équipe est là pour vous aider. N\'hésitez pas à nous contacter.',
+                        'button_text' => 'Nous contacter',
+                        'button_url' => '/contact',
+                        'background_color' => '#FFFFFF',
+                    ],
                 ],
+                'meta' => ['description' => 'Questions fréquentes sur Cap Toi M\'aime et le refus scolaire anxieux'],
                 'is_active' => true,
             ],
 
@@ -132,416 +169,163 @@ class PageSeeder extends Seeder
                 'slug' => 'espace-professionnels',
                 'title' => 'Espace professionnels',
                 'content' => [
-                    // Hero
                     'hero' => [
                         'title' => 'Accompagnez des familles qui ont vraiment besoin de vous',
-                        'subtitle' => 'Rejoignez l\'annuaire des professionnels specialises dans le refus scolaire anxieux en Suisse romande.',
+                        'subtitle' => 'Rejoignez l\'annuaire des professionnels spécialisés dans le refus scolaire anxieux en Suisse romande.',
                         'button_text' => 'Rejoindre gratuitement',
-                        'button_url' => '/register',
-                        'button_color' => '#7A1F2E',
+                        'button_url' => '/inscription-professionnel',
                         'background_color' => '#1E8A9B',
-                        'background_color_end' => '#156d7a',
                         'text_color' => '#FFFFFF',
-                        'image' => null,
-                        // Mockup fiche pro
-                        'mockup_initials' => 'MD',
-                        'mockup_name' => 'Dr. Marie Dupont',
-                        'mockup_profession' => 'Psychologue',
-                        'mockup_availability' => 'Disponible',
-                        'mockup_location' => 'Geneve',
-                        'mockup_badge_text' => 'Verifie',
-                        'mockup_tags' => ['Phobie scolaire', 'Anxiete', 'TDA/H'],
-                        'mockup_insurances' => ['LAMal', 'ASCA'],
-                        'mockup_visio_text' => 'Visio',
                     ],
-                    // Badges
-                    'badges_section' => [
-                        'show' => true,
-                        'items' => [
-                            ['icon' => 'check', 'text' => '100% Gratuit'],
-                            ['icon' => 'users', 'text' => 'Patients qualifies'],
-                            ['icon' => 'shield-check', 'text' => 'Badge verifie'],
-                        ],
-                    ],
-                    // Stats
-                    'stats_section' => [
-                        'show' => true,
+                    'badges' => [
                         'title' => '',
-                        'background_color' => '#FFFFFF',
                         'items' => [
-                            ['value' => 'dynamic:pros_count', 'label' => 'Professionnels verifies', 'is_dynamic' => true, 'color' => '#7A1F2E'],
-                            ['value' => 'dynamic:members_count', 'label' => 'Familles membres', 'is_dynamic' => true, 'color' => '#1E8A9B'],
-                            ['value' => '7', 'label' => 'Cantons romands', 'is_dynamic' => false, 'color' => '#7A1F2E'],
-                            ['value' => '0%', 'label' => 'Commission', 'is_dynamic' => false, 'color' => '#22c55e'],
+                            ['icon' => 'check', 'title' => '100% Gratuit', 'description' => ''],
+                            ['icon' => 'check', 'title' => 'Patients qualifiés', 'description' => ''],
+                            ['icon' => 'check', 'title' => 'Badge vérifié', 'description' => ''],
                         ],
                     ],
-                    // Features/Avantages avec Tabs
-                    'features_section' => [
-                        'show' => true,
+                    'sections' => [
+                        'stats' => [
+                            'show' => true,
+                            'items' => [
+                                ['value' => '0', 'label' => 'Professionnels vérifiés', 'dynamic' => 'pros_count'],
+                                ['value' => '0', 'label' => 'Familles membres', 'dynamic' => 'members_count'],
+                                ['value' => '7', 'label' => 'Cantons romands'],
+                                ['value' => '0%', 'label' => 'Commission'],
+                            ],
+                        ],
+                    ],
+                    'features' => [
                         'title' => 'Tout ce dont vous avez besoin',
-                        'subtitle' => 'Decouvrez les fonctionnalites qui vous aideront a developper votre pratique.',
-                        'background_color' => '#F9FAFB',
+                        'subtitle' => 'Découvrez les fonctionnalités qui vous aideront à développer votre pratique.',
                         'tabs' => [
                             [
-                                'id' => 'profil',
-                                'label' => 'Profil verifie',
-                                'badge_text' => 'Badge de confiance',
-                                'badge_color' => '#7A1F2E',
+                                'key' => 'profil',
+                                'label' => 'Profil vérifié',
                                 'title' => 'Un profil qui inspire confiance',
-                                'description' => 'Chaque professionnel inscrit est verifie par notre equipe. Le badge "Verifie Cap Toi M\'aime" rassure les familles et vous distingue.',
-                                'features' => ['Verification des diplomes', 'Validation manuelle par notre equipe', 'Badge visible sur votre profil'],
-                                'visual_title' => 'Verifie Cap Toi M\'aime',
-                                'visual_subtitle' => 'Professionnel de confiance',
-                            ],
-                            [
-                                'id' => 'visibilite',
-                                'label' => 'Visibilite',
-                                'badge_text' => 'Visibilite optimale',
-                                'badge_color' => '#1E8A9B',
-                                'title' => 'Soyez visible aupres des bonnes familles',
-                                'description' => 'Notre annuaire est reserve aux membres de l\'association - des familles reellement concernees par le refus scolaire anxieux.',
-                                'features' => ['Audience qualifiee et ciblee', 'Filtres par specialite et localisation', 'Profil complet et personnalise'],
-                                'visual_title' => 'Recherche par specialite',
-                                'visual_tags' => ['Phobie scolaire', 'Anxiete', 'TDA/H', 'HPI'],
-                            ],
-                            [
-                                'id' => 'matching',
-                                'label' => 'Matching intelligent',
-                                'badge_text' => 'Matching intelligent',
-                                'badge_color' => '#7c3aed',
-                                'title' => 'Les bonnes familles vous trouvent',
-                                'description' => 'Notre questionnaire guide intelligent oriente les familles vers les professionnels les plus adaptes a leur situation specifique.',
-                                'features' => ['Algorithme de correspondance', 'Score de compatibilite', 'Recommandations personnalisees'],
-                                'visual_score' => '92%',
-                                'visual_score_label' => 'Score de correspondance',
-                                'visual_bars' => [
-                                    ['label' => 'Specialite', 'width' => '100%'],
-                                    ['label' => 'Localisation', 'width' => '83%'],
-                                    ['label' => 'Disponibilite', 'width' => '100%'],
+                                'description' => 'Chaque professionnel inscrit est vérifié par notre équipe. Le badge "Vérifié Cap Toi M\'aime" rassure les familles et vous distingue.',
+                                'items' => [
+                                    'Vérification des diplômes',
+                                    'Validation manuelle par notre équipe',
+                                    'Badge visible sur votre profil',
                                 ],
                             ],
                             [
-                                'id' => 'stats',
+                                'key' => 'visibilite',
+                                'label' => 'Visibilité',
+                                'title' => 'Soyez visible auprès des bonnes familles',
+                                'description' => 'Notre annuaire est réservé aux membres de l\'association - des familles réellement concernées par le refus scolaire anxieux.',
+                                'items' => [
+                                    'Audience qualifiée et ciblée',
+                                    'Filtres par spécialité et localisation',
+                                    'Profil complet et personnalisé',
+                                ],
+                            ],
+                            [
+                                'key' => 'matching',
+                                'label' => 'Matching intelligent',
+                                'title' => 'Les bonnes familles vous trouvent',
+                                'description' => 'Notre questionnaire guide intelligent oriente les familles vers les professionnels les plus adaptés à leur situation spécifique.',
+                                'items' => [
+                                    'Algorithme de correspondance',
+                                    'Score de compatibilité',
+                                    'Recommandations personnalisées',
+                                ],
+                            ],
+                            [
+                                'key' => 'stats',
                                 'label' => 'Statistiques',
-                                'badge_text' => 'Tableau de bord',
-                                'badge_color' => '#ea580c',
-                                'title' => 'Suivez votre visibilite',
-                                'description' => 'Accedez a des statistiques detaillees sur les consultations de votre profil et mesurez votre impact.',
-                                'features' => ['Nombre de vues du profil', 'Demandes de contact', 'Evolution dans le temps'],
-                                'visual_views' => '156',
-                                'visual_views_label' => 'Vues ce mois',
-                                'visual_contacts' => '12',
-                                'visual_contacts_label' => 'Contacts',
-                                'visual_growth' => '+24%',
-                                'visual_growth_label' => 'vs mois precedent',
+                                'title' => 'Suivez votre visibilité',
+                                'description' => 'Accédez à des statistiques détaillées sur les consultations de votre profil et mesurez votre impact.',
+                                'items' => [
+                                    'Nombre de vues du profil',
+                                    'Demandes de contact',
+                                    'Évolution dans le temps',
+                                ],
                             ],
                         ],
                     ],
-                    // Etapes
-                    'steps_section' => [
-                        'show' => true,
-                        'title' => 'Comment ca marche ?',
-                        'subtitle' => 'Un processus simple en 4 etapes',
-                        'background_color' => '#FFFFFF',
+                    'steps' => [
+                        'title' => 'Comment ça marche ?',
+                        'subtitle' => 'Un processus simple en 4 étapes',
                         'items' => [
-                            ['number' => '1', 'title' => 'Inscription', 'description' => 'Remplissez le formulaire en ~10 minutes', 'duration' => '~10 min', 'color' => '#7A1F2E'],
-                            ['number' => '2', 'title' => 'Verification', 'description' => 'Nous verifions vos diplomes', 'duration' => '~48h', 'color' => '#7A1F2E'],
-                            ['number' => '3', 'title' => 'Validation', 'description' => 'Votre profil est approuve', 'duration' => '~48h', 'color' => '#7A1F2E'],
-                            ['number' => '4', 'title' => 'En ligne', 'description' => 'Les familles vous contactent', 'duration' => 'Pour toujours', 'is_final' => true],
+                            ['number' => '1', 'title' => 'Inscription', 'description' => 'Remplissez le formulaire en ~10 minutes', 'duration' => '~10 min'],
+                            ['number' => '2', 'title' => 'Vérification', 'description' => 'Nous vérifions vos diplômes', 'duration' => '~48h'],
+                            ['number' => '3', 'title' => 'Validation', 'description' => 'Votre profil est approuvé', 'duration' => '~48h'],
+                            ['number' => '4', 'title' => 'En ligne', 'description' => 'Les familles vous contactent', 'duration' => 'Pour toujours'],
                         ],
                     ],
-                    // Preview section (apercu fiche pro)
-                    'preview_section' => [
-                        'show' => true,
-                        'title' => 'Apercu de votre fiche professionnelle',
-                        'subtitle' => 'Survolez les elements pour decouvrir les fonctionnalites',
-                        'background_color' => '#F9FAFB',
-                        'demo_initials' => 'MD',
-                        'demo_name' => 'Dr. Marie Dupont',
-                        'demo_profession' => 'Psychologue specialisee',
-                        'demo_availability' => 'Disponible',
-                        'demo_location' => 'Geneve',
-                        'demo_visio' => 'Visio disponible',
-                        'demo_specialties' => ['Phobie scolaire', 'Refus scolaire anxieux', 'Anxiete', 'TDA/H'],
-                        'demo_insurances' => ['LAMal', 'ASCA', 'RME'],
-                        'badge_text' => 'Verifie',
-                        'specialties_label' => 'Specialites',
-                        'insurance_label' => 'Remboursements',
-                        'contact_button_text' => 'Contacter ce professionnel',
-                        'tooltip_photo' => 'Photo professionnelle pour humaniser votre profil',
-                        'tooltip_badge' => 'Badge de confiance attribue apres verification de vos diplomes',
-                        'tooltip_availability' => 'Indiquez votre disponibilite en temps reel',
-                        'tooltip_specialties' => 'Vos domaines d\'expertise mis en avant',
-                        'tooltip_insurance' => 'Information importante pour les familles',
-                        'tooltip_contact' => 'Les familles peuvent vous contacter directement',
-                    ],
-                    // Speed Dating
-                    'speed_dating_section' => [
-                        'show' => true,
-                        'title' => 'Speed Dating Therapeutes-Familles',
-                        'description' => 'Participez a nos evenements de mise en relation directe avec les familles. Un format unique pour vous presenter et creer des liens de confiance.',
-                        'badge_text' => 'Evenements exclusifs',
-                        'background_color' => '#156d7a',
-                        'features' => [
-                            'Rencontres en visio de 15 minutes',
-                            'Plusieurs familles rencontrees en une soiree',
-                            'Gratuit pour les professionnels inscrits',
-                        ],
-                        'button_text' => 'Participer aux prochains evenements',
-                        'button_url' => '/register',
-                        'next_event_label' => 'Prochain evenement',
-                        'next_event_title' => 'Speed Dating #12',
-                        'next_event_date' => 'Jeudi 30 janvier 2026',
-                        'next_event_time' => '18h30 - 20h30',
-                        'next_event_participants' => '15 familles inscrites',
-                        'next_event_places' => 'Places limitees',
-                    ],
-                    // About
-                    'about_section' => [
-                        'show' => true,
+                    'about' => [
                         'title' => 'Cap Toi M\'aime',
                         'subtitle' => 'L\'association',
-                        'content' => '<p>Cap Toi M\'aime accompagne les familles confrontees au refus scolaire anxieux en Suisse romande. Notre mission : briser l\'isolement et faciliter l\'acces aux soins.</p><p>L\'annuaire est ne d\'un constat simple : les familles peinent a trouver des professionnels formes et disponibles. En rejoignant notre reseau, vous participez a cette mission d\'interet general.</p>',
-                        'background_color' => '#FFFFFF',
-                        'image' => null,
-                        'quote' => 'Ensemble, redonnons le sourire a nos enfants',
+                        'content' => '<p>Cap Toi M\'aime accompagne les familles confrontées au refus scolaire anxieux en Suisse romande. Notre mission : briser l\'isolement et faciliter l\'accès aux soins.</p><p>L\'annuaire est né d\'un constat simple : les familles peinent à trouver des professionnels formés et disponibles. En rejoignant notre réseau, vous participez à cette mission d\'intérêt général.</p>',
+                        'quote' => 'Ensemble, redonnons le sourire à nos enfants',
                         'quote_author' => 'Marine Chambat, Fondatrice',
-                        'link_text' => 'Decouvrir l\'association',
-                        'link_url' => 'https://www.captoimaime.ch',
                     ],
-                    // FAQ
-                    'faq_section' => [
-                        'show' => true,
-                        'title' => 'Questions frequentes',
+                    'faq' => [
+                        'title' => 'Questions fréquentes',
                         'subtitle' => 'Tout ce que vous devez savoir avant de vous inscrire',
-                        'background_color' => '#F9FAFB',
-                        'custom_items' => [
+                        'items' => [
                             [
                                 'question' => 'L\'inscription est-elle payante ?',
-                                'answer' => 'Non, l\'inscription et la presence dans l\'annuaire sont <strong>entierement gratuites</strong>. Notre mission est de faciliter l\'acces aux soins, pas de generer des revenus. Aucune commission n\'est prelevee sur les consultations.',
+                                'answer' => 'Non, l\'inscription et la présence dans l\'annuaire sont entièrement gratuites. Notre mission est de faciliter l\'accès aux soins, pas de générer des revenus. Aucune commission n\'est prélevée sur les consultations.',
                             ],
                             [
                                 'question' => 'Combien de temps prend la validation ?',
-                                'answer' => 'Nous validons les profils sous <strong>24 a 48 heures ouvrees</strong>. Vous recevrez un email de confirmation des que votre profil sera approuve et visible dans l\'annuaire.',
+                                'answer' => 'Nous validons les profils sous 24 à 48 heures ouvrées. Vous recevrez un email de confirmation dès que votre profil sera approuvé et visible dans l\'annuaire.',
                             ],
                             [
-                                'question' => 'Puis-je modifier mon profil apres inscription ?',
-                                'answer' => 'Oui, vous avez acces a votre espace personnel pour <strong>mettre a jour vos informations a tout moment</strong> : disponibilite, tarifs, specialites, coordonnees, etc.',
+                                'question' => 'Puis-je modifier mon profil après inscription ?',
+                                'answer' => 'Oui, vous avez accès à votre espace personnel pour mettre à jour vos informations à tout moment : disponibilité, tarifs, spécialités, coordonnées, etc.',
                             ],
                             [
                                 'question' => 'Comment les familles me contactent-elles ?',
-                                'answer' => 'Vos coordonnees (telephone, email, site web) sont affichees sur votre profil. <strong>Les familles vous contactent directement</strong>, sans intermediaire. Vous gerez vos rendez-vous comme d\'habitude.',
+                                'answer' => 'Vos coordonnées (téléphone, email, site web) sont affichées sur votre profil. Les familles vous contactent directement, sans intermédiaire. Vous gérez vos rendez-vous comme d\'habitude.',
                             ],
                             [
                                 'question' => 'Qui peut voir mon profil ?',
-                                'answer' => 'L\'annuaire est reserve aux <strong>familles membres de l\'association Cap Toi M\'aime</strong>. Cela garantit une audience qualifiee et reellement concernee par le refus scolaire anxieux.',
+                                'answer' => 'L\'annuaire est réservé aux familles membres de l\'association Cap Toi M\'aime. Cela garantit une audience qualifiée et réellement concernée par le refus scolaire anxieux.',
                             ],
                             [
                                 'question' => 'Quels documents dois-je fournir ?',
-                                'answer' => 'Pour la validation, nous demandons une <strong>copie de vos diplomes</strong> et eventuellement vos certifications complementaires. Ces documents sont uniquement utilises pour la verification et ne sont pas publies.',
+                                'answer' => 'Pour la validation, nous demandons une copie de vos diplômes et éventuellement vos certifications complémentaires. Ces documents sont uniquement utilisés pour la vérification et ne sont pas publiés.',
                             ],
                         ],
                     ],
-                    // CTA
-                    'cta_section' => [
-                        'show' => true,
-                        'title' => 'Pret a rejoindre notre reseau ?',
-                        'subtitle' => 'L\'inscription est gratuite et ne prend que quelques minutes. Rejoignez les professionnels qui font la difference pour les familles en Suisse romande.',
-                        'button_text' => 'Creer mon profil gratuitement',
-                        'button_url' => '/register',
-                        'gradient_start' => '#7A1F2E',
-                        'gradient_end' => '#1E8A9B',
-                        'footer_text' => 'Aucune carte de credit requise',
-                    ],
-                ],
-                'meta' => [
-                    'title' => 'Espace Professionnels - Cap Toi M\'aime',
-                    'description' => 'Professionnels : rejoignez l\'annuaire Cap Toi M\'aime gratuitement et aidez les familles.',
-                ],
-                'is_active' => true,
-            ],
-
-            // =============================================
-            // PAGE CONTACT - 3 sections (selon PageResource)
-            // =============================================
-            [
-                'slug' => 'contact',
-                'title' => 'Contact',
-                'content' => [
-                    // === SECTION 1 : HERO ===
-                    'hero' => [
-                        'title' => 'Contactez-nous',
-                        'subtitle' => 'Une question sur l\'adhesion, l\'annuaire ou l\'association ? Notre equipe est a votre ecoute.',
-                    ],
-
-                    // === SECTION 2 : FORMULAIRE ===
-                    'form' => [
-                        'title' => 'Envoyez-nous un message',
-                        'button_text' => 'Envoyer le message',
-                        'success_message' => 'Merci pour votre message. Nous vous repondrons dans les plus brefs delais.',
-                        'name_label' => 'Votre nom',
-                        'email_label' => 'Votre email',
-                        'subject_label' => 'Sujet',
-                        'message_label' => 'Votre message',
-                        'subjects' => [
-                            ['value' => 'adhesion', 'label' => 'Question sur l\'adhesion'],
-                            ['value' => 'annuaire', 'label' => 'Question sur l\'annuaire'],
-                            ['value' => 'professionnel', 'label' => 'Je suis professionnel'],
-                            ['value' => 'autre', 'label' => 'Autre'],
-                        ],
-                    ],
-
-                    // === SECTION 3 : INFOS CONTACT ===
-                    'info' => [
-                        'title' => 'Autres moyens de nous contacter',
-                        'email' => 'hello@captoimaime.ch',
-                        'phone' => '',
-                        'address' => 'Suisse romande',
-                        'hours' => 'Reponse sous 48h',
-                    ],
-                ],
-                'meta' => [
-                    'title' => 'Contact - Cap Toi M\'aime',
-                    'description' => 'Contactez l\'association Cap Toi M\'aime pour toute question.',
-                ],
-                'is_active' => true,
-            ],
-
-            // =============================================
-            // PAGE FAQ - 3 sections (selon PageResource)
-            // =============================================
-            [
-                'slug' => 'faq',
-                'title' => 'Questions Frequentes',
-                'content' => [
-                    // === SECTION 1 : HERO ===
-                    'hero' => [
-                        'title' => 'Questions Frequentes',
-                        'subtitle' => 'Trouvez des reponses a vos questions sur la phobie scolaire, l\'annuaire et l\'adhesion.',
-                        'background_color' => '#7A1F2E',
-                        'text_color' => '#FFFFFF',
-                    ],
-
-                    // === SECTION 2 : CONFIGURATION FAQ ===
-                    'faq' => [
-                        'category_filter' => 'all',
-                    ],
-
-                    // === SECTION 3 : CTA FINAL ===
                     'cta' => [
-                        'show' => true,
-                        'title' => 'Vous n\'avez pas trouve la reponse ?',
-                        'button_text' => 'Contactez-nous',
-                        'button_url' => '/contact',
+                        'title' => 'Prêt à rejoindre notre réseau ?',
+                        'subtitle' => 'L\'inscription est gratuite et ne prend que quelques minutes. Rejoignez les professionnels qui font la différence pour les familles en Suisse romande.',
+                        'button_text' => 'Créer mon profil gratuitement',
+                        'button_url' => '/inscription-professionnel',
+                        'note' => 'Aucune carte de crédit requise',
                     ],
                 ],
-                'meta' => [
-                    'title' => 'FAQ - Cap Toi M\'aime',
-                    'description' => 'Questions frequentes sur Cap Toi M\'aime et le refus scolaire anxieux.',
-                ],
+                'meta' => ['description' => 'Professionnels : rejoignez l\'annuaire Cap Toi M\'aime gratuitement'],
                 'is_active' => true,
             ],
 
             // =============================================
-            // PAGE A PROPOS - 5 sections (selon PageResource)
-            // =============================================
-            [
-                'slug' => 'a-propos',
-                'title' => 'A propos',
-                'content' => [
-                    // === SECTION 1 : HERO ===
-                    'hero' => [
-                        'title' => 'A propos de Cap Toi M\'aime',
-                        'subtitle' => 'Une association suisse d\'accompagnement des familles face au refus scolaire anxieux.',
-                        'background_color' => '#7A1F2E',
-                        'text_color' => '#FFFFFF',
-                    ],
-
-                    // === SECTION 2 : NOTRE MISSION ===
-                    'mission' => [
-                        'show' => true,
-                        'title' => 'Notre mission',
-                        'content' => '<p>Cap Toi M\'aime accompagne les familles confrontees au refus scolaire anxieux en Suisse romande. Notre mission : briser l\'isolement et faciliter l\'acces aux soins.</p><p>L\'annuaire est ne d\'un constat simple : les familles peinent a trouver des professionnels formes et disponibles.</p>',
-                        'image' => null,
-                    ],
-
-                    // === SECTION 3 : NOS VALEURS ===
-                    'valeurs' => [
-                        'show' => true,
-                        'title' => 'Nos valeurs',
-                        'items' => [
-                            [
-                                'icon' => 'heroicon-o-heart',
-                                'title' => 'Bienveillance',
-                                'description' => 'Accompagner les familles avec empathie et sans jugement.',
-                            ],
-                            [
-                                'icon' => 'heroicon-o-users',
-                                'title' => 'Solidarite',
-                                'description' => 'Creer une communaute d\'entraide entre familles.',
-                            ],
-                            [
-                                'icon' => 'heroicon-o-academic-cap',
-                                'title' => 'Expertise',
-                                'description' => 'S\'appuyer sur des professionnels formes et qualifies.',
-                            ],
-                        ],
-                    ],
-
-                    // === SECTION 4 : L'EQUIPE ===
-                    'equipe' => [
-                        'show' => true,
-                        'title' => 'L\'equipe',
-                        'members' => [
-                            [
-                                'photo' => null,
-                                'name' => 'Marine Chambat',
-                                'role' => 'Fondatrice',
-                                'bio' => 'Maman concernee par le RSA, Marine a cree Cap Toi M\'aime pour briser l\'isolement des familles.',
-                            ],
-                        ],
-                    ],
-
-                    // === SECTION 5 : CTA FINAL ===
-                    'cta' => [
-                        'show' => true,
-                        'title' => 'Rejoignez notre communaute',
-                        'subtitle' => 'Decouvrez nos actions et ressources.',
-                        'button_text' => 'Consulter l\'annuaire',
-                        'button_url' => '/annuaire',
-                    ],
-                ],
-                'meta' => [
-                    'title' => 'A propos - Cap Toi M\'aime',
-                    'description' => 'Decouvrez Cap Toi M\'aime, association suisse d\'accompagnement des familles face au refus scolaire anxieux.',
-                ],
-                'is_active' => true,
-            ],
-
-            // =============================================
-            // PAGES LEGALES
+            // PAGES LÉGALES
             // =============================================
             [
                 'slug' => 'mentions-legales',
-                'title' => 'Mentions legales',
+                'title' => 'Mentions légales',
                 'content' => [
                     'hero' => [
-                        'title' => 'Mentions legales',
+                        'title' => 'Mentions légales',
                         'subtitle' => '',
                         'background_color' => '#374151',
                         'text_color' => '#FFFFFF',
                     ],
-                    'content_section' => [
-                        'show' => true,
-                        'title' => '',
-                        'content' => '',
+                    'content' => [
                         'sections' => [
                             [
-                                'title' => 'Editeur du site',
+                                'title' => 'Éditeur du site',
                                 'content' => '<p><strong>Association Cap Toi M\'aime</strong><br>Suisse</p>',
                             ],
                             [
-                                'title' => 'Hebergement',
+                                'title' => 'Hébergement',
                                 'content' => '<p>Laravel Forge / Hetzner<br>Europe</p>',
                             ],
                             [
@@ -551,41 +335,38 @@ class PageSeeder extends Seeder
                         ],
                     ],
                 ],
-                'meta' => ['description' => 'Mentions legales du site Cap Toi M\'aime'],
+                'meta' => ['description' => 'Mentions légales du site Cap Toi M\'aime'],
                 'is_active' => true,
             ],
 
             [
                 'slug' => 'politique-confidentialite',
-                'title' => 'Politique de confidentialite',
+                'title' => 'Politique de confidentialité',
                 'content' => [
                     'hero' => [
-                        'title' => 'Politique de confidentialite',
-                        'subtitle' => 'Protection de vos donnees personnelles',
+                        'title' => 'Politique de confidentialité',
+                        'subtitle' => 'Protection de vos données personnelles',
                         'background_color' => '#374151',
                         'text_color' => '#FFFFFF',
                     ],
-                    'content_section' => [
-                        'show' => true,
-                        'title' => '',
-                        'content' => '',
+                    'content' => [
                         'sections' => [
                             [
-                                'title' => 'Donnees collectees',
-                                'content' => '<p>Nous collectons uniquement les donnees necessaires au fonctionnement de nos services.</p>',
+                                'title' => 'Données collectées',
+                                'content' => '<p>Nous collectons uniquement les données nécessaires au fonctionnement de nos services :</p><ul><li>Informations de compte (nom, email)</li><li>Données de navigation (cookies techniques)</li><li>Messages envoyés via le formulaire de contact</li></ul>',
                             ],
                             [
-                                'title' => 'Utilisation des donnees',
-                                'content' => '<p>Vos donnees sont utilisees pour gerer votre compte et vous mettre en relation avec des professionnels.</p>',
+                                'title' => 'Utilisation des données',
+                                'content' => '<p>Vos données sont utilisées pour :</p><ul><li>Gérer votre compte membre</li><li>Vous mettre en relation avec des professionnels</li><li>Améliorer nos services</li><li>Vous informer des événements de l\'association</li></ul>',
                             ],
                             [
                                 'title' => 'Vos droits',
-                                'content' => '<p>Vous disposez d\'un droit d\'acces, de rectification et d\'effacement. Contact : hello@captoimaime.ch</p>',
+                                'content' => '<p>Conformément au RGPD et à la LPD suisse, vous disposez des droits suivants :</p><ul><li>Droit d\'accès à vos données</li><li>Droit de rectification</li><li>Droit à l\'effacement</li><li>Droit à la portabilité</li></ul><p>Pour exercer ces droits, contactez-nous à : hello@captoimaime.ch</p>',
                             ],
                         ],
                     ],
                 ],
-                'meta' => ['description' => 'Politique de confidentialite de Cap Toi M\'aime'],
+                'meta' => ['description' => 'Politique de confidentialité et protection des données de Cap Toi M\'aime'],
                 'is_active' => true,
             ],
 
@@ -594,32 +375,57 @@ class PageSeeder extends Seeder
                 'title' => 'Conditions d\'utilisation',
                 'content' => [
                     'hero' => [
-                        'title' => 'Conditions generales d\'utilisation',
+                        'title' => 'Conditions générales d\'utilisation',
                         'subtitle' => '',
                         'background_color' => '#374151',
                         'text_color' => '#FFFFFF',
                     ],
-                    'content_section' => [
-                        'show' => true,
-                        'title' => '',
-                        'content' => '',
+                    'content' => [
                         'sections' => [
                             [
                                 'title' => 'Objet du site',
-                                'content' => '<p>Cap Toi M\'aime est une plateforme de mise en relation entre familles et professionnels.</p>',
+                                'content' => '<p>Cap Toi M\'aime est une plateforme qui met en relation les familles confrontées au refus scolaire anxieux avec des professionnels spécialisés.</p>',
                             ],
                             [
-                                'title' => 'Responsabilite',
-                                'content' => '<p>Le choix d\'un professionnel reste de la responsabilite de l\'utilisateur.</p>',
+                                'title' => 'Responsabilité',
+                                'content' => '<p>L\'association Cap Toi M\'aime vérifie les informations fournies par les professionnels mais ne peut garantir l\'exhaustivité ou l\'exactitude de toutes les informations. Le choix d\'un professionnel reste de la responsabilité de l\'utilisateur.</p>',
                             ],
                             [
-                                'title' => 'Propriete intellectuelle',
-                                'content' => '<p>Tous les contenus sont proteges par le droit d\'auteur.</p>',
+                                'title' => 'Propriété intellectuelle',
+                                'content' => '<p>Tous les contenus présents sur ce site (textes, images, logos) sont la propriété de l\'association Cap Toi M\'aime ou de leurs auteurs respectifs et sont protégés par le droit d\'auteur.</p>',
                             ],
                         ],
                     ],
                 ],
-                'meta' => ['description' => 'Conditions d\'utilisation de Cap Toi M\'aime'],
+                'meta' => ['description' => 'Conditions générales d\'utilisation du site Cap Toi M\'aime'],
+                'is_active' => true,
+            ],
+
+            [
+                'slug' => 'a-propos',
+                'title' => 'À propos',
+                'content' => [
+                    'hero' => [
+                        'title' => 'À propos de l\'annuaire',
+                        'subtitle' => 'Association suisse d\'accompagnement des familles face au refus scolaire anxieux',
+                        'background_color' => '#7A1F2E',
+                        'text_color' => '#FFFFFF',
+                    ],
+                    'about' => [
+                        'title' => 'Notre mission',
+                        'content' => '<p>Nous croyons qu\'aucune famille ne devrait se sentir seule face au refus scolaire anxieux.</p><p>Notre mission est de :</p><ul><li>Informer et sensibiliser sur le refus scolaire anxieux</li><li>Accompagner les familles dans leur parcours</li><li>Mettre en relation avec des professionnels spécialisés</li><li>Créer une communauté d\'entraide</li></ul>',
+                        'image' => null,
+                    ],
+                    'info' => [
+                        'title' => 'Nous contacter',
+                        'email' => 'hello@captoimaime.ch',
+                        'phone' => '',
+                        'address' => 'Suisse romande',
+                        'hours' => '',
+                        'website' => 'www.captoimaime.ch',
+                    ],
+                ],
+                'meta' => ['description' => 'Découvrez Cap Toi M\'aime, association suisse d\'accompagnement des familles face au refus scolaire anxieux'],
                 'is_active' => true,
             ],
         ];

@@ -2,22 +2,36 @@
 
 namespace App\Livewire;
 
-use App\Models\Page;
+use App\Models\Category;
+use App\Models\Professional;
+use App\Models\Specialty;
 use Livewire\Component;
 
 class HomePage extends Component
 {
+    public string $search = '';
+
+    public function quickSearch()
+    {
+        return redirect()->route('annuaire', ['search' => $this->search]);
+    }
+
     public function render()
     {
-        // Charger la page "accueil" depuis la base de donnees
-        $page = Page::where('slug', 'accueil')->where('is_active', true)->first();
-        $content = $page?->content ?? [];
-
         return view('livewire.home-page', [
-            'page' => $page,
-            'content' => $content,
-        ])->layout('layouts.public', [
-            'title' => $page?->meta['title'] ?? 'Cap Toi M\'aime - Annuaire RSA',
-        ]);
+            'categories' => Category::active()->ordered()->limit(6)->get(),
+            'specialties' => Specialty::active()
+                ->whereIn('slug', [
+                    'phobie_scolaire', 'bilan_hpi', 'bilan_tdah',
+                    'anxiete_enfant', 'bilan_tsa', 'harcelement_scolaire'
+                ])
+                ->get(),
+            'featuredPros' => Professional::where('is_featured', true)
+                ->where('is_active', true)
+                ->where('validation_status', 'approved')
+                ->with(['category', 'city.canton'])
+                ->limit(3)
+                ->get(),
+        ])->layout('layouts.public');
     }
 }
