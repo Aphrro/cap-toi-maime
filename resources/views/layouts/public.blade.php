@@ -98,16 +98,16 @@
                         </a>
                     </div>
                     <!-- Desktop menu -->
-                    <div class="hidden md:flex items-center space-x-6">
+                    <div class="hidden md:flex items-center space-x-1">
                         @foreach($navbarLinks as $link)
                             @if($link['is_active'] ?? true)
-                            <a href="{{ $link['url'] }}" class="text-sm font-bold uppercase transition-colors {{ request()->is(ltrim($link['url'], '/')) || request()->is(ltrim($link['url'], '/') . '/*') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">
+                            <a href="{{ $link['url'] }}" class="px-4 py-2 text-sm font-bold uppercase whitespace-nowrap transition-colors {{ request()->is(ltrim($link['url'], '/')) || request()->is(ltrim($link['url'], '/') . '/*') ? 'text-ctm-burgundy' : 'text-ctm-teal hover:text-ctm-teal-dark' }}">
                                 {{ $link['label'] }}
                             </a>
                             @endif
                         @endforeach
                         @if($navbarCtaVisible)
-                        <a href="{{ $navbarCtaUrl }}" class="bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl">
+                        <a href="{{ $navbarCtaUrl }}" class="ml-4 bg-ctm-burgundy hover:bg-ctm-burgundy-dark text-white text-sm font-bold uppercase px-6 py-3 rounded-full transition-all hover:shadow-xl whitespace-nowrap">
                             {{ $navbarCtaText }}
                         </a>
                         @endif
@@ -144,7 +144,7 @@
                 x-transition:leave="transition ease-in duration-150"
                 x-transition:leave-start="opacity-100 translate-y-0"
                 x-transition:leave-end="opacity-0 -translate-y-2"
-                class="md:hidden bg-white border-t border-gray-100 shadow-lg"
+                class="md:hidden bg-white border-t border-gray-100 shadow-lg absolute left-0 right-0"
                 x-cloak
             >
                 <div class="px-4 py-4 space-y-1">
