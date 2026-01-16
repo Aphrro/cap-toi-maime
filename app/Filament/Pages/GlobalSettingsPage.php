@@ -98,6 +98,11 @@ class GlobalSettingsPage extends Page implements HasForms
             'footer_social_linkedin' => $footerConfig['social']['linkedin'] ?? '',
             'footer_social_twitter' => $footerConfig['social']['twitter'] ?? '',
             'footer_copyright' => $footerConfig['copyright'] ?? '© ' . date('Y') . ' Cap Toi M\'aime. Tous droits réservés.',
+            'footer_contact_email' => $footerConfig['contact_email'] ?? 'hello@captoimaime.ch',
+            'footer_contact_location' => $footerConfig['contact_location'] ?? 'Suisse romande',
+            'footer_external_site_text' => $footerConfig['external_site']['text'] ?? 'Site principal',
+            'footer_external_site_url' => $footerConfig['external_site']['url'] ?? 'https://www.captoimaime.ch',
+            'footer_tagline' => $footerConfig['tagline'] ?? 'Annuaire de professionnels specialises dans le refus scolaire anxieux',
         ];
     }
 
@@ -283,11 +288,38 @@ class GlobalSettingsPage extends Page implements HasForms
                                                     ->placeholder('https://twitter.com/...'),
                                             ]),
                                     ]),
-                                Forms\Components\Section::make('Copyright')
+                                Forms\Components\Section::make('Contact & Site externe')
+                                    ->description('Informations de contact affichées dans le footer')
+                                    ->schema([
+                                        Forms\Components\Grid::make(2)
+                                            ->schema([
+                                                Forms\Components\TextInput::make('footer_contact_email')
+                                                    ->label('Email de contact')
+                                                    ->email()
+                                                    ->placeholder('hello@captoimaime.ch'),
+                                                Forms\Components\TextInput::make('footer_contact_location')
+                                                    ->label('Localisation')
+                                                    ->placeholder('Suisse romande'),
+                                            ]),
+                                        Forms\Components\Grid::make(2)
+                                            ->schema([
+                                                Forms\Components\TextInput::make('footer_external_site_text')
+                                                    ->label('Texte lien site externe')
+                                                    ->placeholder('Site principal'),
+                                                Forms\Components\TextInput::make('footer_external_site_url')
+                                                    ->label('URL site externe')
+                                                    ->url()
+                                                    ->placeholder('https://www.captoimaime.ch'),
+                                            ]),
+                                    ]),
+                                Forms\Components\Section::make('Copyright & Tagline')
                                     ->schema([
                                         Forms\Components\TextInput::make('footer_copyright')
                                             ->label('Texte de copyright')
                                             ->helperText('Affiché tout en bas du site'),
+                                        Forms\Components\TextInput::make('footer_tagline')
+                                            ->label('Tagline')
+                                            ->helperText('Petite phrase affichée à côté du copyright'),
                                     ]),
                             ]),
                     ])
@@ -329,6 +361,13 @@ class GlobalSettingsPage extends Page implements HasForms
                 'twitter' => $data['footer_social_twitter'],
             ],
             'copyright' => $data['footer_copyright'],
+            'contact_email' => $data['footer_contact_email'] ?? 'hello@captoimaime.ch',
+            'contact_location' => $data['footer_contact_location'] ?? 'Suisse romande',
+            'external_site' => [
+                'text' => $data['footer_external_site_text'] ?? 'Site principal',
+                'url' => $data['footer_external_site_url'] ?? 'https://www.captoimaime.ch',
+            ],
+            'tagline' => $data['footer_tagline'] ?? '',
         ];
         Setting::set('footer_config', json_encode($footerConfig, JSON_UNESCAPED_UNICODE));
 

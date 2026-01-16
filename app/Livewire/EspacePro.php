@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Page;
 use App\Models\Professional;
 use App\Models\User;
 use Livewire\Component;
@@ -22,10 +23,15 @@ class EspacePro extends Component
 
     public function render()
     {
+        $page = Page::where('slug', 'espace-professionnels')->where('is_active', true)->first();
+        $content = $page?->content ?? [];
+
         return view('livewire.espace-pro', [
+            'page' => $page,
+            'content' => $content,
             'stats' => $this->stats,
         ])->layout('layouts.public', [
-            'title' => 'Espace Professionnels - Cap Toi M\'aime'
+            'title' => $page?->meta['title'] ?? 'Espace Professionnels - Cap Toi M\'aime'
         ]);
     }
 }

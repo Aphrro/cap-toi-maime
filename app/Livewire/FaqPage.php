@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Faq;
+use App\Models\Page;
 use Illuminate\Support\Facades\Schema;
 use Livewire\Component;
 
@@ -17,6 +18,9 @@ class FaqPage extends Component
 
     public function render()
     {
+        $page = Page::where('slug', 'faq')->where('is_active', true)->first();
+        $content = $page?->content ?? [];
+
         $faqs = collect();
 
         try {
@@ -34,6 +38,8 @@ class FaqPage extends Component
         }
 
         return view('livewire.faq-page', [
+            'page' => $page,
+            'content' => $content,
             'faqs' => $faqs,
             'categories' => [
                 'all' => 'Toutes les questions',
@@ -42,7 +48,7 @@ class FaqPage extends Component
                 'general' => 'General',
             ],
         ])->layout('layouts.public', [
-            'title' => 'FAQ - Cap Toi M\'aime',
+            'title' => $page?->meta['title'] ?? 'FAQ - Cap Toi M\'aime',
         ]);
     }
 }
