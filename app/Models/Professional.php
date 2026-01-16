@@ -62,6 +62,7 @@ class Professional extends Model implements HasMedia
         // Nouveaux champs profil
         'profile_photo',
         'video_url',
+        'video_type',
         'who_am_i',
         'my_approach',
         'availability_status',
@@ -69,6 +70,7 @@ class Professional extends Model implements HasMedia
         'faq_availability',
         'faq_pricing',
         'faq_cancellation',
+        'personal_faq',
     ];
 
     protected $casts = [
@@ -92,6 +94,7 @@ class Professional extends Model implements HasMedia
         'views_count' => 'integer',
         // Nouveaux champs
         'reimbursements' => 'array',
+        'personal_faq' => 'array',
     ];
 
     public const REIMBURSEMENT_OPTIONS = [
@@ -262,6 +265,16 @@ class Professional extends Model implements HasMedia
     public function profession(): BelongsTo
     {
         return $this->belongsTo(Profession::class);
+    }
+
+    /**
+     * Événements auxquels ce professionnel est inscrit (Speed Dating, etc.)
+     */
+    public function events(): BelongsToMany
+    {
+        return $this->belongsToMany(Event::class, 'event_professional')
+            ->withPivot('status')
+            ->withTimestamps();
     }
 
     // ═══════════════════════════════════════════════════════════
