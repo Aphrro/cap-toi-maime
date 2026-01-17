@@ -1,6 +1,5 @@
 <?php
 
-use App\Livewire\AboutPage;
 use App\Livewire\ContactPage;
 use App\Livewire\EspacePro;
 use App\Livewire\FaqPage;
@@ -17,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 // ═══════════════════════════════════════════════════════════
 
 Route::get('/', HomePage::class)->name('home');
-Route::get('/a-propos', AboutPage::class)->name('about');
 Route::get('/contact', ContactPage::class)->name('contact');
 Route::get('/faq', FaqPage::class)->name('faq');
 Route::get('/espace-pro', EspacePro::class)->name('espace-pro');

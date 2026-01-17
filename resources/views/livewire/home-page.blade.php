@@ -3,10 +3,10 @@
     <section class="bg-gradient-to-b from-ctm-burgundy to-ctm-burgundy-dark text-white py-16 px-4">
         <div class="max-w-4xl mx-auto text-center">
             <h1 class="text-2xl md:text-4xl font-bold mb-4">
-                {{ $heroTitle }}
+                Trouvez des thérapeutes disponibles, proches de chez vous et formés au refus scolaire anxieux.
             </h1>
             <p class="text-xl text-white/80 mb-8">
-                {{ $heroSubtitle }}
+                Un annuaire de thérapeutes tops et dispos, qui connaissent vraiment la phobie scolaire, et que l'équipe Cap Toi M'aime connaît et recommande.
             </p>
 
             {{-- Search Box --}}
@@ -31,13 +31,13 @@
                 <div class="text-center text-gray-500 mb-4">ou</div>
 
                 <a
-                    href="{{ $heroCtaLink }}"
+                    href="{{ route('questionnaire') }}"
                     class="flex items-center justify-center gap-2 w-full bg-ctm-burgundy/10 text-ctm-burgundy py-4 rounded-lg font-medium hover:bg-ctm-burgundy/20 transition"
                 >
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                     </svg>
-                    {{ $heroCtaText }}
+                    ÊTRE GUIDÉ - Questionnaire personnalisé
                 </a>
             </div>
         </div>
@@ -167,13 +167,13 @@
     <section class="py-16 px-4 bg-ctm-burgundy/5">
         <div class="max-w-2xl mx-auto text-center">
             <h2 class="text-2xl font-bold text-gray-800 mb-4">
-                {{ $ctaFinalTitle }}
+                Prêts à trouver le professionnel qui vous convient à vous et à votre enfant ?
             </h2>
             <a
-                href="{{ $ctaFinalButtonLink }}"
+                href="{{ route('questionnaire') }}"
                 class="inline-block bg-ctm-burgundy text-white px-8 py-4 rounded-lg font-medium hover:bg-ctm-burgundy-dark transition"
             >
-                {{ $ctaFinalButtonText }}
+                Commencez maintenant
             </a>
         </div>
     </section>
