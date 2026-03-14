@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', HomePage::class)->name('home');
 Route::get('/contact', ContactPage::class)->name('contact');
 Route::get('/faq', FaqPage::class)->name('faq');
+Route::view('/a-propos', 'pages.about')->name('about');
 Route::get('/espace-pro', EspacePro::class)->name('espace-pro');
 
 Route::get('/temoignages', function () {
